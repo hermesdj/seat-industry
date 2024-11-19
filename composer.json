@@ -1,0 +1,40 @@
+{
+  "name": "hermesdj/seat-industry",
+  "description": "Plan industry operations across an alliance",
+  "license": "MIT",
+  "type": "seat-plugin",
+  "authors": [
+    {
+      "name": "recursivetree",
+      "email": "recursivetreemail@gmail.com"
+    },
+    {
+      "name": "Jay's",
+      "email": "jays.gaming.contact@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "HermesDj\\Seat\\Industry\\": "src/"
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "require": {
+    "php": "^8.1",
+    "laravel/framework": "^10.0",
+    "eveseat/web": "^5.0.0",
+    "eveseat/eveapi": "^5.0.1",
+    "eveseat/services": "^5.0.1",
+    "eveseat/notifications": "^5.0.1",
+    "recursivetree/seat-treelib": "^2.1",
+    "recursivetree/seat-prices-core": "^1.0"
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "HermesDj\\Seat\\Industry\\IndustryServiceProvider"
+      ]
+    }
+  }
+}
