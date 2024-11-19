@@ -8,7 +8,8 @@ use HermesDj\Seat\Industry\Models\Order;
 class UserObserver
 {
 
-    public static function deleted($user){
+    public static function deleted($user): void
+    {
         $deliveries = Delivery::where("user_id", $user->id)->pluck("id");
         Delivery::destroy($deliveries);
 

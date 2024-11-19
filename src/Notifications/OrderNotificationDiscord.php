@@ -2,6 +2,7 @@
 
 namespace HermesDj\Seat\Industry\Notifications;
 
+use HermesDj\Seat\Industry\Models\Order;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\SerializesModels;
 use HermesDj\Seat\Industry\Helpers\IndustryHelper;
@@ -14,14 +15,14 @@ class OrderNotificationDiscord extends AbstractDiscordNotification implements Sh
 {
     use SerializesModels;
 
-    private $order;
+    private Order $order;
 
     public function __construct($order)
     {
         $this->order = $order;
     }
 
-    protected function populateMessage(DiscordMessage $message, $notifiable)
+    protected function populateMessage(DiscordMessage $message, $notifiable): void
     {
         $order = $this->order;
 

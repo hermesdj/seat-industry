@@ -20,12 +20,12 @@ class UpdateRepeatingOrders implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
 
-    public function tags()
+    public function tags(): array
     {
         return ["seat-industry", "order","repeating"];
     }
 
-    public function handle()
+    public function handle(): void
     {
         $orders = Order::where("is_repeating",true)
             ->where("repeat_date","<",now())
@@ -38,7 +38,8 @@ class UpdateRepeatingOrders implements ShouldQueue
         }
     }
 
-    public function copyOrder($src){
+    public function copyOrder($src): void
+    {
         $order = $src->replicate();
         $order->is_repeating = false;
         $order->repeat_interval = null;

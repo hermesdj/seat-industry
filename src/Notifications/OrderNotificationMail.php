@@ -2,6 +2,7 @@
 
 namespace HermesDj\Seat\Industry\Notifications;
 
+use HermesDj\Seat\Industry\Models\Order;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Queue\SerializesModels;
@@ -11,14 +12,14 @@ class OrderNotificationMail extends AbstractMailNotification implements ShouldQu
 {
     use SerializesModels;
 
-    private $order;
+    private Order $order;
 
     public function __construct($order)
     {
         $this->orders = $order;
     }
 
-    public function populateMessage(MailMessage $message, $notifiable)
+    public function populateMessage(MailMessage $message, $notifiable): MailMessage
     {
 
         $message->success()

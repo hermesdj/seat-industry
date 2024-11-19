@@ -3,7 +3,7 @@
 namespace HermesDj\Seat\Industry\Helpers;
 
 use HermesDj\Seat\Industry\IndustrySettings;
-use HermesDj\Seat\PricesCore\Models\PriceProviderInstance;
+use RecursiveTree\Seat\PricesCore\Models\PriceProviderInstance;
 use Seat\Services\Settings\Profile;
 
 class IndustryHelper

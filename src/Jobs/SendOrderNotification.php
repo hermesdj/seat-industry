@@ -2,6 +2,7 @@
 
 namespace HermesDj\Seat\Industry\Jobs;
 
+use HermesDj\Seat\Industry\Models\Order;
 use Seat\Notifications\Models\NotificationGroup;
 use Seat\Notifications\Traits\NotificationDispatchTool;
 
@@ -9,7 +10,7 @@ class SendOrderNotification
 {
     use NotificationDispatchTool;
 
-    private $order;
+    private Order $order;
 
     public function __construct($order)
     {

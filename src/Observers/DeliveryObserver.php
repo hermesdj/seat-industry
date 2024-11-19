@@ -3,7 +3,7 @@
 namespace HermesDj\Seat\Industry\Observers;
 
 use HermesDj\Seat\Industry\Models\Statistics\DeliveryStatistic;
-use HermesDj\Seat\TreeLib\Helpers\SeatInventoryPluginHelper;
+use RecursiveTree\Seat\TreeLib\Helpers\SeatInventoryPluginHelper;
 
 class DeliveryObserver
 {
@@ -51,7 +51,7 @@ class DeliveryObserver
         }
     }
 
-    public static function deleted($delivery)
+    public static function deleted($delivery): void
     {
         self::updateOrderCompletionState($delivery);
         self::deleteInventorySource($delivery);
@@ -69,7 +69,7 @@ class DeliveryObserver
         ]);
     }
 
-    private static function deleteInventorySource($delivery)
+    private static function deleteInventorySource($delivery): void
     {
         if (SeatInventoryPluginHelper::pluginIsAvailable()) {
             if ($delivery->seatInventorySource) {
@@ -82,7 +82,7 @@ class DeliveryObserver
         }
     }
 
-    private static function updateOrderCompletionState($delivery)
+    private static function updateOrderCompletionState($delivery): void
     {
         $order = $delivery->order;
 

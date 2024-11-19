@@ -6,7 +6,7 @@ use HermesDj\Seat\Industry\Models\Statistics\OrderStatistic;
 
 class OrderObserver
 {
-    public static function deleted($order)
+    public static function deleted($order): void
     {
         foreach ($order->deliveries as $delivery) {
             $delivery->delete();

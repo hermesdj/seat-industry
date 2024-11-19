@@ -2,7 +2,7 @@
 
 namespace HermesDj\Seat\Industry\Item;
 
-use HermesDj\Seat\TreeLib\Items\EveItem;
+use RecursiveTree\Seat\TreeLib\Items\EveItem;
 use Seat\Services\Contracts\IPriceable;
 
 class PriceableEveItem extends EveItem implements IPriceable

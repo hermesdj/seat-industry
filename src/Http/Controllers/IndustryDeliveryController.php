@@ -2,20 +2,24 @@
 
 namespace HermesDj\Seat\Industry\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
 use HermesDj\Seat\Industry\Helpers\IndustryHelper;
 use HermesDj\Seat\Industry\Models\Delivery;
 use HermesDj\Seat\Industry\Models\DeliveryItem;
 use HermesDj\Seat\Industry\Models\Order;
 use HermesDj\Seat\Industry\Models\OrderItem;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Application;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Seat\Web\Http\Controllers\Controller;
 
 class IndustryDeliveryController extends Controller
 {
     private const MaxDeliveryCodeLength = 6;
 
-    public function deliveries()
+    public function deliveries(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
         $user_id = auth()->user()->id;
 
@@ -24,7 +28,7 @@ class IndustryDeliveryController extends Controller
         return view("seat-industry::deliveries", compact("deliveries"));
     }
 
-    public function deliveryDetails($id, Request $request)
+    public function deliveryDetails($id, Request $request): View|Application|Factory|\Illuminate\Contracts\Foundation\Application|RedirectResponse
     {
         $delivery = Delivery::with("deliveryItems")->find($id);
 
@@ -36,7 +40,7 @@ class IndustryDeliveryController extends Controller
         return view("seat-industry::deliveryDetails", compact("delivery"));
     }
 
-    public function prepareDelivery($orderId, Request $request)
+    public function prepareDelivery($orderId, Request $request): View|Application|Factory|\Illuminate\Contracts\Foundation\Application|RedirectResponse
     {
         $order = Order::find($orderId);
         if (!$order) {
@@ -56,7 +60,7 @@ class IndustryDeliveryController extends Controller
         return view("seat-industry::prepareDelivery", compact("order", "items"));
     }
 
-    public function addDelivery($orderId, Request $request)
+    public function addDelivery($orderId, Request $request): RedirectResponse
     {
         $validated = $request->validate([
             "quantities" => "required|array",
@@ -128,7 +132,7 @@ class IndustryDeliveryController extends Controller
         return redirect()->route("Industry.deliveryDetails", ['id' => $delivery->id]);
     }
 
-    public function setDeliveryState($deliveryId, Request $request)
+    public function setDeliveryState($deliveryId, Request $request): RedirectResponse
     {
         $request->validate([
             "completed" => "required|boolean"
@@ -155,7 +159,7 @@ class IndustryDeliveryController extends Controller
         return redirect()->back();
     }
 
-    public function setDeliveryItemState($deliveryId, $itemId, Request $request)
+    public function setDeliveryItemState($deliveryId, $itemId, Request $request): RedirectResponse
     {
         $request->validate([
             "completed" => "required|boolean"
@@ -192,7 +196,7 @@ class IndustryDeliveryController extends Controller
         return redirect()->back();
     }
 
-    public function deleteDelivery($deliveryId, Request $request)
+    public function deleteDelivery($deliveryId, Request $request): RedirectResponse
     {
         $delivery = Delivery::find($deliveryId);
 
@@ -213,7 +217,7 @@ class IndustryDeliveryController extends Controller
         return redirect()->route("Industry.deliveries");
     }
 
-    public function deleteDeliveryItem($deliveryId, $itemId, Request $request)
+    public function deleteDeliveryItem($deliveryId, $itemId, Request $request): RedirectResponse
     {
         $delivery = Delivery::find($deliveryId);
         $item = DeliveryItem::find($itemId);

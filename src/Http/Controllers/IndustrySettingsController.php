@@ -2,6 +2,10 @@
 
 namespace HermesDj\Seat\Industry\Http\Controllers;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Application;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use HermesDj\Seat\Industry\IndustrySettings;
 use Seat\Eveapi\Models\Universe\UniverseStation;
@@ -10,7 +14,7 @@ use Seat\Web\Http\Controllers\Controller;
 
 class IndustrySettingsController extends Controller
 {
-    public function settings()
+    public function settings(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
         $stations = UniverseStation::all();
         $structures = UniverseStructure::all();
@@ -44,7 +48,7 @@ class IndustrySettingsController extends Controller
         );
     }
 
-    public function saveSettings(Request $request)
+    public function saveSettings(Request $request): RedirectResponse
     {
         $request->validate([
             "minimumprofitpercentage" => "required|numeric",

@@ -1,8 +1,11 @@
-# seat-alliance-industry
+# seat-industry
 
-This fork no longer works the same way as the original one.
+Industry planner for SeAT. 
+
+Originally based on [recursivetree/seat-alliance-industry](https://github.com/eveseat-plugins/seat-alliance-industry) industry project, this evolved as
+a fork and then became it's own thing through major refactoring and modification on how the orders and deliveries works.
 
 ## Installation
 See the instruction over at the [seat documentation](https://eveseat.github.io/docs/community_packages/).
 
-The package name is `hermesdj/seat-alliance-industry`.
+The package name is `hermesdj/seat-industry`.

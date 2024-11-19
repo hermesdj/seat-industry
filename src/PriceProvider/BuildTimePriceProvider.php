@@ -4,8 +4,8 @@ namespace HermesDj\Seat\Industry\PriceProvider;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
-use HermesDj\Seat\PricesCore\Contracts\IPriceProviderBackend;
-use HermesDj\Seat\PricesCore\Exceptions\PriceProviderException;
+use RecursiveTree\Seat\PricesCore\Contracts\IPriceProviderBackend;
+use RecursiveTree\Seat\PricesCore\Exceptions\PriceProviderException;
 use Seat\Services\Contracts\IPriceable;
 
 class BuildTimePriceProvider implements IPriceProviderBackend
@@ -18,7 +18,6 @@ class BuildTimePriceProvider implements IPriceProviderBackend
      *
      * @param Collection<IPriceable> $items The items to appraise
      * @param array $configuration The configuration of this price provider backend.
-     * @throws PriceProviderException
      */
     public function getPrices(Collection $items, array $configuration): void
     {

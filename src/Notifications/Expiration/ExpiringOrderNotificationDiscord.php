@@ -4,6 +4,7 @@ namespace HermesDj\Seat\Industry\Notifications\Expiration;
 
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
+use HermesDj\Seat\Industry\Models\Order;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\SerializesModels;
 use HermesDj\Seat\Industry\Helpers\IndustryHelper;
@@ -16,14 +17,14 @@ class ExpiringOrderNotificationDiscord extends AbstractDiscordNotification imple
 {
     use SerializesModels;
 
-    private $order;
+    private Order $order;
 
     public function __construct($order)
     {
         $this->order = $order;
     }
 
-    protected function populateMessage(DiscordMessage $message, $notifiable)
+    protected function populateMessage(DiscordMessage $message, $notifiable): void
     {
         $order = $this->order;
 

@@ -2,26 +2,27 @@
 
 namespace HermesDj\Seat\Industry\Notifications;
 
+use HermesDj\Seat\Industry\Models\Order;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\SlackMessage;
 use Illuminate\Queue\SerializesModels;
 use HermesDj\Seat\Industry\IndustrySettings;
 use HermesDj\Seat\Industry\Models\OrderItem;
-use HermesDj\Seat\TreeLib\Helpers\PrioritySystem;
+use RecursiveTree\Seat\TreeLib\Helpers\PrioritySystem;
 use Seat\Notifications\Notifications\AbstractSlackNotification;
 
 class OrderNotificationSlack extends AbstractSlackNotification implements ShouldQueue
 {
     use SerializesModels;
 
-    private $order;
+    private Order $order;
 
     public function __construct($order)
     {
         $this->orders = $order;
     }
 
-    public function populateMessage(SlackMessage $message, $notifiable)
+    public function populateMessage(SlackMessage $message, $notifiable): SlackMessage
     {
         $order = $this->order;
 

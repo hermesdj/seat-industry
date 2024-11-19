@@ -2,12 +2,12 @@
 
 namespace HermesDj\Seat\Industry\Http\Controllers;
 
-use HermesDj\Seat\PricesCore\Models\PriceProviderInstance;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use RecursiveTree\Seat\PricesCore\Models\PriceProviderInstance;
 
 
 class IndustryController

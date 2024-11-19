@@ -2,9 +2,11 @@
 
 namespace HermesDj\Seat\Industry\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use HermesDj\Seat\Industry\Item\PriceableEveItem;
-use HermesDj\Seat\TreeLib\Items\ToEveItem;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use RecursiveTree\Seat\TreeLib\Items\ToEveItem;
 use Seat\Eveapi\Models\Sde\InvType;
 use Seat\Services\Contracts\HasTypeID;
 
@@ -14,17 +16,17 @@ class OrderItem extends Model implements ToEveItem, HasTypeID
 
     protected $table = 'seat_alliance_industry_order_items';
 
-    public function type()
+    public function type(): HasOne
     {
         return $this->hasOne(InvType::class, 'typeID', 'type_id');
     }
 
-    public function order()
+    public function order(): HasOne
     {
         return $this->hasOne(Order::class, 'id', 'order_id');
     }
 
-    public function deliveryItems()
+    public function deliveryItems(): HasMany
     {
         return $this->hasMany(DeliveryItem::class, 'order_item_id', 'id');
     }
@@ -36,7 +38,7 @@ class OrderItem extends Model implements ToEveItem, HasTypeID
         return $item;
     }
 
-    public static function formatOrderItemsList($order)
+    public static function formatOrderItemsList($order): string
     {
         $items = $order->items;
         if ($items->count() > 1) {
@@ -61,7 +63,7 @@ class OrderItem extends Model implements ToEveItem, HasTypeID
         }
     }
 
-    public static function formatOrderItemsForDiscord($order)
+    public static function formatOrderItemsForDiscord($order): string
     {
         return $order->items->sortBy(function ($item) {
             return $item->type->typeName;
@@ -83,12 +85,12 @@ class OrderItem extends Model implements ToEveItem, HasTypeID
         return $this->unit_price / 100;
     }
 
-    public function assignedQuantity()
+    public function assignedQuantity(): int
     {
         return $this->deliveryItems->sum("quantity_delivered");
     }
 
-    public function availableQuantity()
+    public function availableQuantity(): int
     {
         return $this->quantity - $this->assignedQuantity();
     }

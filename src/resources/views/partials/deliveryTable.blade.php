@@ -27,7 +27,7 @@
             </td>
             @if($showOrder ?? false)
                 <td>
-                    <a href="{{ route("Industry.orderDetails",$delivery->order_id) }}">{{ $delivery->order->order_id }}</a>
+                    <a href="{{ route("Industry.orderDetails",$delivery->order_id) }}">{{ $delivery->order->reference }}</a>
                 </td>
             @endif
             <td data-order="{{ $delivery->totalQuantity() }}" data-filter="_">

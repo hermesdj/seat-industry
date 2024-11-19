@@ -3,6 +3,8 @@
 namespace HermesDj\Seat\Industry\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Facades\DB;
 use HermesDj\Seat\PricesCore\Models\PriceProviderInstance;
 use Seat\Eveapi\Models\Character\CharacterInfo;
@@ -18,42 +20,42 @@ class Order extends Model
 
     protected $table = 'seat_alliance_industry_orders';
 
-    public function deliveries()
+    public function deliveries(): HasMany
     {
         return $this->hasMany(Delivery::class, "order_id", "id");
     }
 
-    public function deliveryItems()
+    public function deliveryItems(): HasMany
     {
         return $this->hasMany(DeliveryItem::class, "order_id", "id");
     }
 
-    public function items()
+    public function items(): HasMany
     {
         return $this->hasMany(OrderItem::class, "order_id", "id");
     }
 
-    public function user()
+    public function user(): HasOne
     {
         return $this->hasOne(User::class, 'id', 'user_id');
     }
 
-    public function deliverToCharacter()
+    public function deliverToCharacter(): HasOne
     {
         return $this->hasOne(CharacterInfo::class, 'character_id', 'deliver_to');
     }
 
-    public function station()
+    public function station(): HasOne
     {
         return $this->hasOne(UniverseStation::class, 'station_id', 'location_id');
     }
 
-    public function structure()
+    public function structure(): HasOne
     {
         return $this->hasOne(UniverseStructure::class, 'structure_id', 'location_id');
     }
 
-    public function corporation()
+    public function corporation(): HasOne
     {
         return $this->hasOne(CorporationInfo::class, 'corporation_id', 'corp_id');
     }
@@ -63,32 +65,32 @@ class Order extends Model
         return $this->station ?: $this->structure;
     }
 
-    public function priceProviderInstance()
+    public function priceProviderInstance(): HasOne
     {
         return $this->hasOne(PriceProviderInstance::class, 'id', 'priceProvider');
     }
 
-    public function assignedQuantity()
+    public function assignedQuantity(): int
     {
         return $this->deliveryItems->sum("quantity_delivered");
     }
 
-    public function totalQuantity()
+    public function totalQuantity(): int
     {
         return $this->items->sum("quantity");
     }
 
-    public function hasPendingDeliveries()
+    public function hasPendingDeliveries(): bool
     {
         return $this->deliveries()->where("completed", false)->exists();
     }
 
-    public function totalValue()
+    public function totalValue(): float
     {
         return $this->items()->sum(DB::raw('unit_price * quantity / 100'));
     }
 
-    public function totalInDelivery()
+    public function totalInDelivery(): float
     {
         return $this->deliveryItems()
             ->where('completed', false)
@@ -98,7 +100,7 @@ class Order extends Model
             });
     }
 
-    public function totalDelivered()
+    public function totalDelivered(): float
     {
         return $this->deliveryItems()
             ->where('completed', true)
