@@ -10,11 +10,11 @@ class OrderStatistic extends Model
 {
     public $timestamps = false;
 
-    protected $table = 'seat_alliance_industry_orders_statistics';
+    protected $table = 'seat_industry_orders_statistics';
 
     protected $fillable = ['order_id', 'created_at', 'completed_at'];
 
-    public static function generateAll()
+    public static function generateAll(): object
     {
         return (object)[
             'completed' => self::totalCompletedOrderCount(),

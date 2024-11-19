@@ -12,7 +12,7 @@ class Delivery extends Model
 {
     public $timestamps = false;
 
-    protected $table = 'seat_alliance_industry_deliveries';
+    protected $table = 'seat_industry_deliveries';
 
     public function order(): HasOne
     {

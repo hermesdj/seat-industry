@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class DeliveryItem extends Model
 {
     public $timestamps = false;
-    protected $table = 'seat_alliance_industry_delivery_items';
+    protected $table = 'seat_industry_delivery_items';
 
     public function delivery(): HasOne
     {

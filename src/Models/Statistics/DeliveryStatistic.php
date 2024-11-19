@@ -10,7 +10,7 @@ class DeliveryStatistic extends Model
 {
     public $timestamps = false;
 
-    protected $table = 'seat_alliance_industry_deliveries_statistics';
+    protected $table = 'seat_industry_deliveries_statistics';
 
     protected $fillable = ['order_id', 'delivery_id', 'user_id', 'accepted', 'completed_at'];
 

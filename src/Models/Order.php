@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Facades\DB;
-use HermesDj\Seat\PricesCore\Models\PriceProviderInstance;
+use RecursiveTree\Seat\PricesCore\Models\PriceProviderInstance;
 use Seat\Eveapi\Models\Character\CharacterInfo;
 use Seat\Eveapi\Models\Corporation\CorporationInfo;
 use Seat\Eveapi\Models\Universe\UniverseStation;
@@ -18,7 +18,7 @@ class Order extends Model
 {
     public $timestamps = false;
 
-    protected $table = 'seat_alliance_industry_orders';
+    protected $table = 'seat_industry_orders';
 
     public function deliveries(): HasMany
     {

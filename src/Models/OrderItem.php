@@ -14,7 +14,7 @@ class OrderItem extends Model implements ToEveItem, HasTypeID
 {
     public $timestamps = false;
 
-    protected $table = 'seat_alliance_industry_order_items';
+    protected $table = 'seat_industry_order_items';
 
     public function type(): HasOne
     {
