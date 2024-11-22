@@ -16,6 +16,7 @@ class OrderHelper
         for ($i = 0; $i < $length; $i++) {
             $randomString .= $characters[rand(0, $charactersLength - 1)];
         }
+
         return $randomString;
     }
 
@@ -33,6 +34,7 @@ class OrderHelper
             return PriceProviderInstance::whereIn('id', IndustrySettings::$ALLOWED_PRICE_PROVIDERS->get())->get()->all();
         } else {
             $defaultPriceProvider = PriceProviderInstance::where('id', IndustrySettings::$DEFAULT_PRICE_PROVIDER->get())->first();
+
             return [$defaultPriceProvider];
         }
     }

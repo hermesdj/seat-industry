@@ -41,7 +41,7 @@ class ExpiringOrderNotificationDiscord extends AbstractDiscordNotification imple
                     )
                     ->description(trans('seat-industry::ai-orders.notifications.expiring_message', ['remaining' => CarbonInterval::seconds(Carbon::now()->diffInSeconds($order->produce_until))]))
                     ->field(trans('seat-industry::ai-orders.notifications.reference'), $order->reference)
-                    ->field(trans('seat-industry::ai-orders.notifications.order_price'), OrderHelper::formatNumber($order->totalValue()) . ' ISK')
+                    ->field(trans('seat-industry::ai-orders.notifications.order_price'), OrderHelper::formatNumber($order->totalValue()).' ISK')
                     ->field(trans('seat-industry::ai-orders.notifications.nb_items'), $order->items->count())
                     ->field(trans('seat-industry::ai-orders.notifications.location'), $order->location()->name);
             });

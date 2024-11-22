@@ -18,7 +18,7 @@ class OrderObserver
         OrderStatistic::create([
             'order_id' => $order->id,
             'created_at' => $order->created_at,
-            'completed_at' => $order->completed_at
+            'completed_at' => $order->completed_at,
         ]);
     }
 }

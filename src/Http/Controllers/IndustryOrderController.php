@@ -31,11 +31,11 @@ class IndustryOrderController extends Controller
 
     public function orders(): Factory|Application|View|\Illuminate\View\View|\Illuminate\Contracts\Foundation\Application
     {
-        $orders = Order::with("deliveries")
+        $orders = Order::with('deliveries')
             ->where('confirmed', true)
-            ->where("completed", false)
-            ->where("produce_until", ">", DB::raw("NOW()"))
-            ->where("is_repeating", false)
+            ->where('completed', false)
+            ->where('produce_until', '>', DB::raw('NOW()'))
+            ->where('is_repeating', false)
             ->get()
             ->filter(function ($order) {
                 return $order->assignedQuantity() < $order->totalQuantity();
@@ -44,11 +44,11 @@ class IndustryOrderController extends Controller
                 return $order->corp_id == null || $order->corp_id == auth()->user()->main_character->affiliation->corporation_id || $order->user_id == auth()->user()->id;
             });
 
-        $personalOrders = Order::where("user_id", auth()->user()->id)->get();
+        $personalOrders = Order::where('user_id', auth()->user()->id)->get();
 
         $statistics = OrderStatistic::generateAll();
 
-        return view("seat-industry::orders", compact("orders", "personalOrders", "statistics"));
+        return view('seat-industry::orders', compact('orders', 'personalOrders', 'statistics'));
     }
 
     public function createOrder(): Factory|Application|View|\Illuminate\View\View|\Illuminate\Contracts\Foundation\Application
@@ -69,33 +69,33 @@ class IndustryOrderController extends Controller
         $defaultPriority = IndustrySettings::$DEFAULT_PRIORITY->get(2);
 
         //ALSO UPDATE API
-        return view("seat-industry::createOrder",
+        return view('seat-industry::createOrder',
             compact(
-                "stations",
-                "structures",
-                "mpp",
-                "location_id",
-                "default_price_provider",
-                "defaultPriority"
+                'stations',
+                'structures',
+                'mpp',
+                'location_id',
+                'default_price_provider',
+                'defaultPriority'
             )
         );
     }
 
     protected function parsePriceProviderItems($item_array, $price_modifier = 1): array
     {
-        $items = array();
+        $items = [];
 
         foreach ($item_array as $item) {
             $item->price = intval($item->price * $price_modifier * 100);
 
             $typeID = $item->typeModel->typeID;
 
-            if (!array_key_exists($typeID, $items)) {
-                $items[$typeID] = (object)[
+            if (! array_key_exists($typeID, $items)) {
+                $items[$typeID] = (object) [
                     'typeID' => $typeID,
                     'price' => $item->price,
                     'quantity' => $item->amount,
-                    'unitPrice' => $item->price / $item->amount
+                    'unitPrice' => $item->price / $item->amount,
                 ];
             } else {
                 $items[$typeID]->quantity += $item->amount;
@@ -119,20 +119,22 @@ class IndustryOrderController extends Controller
     public function submitOrder(Request $request): RedirectResponse
     {
         $request->validate([
-            "items" => "required|string",
-            "quantity" => "required|integer|min:1",
-            "profit" => "required|numeric",
-            "days" => "required|integer|min:1",
-            "location" => "required|integer",
-            "addToSeatInventory" => "nullable|in:on",
-            "priority" => "integer",
-            "priceprovider" => "nullable|integer",
-            "repetition" => "nullable|integer",
-            "reference" => "nullable|string|max:32",
-            "deliverTo" => "integer"
+            'items' => 'required|string',
+            'quantity' => 'required|integer|min:1',
+            'profit' => 'required|numeric',
+            'days' => 'required|integer|min:1',
+            'location' => 'required|integer',
+            'addToSeatInventory' => 'nullable|in:on',
+            'priority' => 'integer',
+            'priceprovider' => 'nullable|integer',
+            'repetition' => 'nullable|integer',
+            'reference' => 'nullable|string|max:32',
+            'deliverTo' => 'integer',
         ]);
 
-        if (!$request->priority) $request->priority = 2;
+        if (! $request->priority) {
+            $request->priority = 2;
+        }
 
         if (auth()->user()->can('seat-industry.change_price_provider')) {
             $priceProvider = $request->priceprovider;
@@ -176,7 +178,7 @@ class IndustryOrderController extends Controller
         // TODO Move to its own function $prohibitManualPricesBelowValue = !IndustrySettings::$ALLOW_PRICES_BELOW_AUTOMATIC->get(false);
         $addToSeatInventory = $request->addToSeatInventory !== null;
 
-        if (!SeatInventoryPluginHelper::pluginIsAvailable()) {
+        if (! SeatInventoryPluginHelper::pluginIsAvailable()) {
             $addToSeatInventory = false;
         }
 
@@ -185,7 +187,7 @@ class IndustryOrderController extends Controller
         // Create order
         $total_price = $this->computeOrderTotal($items);
 
-        $order = new Order();
+        $order = new Order;
         $order->order_id = OrderHelper::generateRandomString(self::MaxOrderIdLength);
 
         if ($request->reference != null) {
@@ -222,7 +224,7 @@ class IndustryOrderController extends Controller
         $order->save();
 
         foreach ($items as $item) {
-            $model = new OrderItem();
+            $model = new OrderItem;
             $model->order_id = $order->id;
             $model->type_id = $item->typeID;
             $model->quantity = $item->quantity * $order->quantity;
@@ -257,56 +259,60 @@ class IndustryOrderController extends Controller
 
     public function extendOrderTime($orderId, Request $request): RedirectResponse
     {
-        $data = (object)$request->validate([
-            "time" => "required|integer|min:7"
+        $data = (object) $request->validate([
+            'time' => 'required|integer|min:7',
         ]);
 
         $order = Order::find($orderId);
 
-        if (!$order) {
-            $request->session()->flash("error", trans('seat-industry::ai-common.error_order_not_found'));
+        if (! $order) {
+            $request->session()->flash('error', trans('seat-industry::ai-common.error_order_not_found'));
+
             return redirect()->back();
         }
 
-        Gate::authorize("seat-industry.same-user", $order->user_id);
+        Gate::authorize('seat-industry.same-user', $order->user_id);
 
         $order->produce_until = carbon($order->produce_until)->addDays($data->time);
         $order->save();
 
-        $request->session()->flash("success", trans('seat-industry::ai-orders.update_time_success'));
+        $request->session()->flash('success', trans('seat-industry::ai-orders.update_time_success'));
+
         return redirect()->back();
     }
 
     public function updateOrderPrice($orderId, Request $request)
     {
-        $data = (object)$request->validate([
-            "profit" => "nullable|numeric",
-            "priceprovider" => "nullable|integer"
+        $data = (object) $request->validate([
+            'profit' => 'nullable|numeric',
+            'priceprovider' => 'nullable|integer',
         ]);
 
         $order = Order::find($orderId);
 
-        if (!$order) {
-            $request->session()->flash("error", trans('seat-industry::ai-common.error_order_not_found'));
+        if (! $order) {
+            $request->session()->flash('error', trans('seat-industry::ai-common.error_order_not_found'));
+
             return redirect()->back();
         }
 
         if ($order->hasPendingDeliveries()) {
-            $request->session()->flash("error", trans('seat-industry::ai-common.error_order_has_uncomplete_deliveries'));
+            $request->session()->flash('error', trans('seat-industry::ai-common.error_order_has_uncomplete_deliveries'));
+
             return redirect()->back();
         }
 
-        if (!is_null($data->profit) && $order->profit !== $data->profit) {
+        if (! is_null($data->profit) && $order->profit !== $data->profit) {
             $order->profit = $data->profit;
         }
 
-        if (isset($data->priceprovider) && !is_null($data->priceprovider) && $order->priceProvider !== $data->priceprovider) {
+        if (isset($data->priceprovider) && ! is_null($data->priceprovider) && $order->priceProvider !== $data->priceprovider) {
             $order->priceProvider = $data->priceprovider;
         }
 
         $order->save();
 
-        Gate::authorize("seat-industry.same-user", $order->user_id);
+        Gate::authorize('seat-industry.same-user', $order->user_id);
 
         $profit_multiplier = 1 + ($order->profit / 100.0);
 
@@ -334,19 +340,20 @@ class IndustryOrderController extends Controller
         foreach ($items as $item) {
             OrderItem::where('order_id', $order->id)
                 ->where('type_id', $item->typeID)
-                ->update(array(
-                        'quantity' => $item->quantity,
-                        'unit_price' => $item->unitPrice)
+                ->update([
+                    'quantity' => $item->quantity,
+                    'unit_price' => $item->unitPrice]
                 );
         }
 
-        $request->session()->flash("success", trans('seat-industry::ai-orders.update_price_success'));
+        $request->session()->flash('success', trans('seat-industry::ai-orders.update_price_success'));
+
         return redirect()->back();
     }
 
     public function orderDetails($id, Request $request): Factory|Application|View|\Illuminate\View\View|\Illuminate\Contracts\Foundation\Application|RedirectResponse
     {
-        $order = Order::with("deliveries")->find($id);
+        $order = Order::with('deliveries')->find($id);
 
         if (!$order) {
             $request->session()->flash("error", trans('seat-industry::ai-common.error_order_not_found'));
@@ -355,13 +362,13 @@ class IndustryOrderController extends Controller
 
         $mpp = IndustrySettings::$MINIMUM_PROFIT_PERCENTAGE->get(2.5);
 
-        return view("seat-industry::orderDetails", compact("order", "mpp"));
+        return view('seat-industry::orderDetails', compact('order', 'mpp'));
     }
 
     public function deleteOrder(Request $request): RedirectResponse
     {
         $request->validate([
-            "order" => "required|integer"
+            'order' => 'required|integer',
         ]);
 
         $order = Order::find($request->order);
@@ -370,7 +377,7 @@ class IndustryOrderController extends Controller
             return redirect()->route("seat-industry.orders");
         }
 
-        Gate::authorize("seat-industry.same-user", $order->user_id);
+        Gate::authorize('seat-industry.same-user', $order->user_id);
 
         if ($order->hasPendingDeliveries() && !auth()->user()->can("seat-industry.admin")) {
             $request->session()->flash("error", trans('seat-industry::ai-common.error_deleted_in_progress_order'));
@@ -385,7 +392,7 @@ class IndustryOrderController extends Controller
 
     public function deleteCompletedOrders(): RedirectResponse
     {
-        $orders = Order::where("user_id", auth()->user()->id)->where("completed", true)->where("is_repeating", false)->get();
+        $orders = Order::where('user_id', auth()->user()->id)->where('completed', true)->where('is_repeating', false)->get();
         foreach ($orders as $order) {
             $order->delete();
         }

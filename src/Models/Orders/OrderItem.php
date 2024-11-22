@@ -11,7 +11,7 @@ use Seat\HermesDj\Industry\Item\PriceableEveItem;
 use Seat\HermesDj\Industry\Models\Deliveries\DeliveryItem;
 use Seat\Services\Contracts\HasTypeID;
 
-class OrderItem extends Model implements ToEveItem, HasTypeID
+class OrderItem extends Model implements HasTypeID, ToEveItem
 {
     public $timestamps = false;
 
@@ -36,6 +36,7 @@ class OrderItem extends Model implements ToEveItem, HasTypeID
     {
         $item = new PriceableEveItem($this->type);
         $item->amount = $this->quantity;
+
         return $item;
     }
 
@@ -47,17 +48,20 @@ class OrderItem extends Model implements ToEveItem, HasTypeID
                 ->take(3)
                 ->map(function ($item) {
                     $name = $item->type->typeName;
+
                     return "$item->quantity $name";
-                })->implode(", ");
+                })->implode(', ');
             $count = $items->count();
             if ($count > 3) {
                 $count -= 3;
                 $item_text .= trans('seat-industry::ai-common.other_label', ['count' => $count]);
             }
+
             return $item_text;
-        } else if ($items->count() == 1) {
+        } elseif ($items->count() == 1) {
             $item = $items->first();
             $name = $item->type->typeName;
+
             return "$item->quantity $name";
         } else {
             return trans('seat-industry::ai-orders.invalid_order_label');
@@ -69,7 +73,7 @@ class OrderItem extends Model implements ToEveItem, HasTypeID
         return $order->items->sortBy(function ($item) {
             return $item->type->typeName;
         })->map(function ($item) {
-            return "- " . $item->type->typeName . " " . "x" . $item->quantity;
+            return '- '.$item->type->typeName.' '.'x'.$item->quantity;
         })->join("\n");
     }
 
@@ -88,7 +92,7 @@ class OrderItem extends Model implements ToEveItem, HasTypeID
 
     public function assignedQuantity(): int
     {
-        return $this->deliveryItems->sum("quantity_delivered");
+        return $this->deliveryItems->sum('quantity_delivered');
     }
 
     public function availableQuantity(): int

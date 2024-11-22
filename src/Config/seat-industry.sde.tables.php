@@ -1,6 +1,6 @@
 <?php
 
 return [
-    "industryActivity",
-    "industryActivityProducts"
+    'industryActivity',
+    'industryActivityProducts',
 ];

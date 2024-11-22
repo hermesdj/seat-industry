@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'seat_alliance_industry_new_order_notification' => "New Industry order",
+    'seat_alliance_industry_new_order_notification' => 'New Industry order',
     'seat_alliance_industry_expiring_order_notification' => 'Industry order expiring',
     'new_orders_are_available' => 'New Industry orders are available !',
     'build_time_price_provider' => 'Item Manufacturing Time',
@@ -44,5 +44,5 @@ return [
 
         'change_price_provider_label' => 'Change Price Provider',
         'change_price_provider_desc' => 'Allow the user to change the price provider on an order',
-    ]
+    ],
 ];

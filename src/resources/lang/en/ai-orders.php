@@ -83,8 +83,8 @@ return [
             'type' => 'Item',
             'quantity' => 'Quantity',
             'unit_price' => 'Unit Price',
-            'total' => 'Total'
-        ]
+            'total' => 'Total',
+        ],
     ],
 
     'fields' => [
@@ -92,7 +92,7 @@ return [
         'code' => 'Order N°',
         'location' => 'Location',
         'quantities' => 'Total Quantities',
-        'corporation' => 'Reserved By'
+        'corporation' => 'Reserved By',
     ],
 
     'summary' => [
@@ -100,7 +100,7 @@ return [
         'order_total' => 'Total Ordered',
         'in_delivery' => 'In Delivery',
         'delivered' => 'Delivered',
-        'remaining' => 'Remaining'
+        'remaining' => 'Remaining',
     ],
 
     'notifications' => [
@@ -111,17 +111,17 @@ return [
         'location' => 'Location',
         'reference' => 'Reference',
         'expiring_order' => 'Order :code Expiration !',
-        'expiring_message' => 'This order will expire in :remaining !'
+        'expiring_message' => 'This order will expire in :remaining !',
     ],
 
     'modals' => [
         'editPrices' => [
             'title' => 'Edit Order :code prices',
-            'desc' => 'This modal allow you to recompute an order prices with up to date price data from the price providers.'
+            'desc' => 'This modal allow you to recompute an order prices with up to date price data from the price providers.',
         ],
         'editTime' => [
             'title' => 'Extend Order :code delivery date',
-            'desc' => 'This modal allow you to extend the time of the order by adding more days to the current value.'
-        ]
-    ]
+            'desc' => 'This modal allow you to extend the time of the order by adding more days to the current value.',
+        ],
+    ],
 ];

@@ -12,14 +12,18 @@ class IndustrySettings
     public static $LAST_EXPIRING_NOTIFICATION_BATCH;
 
     public static $MINIMUM_PROFIT_PERCENTAGE;
+
     public static $ORDER_CREATION_PING_ROLES;
+
     public static $ALLOW_PRICES_BELOW_AUTOMATIC;
+
     public static $DEFAULT_ORDER_LOCATION;
+
     public static $DEFAULT_PRICE_PROVIDER;
+
     public static $REMOVE_EXPIRED_DELIVERIES;
 
     public static $DEFAULT_PRIORITY;
-
 
     //used in an earlier iteration of the notification system, still used in migrations
     public static $NOTIFICATION_COMMAND_SCHEDULE_ID;
@@ -45,7 +49,7 @@ class IndustrySettings
         // when migrating fresh, this error might trigger
         try {
             $price_provider = self::$DEFAULT_PRICE_PROVIDER->get();
-            if (!is_numeric($price_provider)) {
+            if (! is_numeric($price_provider)) {
                 self::$DEFAULT_PRICE_PROVIDER->set(null);
             }
         } catch (QueryException $_) {

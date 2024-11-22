@@ -76,6 +76,6 @@ return [
         'completed_orders' => 'Commandes Terminées',
         'mean_order_completion_time' => 'Temps Moyen Commande',
         'completed_deliveries' => 'Livraisons Terminées',
-        'mean_delivery_completion_time' => 'Temps Moyen Livraison'
-    ]
+        'mean_delivery_completion_time' => 'Temps Moyen Livraison',
+    ],
 ];

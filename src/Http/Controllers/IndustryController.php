@@ -9,12 +9,11 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use RecursiveTree\Seat\PricesCore\Models\PriceProviderInstance;
 
-
 class IndustryController
 {
     public function about(): Factory|Application|View|\Illuminate\View\View|\Illuminate\Contracts\Foundation\Application
     {
-        return view("seat-industry::about");
+        return view('seat-industry::about');
     }
 
     public function buildTimePriceProviderConfiguration(Request $request): Factory|Application|View|\Illuminate\View\View|\Illuminate\Contracts\Foundation\Application
@@ -44,8 +43,8 @@ class IndustryController
         $model->name = $request->name;
         $model->backend = 'hermesdj/seat-industry/build-time';
         $model->configuration = [
-            'reactions' => (int)$request->reactions,
-            'manufacturing' => (int)$request->manufacturing,
+            'reactions' => (int) $request->reactions,
+            'manufacturing' => (int) $request->manufacturing,
         ];
         $model->save();
 

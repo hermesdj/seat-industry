@@ -32,5 +32,5 @@ return [
     'update_settings_success' => 'Successfully saved settings',
 
     'price_provider_whitelist_label' => 'Price Provider Whitelist',
-    'price_provider_whitelist_hint' => 'The selected price providers can be used by users who have the correct permissions.'
+    'price_provider_whitelist_hint' => 'The selected price providers can be used by users who have the correct permissions.',
 ];
