@@ -77,7 +77,8 @@ class IndustrySettingsController extends Controller
         IndustrySettings::$REMOVE_EXPIRED_DELIVERIES->set(boolval($request->removeExpiredDeliveries));
         IndustrySettings::$ALLOWED_PRICE_PROVIDERS->set($request->priceProviderWhitelist);
 
-        $request->session()->flash("success", trans('seat-industry::ai-settings.update_settings_success'));
-        return redirect()->route("seat-industry.settings");
+        $request->session()->flash('success', trans('seat-industry::ai-settings.update_settings_success'));
+
+        return redirect()->route('seat-industry.settings');
     }
 }

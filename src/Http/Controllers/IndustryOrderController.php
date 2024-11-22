@@ -148,13 +148,15 @@ class IndustryOrderController extends Controller
 
         $mpp = IndustrySettings::$MINIMUM_PROFIT_PERCENTAGE->get(2.5);
         if ($request->profit < $mpp) {
-            $request->session()->flash("error", trans('seat-industry::ai-common.error_minimal_profit_too_low', ['mpp' => $mpp]));
-            return redirect()->route("seat-industry.createOrder");
+            $request->session()->flash('error', trans('seat-industry::ai-common.error_minimal_profit_too_low', ['mpp' => $mpp]));
+
+            return redirect()->route('seat-industry.createOrder');
         }
 
-        if (!(UniverseStructure::where("structure_id", $request->location)->exists() || UniverseStation::where("station_id", $request->location)->exists())) {
-            $request->session()->flash("error", trans('seat-industry::ai-common.error_structure_not_found'));
-            return redirect()->route("seat-industry.orders");
+        if (! (UniverseStructure::where('structure_id', $request->location)->exists() || UniverseStation::where('station_id', $request->location)->exists())) {
+            $request->session()->flash('error', trans('seat-industry::ai-common.error_structure_not_found'));
+
+            return redirect()->route('seat-industry.orders');
         }
 
         //parse items
@@ -162,8 +164,9 @@ class IndustryOrderController extends Controller
 
         //check item count, don't request prices without any items
         if ($parser_result == null || $parser_result->items->isEmpty()) {
-            $request->session()->flash("warning", trans('seat-industry::ai-common.error_order_is_empty'));
-            return redirect()->route("seat-industry.orders");
+            $request->session()->flash('warning', trans('seat-industry::ai-common.error_order_is_empty'));
+
+            return redirect()->route('seat-industry.orders');
         }
 
         try {
@@ -215,7 +218,7 @@ class IndustryOrderController extends Controller
 
         $repetition = intval($request->repetition);
         if ($repetition > 0) {
-            Gate::authorize("seat-industry.create_repeating_orders");
+            Gate::authorize('seat-industry.create_repeating_orders');
             $order->is_repeating = true;
             $order->repeat_interval = $repetition;
             $order->repeat_date = now();
@@ -235,17 +238,19 @@ class IndustryOrderController extends Controller
         // update repeating orders
         UpdateRepeatingOrders::dispatch();
 
-        $request->session()->flash("success", trans('seat-industry::ai-orders.create_order_success'));
-        return redirect()->route("seat-industry.orderDetails", ['id' => $order->id]);
+        $request->session()->flash('success', trans('seat-industry::ai-orders.create_order_success'));
+
+        return redirect()->route('seat-industry.orderDetails', ['id' => $order->id]);
     }
 
     public function confirmOrder($orderId, Request $request): RedirectResponse
     {
         $order = Order::find($orderId);
 
-        if (!$order) {
-            $request->session()->flash("error", trans('seat-industry::ai-common.error_order_not_found'));
-            return redirect()->route("seat-industry.orders");
+        if (! $order) {
+            $request->session()->flash('error', trans('seat-industry::ai-common.error_order_not_found'));
+
+            return redirect()->route('seat-industry.orders');
         }
 
         $order->confirmed = true;
@@ -355,9 +360,10 @@ class IndustryOrderController extends Controller
     {
         $order = Order::with('deliveries')->find($id);
 
-        if (!$order) {
-            $request->session()->flash("error", trans('seat-industry::ai-common.error_order_not_found'));
-            return redirect()->route("seat-industry.orders");
+        if (! $order) {
+            $request->session()->flash('error', trans('seat-industry::ai-common.error_order_not_found'));
+
+            return redirect()->route('seat-industry.orders');
         }
 
         $mpp = IndustrySettings::$MINIMUM_PROFIT_PERCENTAGE->get(2.5);
@@ -372,22 +378,25 @@ class IndustryOrderController extends Controller
         ]);
 
         $order = Order::find($request->order);
-        if (!$order) {
-            $request->session()->flash("error", trans('seat-industry::ai-common.error_order_not_found'));
-            return redirect()->route("seat-industry.orders");
+        if (! $order) {
+            $request->session()->flash('error', trans('seat-industry::ai-common.error_order_not_found'));
+
+            return redirect()->route('seat-industry.orders');
         }
 
         Gate::authorize('seat-industry.same-user', $order->user_id);
 
-        if ($order->hasPendingDeliveries() && !auth()->user()->can("seat-industry.admin")) {
-            $request->session()->flash("error", trans('seat-industry::ai-common.error_deleted_in_progress_order'));
-            return redirect()->route("seat-industry.orders");
+        if ($order->hasPendingDeliveries() && ! auth()->user()->can('seat-industry.admin')) {
+            $request->session()->flash('error', trans('seat-industry::ai-common.error_deleted_in_progress_order'));
+
+            return redirect()->route('seat-industry.orders');
         }
 
         $order->delete();
 
-        $request->session()->flash("success", trans('seat-industry::ai-orders.close_order_success'));
-        return redirect()->route("seat-industry.orders");
+        $request->session()->flash('success', trans('seat-industry::ai-orders.close_order_success'));
+
+        return redirect()->route('seat-industry.orders');
     }
 
     public function deleteCompletedOrders(): RedirectResponse
@@ -404,9 +413,10 @@ class IndustryOrderController extends Controller
     {
         $order = Order::find($orderId);
 
-        if (!$order) {
-            $request->session()->flash("error", trans('seat-industry::ai-common.error_order_not_found'));
-            return redirect()->route("seat-industry.orders");
+        if (! $order) {
+            $request->session()->flash('error', trans('seat-industry::ai-common.error_order_not_found'));
+
+            return redirect()->route('seat-industry.orders');
         }
 
         if ($order->corp_id) {
