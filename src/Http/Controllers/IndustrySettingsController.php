@@ -79,6 +79,6 @@ class IndustrySettingsController extends Controller
         IndustrySettings::$ALLOWED_PRICE_PROVIDERS->set($request->priceProviderWhitelist);
 
         $request->session()->flash("success", trans('seat-industry::ai-settings.update_settings_success'));
-        return redirect()->route("Industry.settings");
+        return redirect()->route("seat-industry.settings");
     }
 }

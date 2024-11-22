@@ -32,7 +32,7 @@ class OrderNotificationDiscord extends AbstractDiscordNotification implements Sh
 
                 $embed
                     ->author($order->user->name, "https://images.evetech.net/characters/$charId/portrait?size=64")
-                    ->title(trans('seat-industry::ai-orders.notifications.new_order', ['code' => $order->order_id]), route('Industry.orderDetails', ['id' => $order->id]))
+                    ->title(trans('seat-industry::ai-orders.notifications.new_order', ['code' => $order->order_id]), route('seat-industry.orderDetails', ['id' => $order->id]))
                     ->description(OrderItem::formatOrderItemsForDiscord($order))
                     ->field(trans('seat-industry::ai-orders.notifications.reference'), $order->reference)
                     ->field(trans('seat-industry::ai-orders.notifications.order_price'), OrderHelper::formatNumber($order->totalValue()) . ' ISK')

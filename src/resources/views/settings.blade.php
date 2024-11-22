@@ -11,7 +11,7 @@
                 {{trans('seat-industry::ai-settings.settings_title')}}
             </h4>
             <div class="card-text my-3 mx-3">
-                <form action="{{ route("Industry.saveSettings") }}" method="POST">
+                <form action="{{ route("seat-industry.saveSettings") }}" method="POST">
                     @csrf
                     <h5>{{trans('seat-industry::ai-settings.price_settings_title')}}</h5>
 
@@ -67,8 +67,9 @@
 
                     <div class="form-group">
                         <label for="priceProviderWhitelist">{{trans('seat-industry::ai-settings.price_provider_whitelist_label')}}</label>
-                        <select id="priceProviderWhitelist" class="form-control" name="priceProviderWhitelist[]" multiple>
-                            @foreach(\HermesDj\Seat\PricesCore\Models\PriceProviderInstance::all() as $instance)
+                        <select id="priceProviderWhitelist" class="form-control" name="priceProviderWhitelist[]"
+                                multiple>
+                            @foreach(\RecursiveTree\Seat\PricesCore\Models\PriceProviderInstance::all() as $instance)
                                 @if(in_array($instance->id, $allowedPriceProviders))
                                     <option value="{{ $instance->id }}" selected>{{ $instance->name }}</option>
                                 @else

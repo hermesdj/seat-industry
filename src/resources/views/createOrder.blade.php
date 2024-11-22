@@ -9,11 +9,11 @@
         <div class="card-body">
             <h5 class="card-header d-flex flex-row align-items-baseline">
                 {{trans('seat-industry::ai-orders.create_order_title')}}
-                <a href="{{ route("Industry.orders") }}"
+                <a href="{{ route("seat-industry.orders") }}"
                    class="btn btn-danger ml-auto">{{trans('seat-industry::ai-common.cancel')}}</a>
             </h5>
             <p class="card-text">
-            <form action="{{ route("Industry.submitOrder") }}" method="POST" id="orderForm">
+            <form action="{{ route("seat-industry.submitOrder") }}" method="POST" id="orderForm">
                 @csrf
 
                 <div class="form-group">
@@ -46,7 +46,7 @@
                             rows="20">{{ $multibuy ?? "" }}</textarea>
                 </div>
 
-                @can('Industry.change_price_provider')
+                @can('seat-industry.change_price_provider')
                     <div class="form-group">
                         <label for="priceprovider">{{trans('seat-industry::ai-common.price_provider_label')}}</label>
                         @include("seat-industry::utils.priceProviderSelector",["id"=>"priceprovider","name"=>"priceprovider","instance_id"=>$default_price_provider])
@@ -80,7 +80,7 @@
                     </select>
                 </div>
 
-                @can("Industry.order_priority")
+                @can("seat-industry.order_priority")
                     <div class="form-group">
                         <label for="priority">{{trans('seat-industry::ai-orders.priority_label')}}</label>
                         <select id="priority" class="form-control" name="priority">
@@ -92,7 +92,7 @@
                 @endcan
 
                 @if(\RecursiveTree\Seat\TreeLib\Helpers\SeatInventoryPluginHelper::pluginIsAvailable())
-                    @can("Industry.add_to_seat_inventory")
+                    @can("seat-industry.add_to_seat_inventory")
                         <div class="form-group" style="display: none;">
                             <label for="addToSeatInventory">{{trans('seat-industry::ai-orders.seat_inventory_label')}}</label>
                             <div class="form-check">
@@ -108,7 +108,7 @@
                     @endcan
                 @endif
 
-                @can("Industry.create_repeating_orders")
+                @can("seat-industry.create_repeating_orders")
                     <div class="form-group">
                         <label for="repetition">{{trans('seat-industry::ai-orders.repetition_label')}}</label>
                         <select id="repetition" name="repetition" class="form-control">

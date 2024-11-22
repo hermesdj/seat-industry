@@ -134,7 +134,7 @@ class IndustryOrderController extends Controller
 
         if (!$request->priority) $request->priority = 2;
 
-        if (auth()->user()->can('Industry.change_price_provider')) {
+        if (auth()->user()->can('seat-industry.change_price_provider')) {
             $priceProvider = $request->priceprovider;
         } else {
             $priceProvider = IndustrySettings::$DEFAULT_PRICE_PROVIDER->get(null);
@@ -147,12 +147,12 @@ class IndustryOrderController extends Controller
         $mpp = IndustrySettings::$MINIMUM_PROFIT_PERCENTAGE->get(2.5);
         if ($request->profit < $mpp) {
             $request->session()->flash("error", trans('seat-industry::ai-common.error_minimal_profit_too_low', ['mpp' => $mpp]));
-            return redirect()->route("Industry.createOrder");
+            return redirect()->route("seat-industry.createOrder");
         }
 
         if (!(UniverseStructure::where("structure_id", $request->location)->exists() || UniverseStation::where("station_id", $request->location)->exists())) {
             $request->session()->flash("error", trans('seat-industry::ai-common.error_structure_not_found'));
-            return redirect()->route("Industry.orders");
+            return redirect()->route("seat-industry.orders");
         }
 
         //parse items
@@ -161,7 +161,7 @@ class IndustryOrderController extends Controller
         //check item count, don't request prices without any items
         if ($parser_result == null || $parser_result->items->isEmpty()) {
             $request->session()->flash("warning", trans('seat-industry::ai-common.error_order_is_empty'));
-            return redirect()->route("Industry.orders");
+            return redirect()->route("seat-industry.orders");
         }
 
         try {
@@ -213,7 +213,7 @@ class IndustryOrderController extends Controller
 
         $repetition = intval($request->repetition);
         if ($repetition > 0) {
-            Gate::authorize("Industry.create_repeating_orders");
+            Gate::authorize("seat-industry.create_repeating_orders");
             $order->is_repeating = true;
             $order->repeat_interval = $repetition;
             $order->repeat_date = now();
@@ -234,7 +234,7 @@ class IndustryOrderController extends Controller
         UpdateRepeatingOrders::dispatch();
 
         $request->session()->flash("success", trans('seat-industry::ai-orders.create_order_success'));
-        return redirect()->route("Industry.orderDetails", ['id' => $order->id]);
+        return redirect()->route("seat-industry.orderDetails", ['id' => $order->id]);
     }
 
     public function confirmOrder($orderId, Request $request): RedirectResponse
@@ -243,7 +243,7 @@ class IndustryOrderController extends Controller
 
         if (!$order) {
             $request->session()->flash("error", trans('seat-industry::ai-common.error_order_not_found'));
-            return redirect()->route("Industry.orders");
+            return redirect()->route("seat-industry.orders");
         }
 
         $order->confirmed = true;
@@ -350,7 +350,7 @@ class IndustryOrderController extends Controller
 
         if (!$order) {
             $request->session()->flash("error", trans('seat-industry::ai-common.error_order_not_found'));
-            return redirect()->route("Industry.orders");
+            return redirect()->route("seat-industry.orders");
         }
 
         $mpp = IndustrySettings::$MINIMUM_PROFIT_PERCENTAGE->get(2.5);
@@ -367,20 +367,20 @@ class IndustryOrderController extends Controller
         $order = Order::find($request->order);
         if (!$order) {
             $request->session()->flash("error", trans('seat-industry::ai-common.error_order_not_found'));
-            return redirect()->route("Industry.orders");
+            return redirect()->route("seat-industry.orders");
         }
 
         Gate::authorize("seat-industry.same-user", $order->user_id);
 
-        if ($order->hasPendingDeliveries() && !auth()->user()->can("Industry.admin")) {
+        if ($order->hasPendingDeliveries() && !auth()->user()->can("seat-industry.admin")) {
             $request->session()->flash("error", trans('seat-industry::ai-common.error_deleted_in_progress_order'));
-            return redirect()->route("Industry.orders");
+            return redirect()->route("seat-industry.orders");
         }
 
         $order->delete();
 
         $request->session()->flash("success", trans('seat-industry::ai-orders.close_order_success'));
-        return redirect()->route("Industry.orders");
+        return redirect()->route("seat-industry.orders");
     }
 
     public function deleteCompletedOrders(): RedirectResponse
@@ -399,7 +399,7 @@ class IndustryOrderController extends Controller
 
         if (!$order) {
             $request->session()->flash("error", trans('seat-industry::ai-common.error_order_not_found'));
-            return redirect()->route("Industry.orders");
+            return redirect()->route("seat-industry.orders");
         }
 
         if ($order->corp_id) {

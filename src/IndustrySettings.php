@@ -28,19 +28,19 @@ class IndustrySettings
 
     public static function init(): void
     {
-        self::$LAST_NOTIFICATION_BATCH = Setting::create("Industry", "notifications.batch.last", true);
-        self::$DEFAULT_ORDER_LOCATION = Setting::create("Industry", "order.location.default", true);
-        self::$DEFAULT_PRICE_PROVIDER = Setting::create("Industry", "order.price.provider.default", true);
-        self::$REMOVE_EXPIRED_DELIVERIES = Setting::create("Industry", "deliveries.expired.remove", true);
-        self::$DEFAULT_PRIORITY = Setting::create("Industry", "order.priority.default", true);
+        self::$LAST_NOTIFICATION_BATCH = Setting::create("seat-industry", "notifications.batch.last", true);
+        self::$DEFAULT_ORDER_LOCATION = Setting::create("seat-industry", "order.location.default", true);
+        self::$DEFAULT_PRICE_PROVIDER = Setting::create("seat-industry", "order.price.provider.default", true);
+        self::$REMOVE_EXPIRED_DELIVERIES = Setting::create("seat-industry", "deliveries.expired.remove", true);
+        self::$DEFAULT_PRIORITY = Setting::create("seat-industry", "order.priority.default", true);
 
         //with manual key because it is migrated from the old settings system
-        self::$MINIMUM_PROFIT_PERCENTAGE = Setting::createFromKey("recursivetree.Industry.minimumProfitPercentage", true);
-        self::$ORDER_CREATION_PING_ROLES = Setting::createFromKey("recursivetree.Industry.orderCreationPingRoles", true);
-        self::$ALLOW_PRICES_BELOW_AUTOMATIC = Setting::createFromKey("recursivetree.Industry.allowPricesBelowAutomatic", true);
-        self::$NOTIFICATION_COMMAND_SCHEDULE_ID = Setting::createFromKey("recursivetree.Industry.notifications_schedule_id", true);
+        self::$MINIMUM_PROFIT_PERCENTAGE = Setting::createFromKey("hermesdj.seat-industry.minimumProfitPercentage", true);
+        self::$ORDER_CREATION_PING_ROLES = Setting::createFromKey("hermesdj.seat-industry.orderCreationPingRoles", true);
+        self::$ALLOW_PRICES_BELOW_AUTOMATIC = Setting::createFromKey("hermesdj.seat-industry.allowPricesBelowAutomatic", true);
+        self::$NOTIFICATION_COMMAND_SCHEDULE_ID = Setting::createFromKey("hermesdj.seat-industry.notifications_schedule_id", true);
 
-        self::$ALLOWED_PRICE_PROVIDERS = Setting::createFromKey("recursivetree.Industry.allowedPriceProviders", true);
+        self::$ALLOWED_PRICE_PROVIDERS = Setting::createFromKey("hermesdj.seat-industry.allowedPriceProviders", true);
 
         // when migrating fresh, this error might trigger
         try {

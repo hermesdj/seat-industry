@@ -11,7 +11,7 @@
                     style="color: #f37a27;">
                     {{trans('seat-industry::ai-deliveries.prepare.title')}}
                 </h5>
-                <form action="{{ route("Industry.addDelivery", ['id' => $order->id]) }}" method="POST">
+                <form action="{{ route("seat-industry.addDelivery", ['id' => $order->id]) }}" method="POST">
                     @csrf
                     <div class="card-body p-2">
                         <p class="card-text">

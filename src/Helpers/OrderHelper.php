@@ -2,8 +2,8 @@
 
 namespace Seat\HermesDj\Industry\Helpers;
 
-use Seat\HermesDj\Industry\IndustrySettings;
 use RecursiveTree\Seat\PricesCore\Models\PriceProviderInstance;
+use Seat\HermesDj\Industry\IndustrySettings;
 use Seat\Services\Settings\Profile;
 
 class OrderHelper

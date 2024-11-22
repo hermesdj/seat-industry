@@ -88,8 +88,8 @@
                     <div class="d-flex flex-row">
                         @can("seat-industry.same-user",$order->user_id)
                             @if($order->confirmed)
-                                @if($order->deliveries->isEmpty() || !$order->hasPendingDeliveries() || $order->completed || auth()->user()->can("Industry.admin"))
-                                    <form action="{{ route("Industry.deleteOrder") }}" method="POST"
+                                @if($order->deliveries->isEmpty() || !$order->hasPendingDeliveries() || $order->completed || auth()->user()->can("seat-industry.admin"))
+                                    <form action="{{ route("seat-industry.deleteOrder") }}" method="POST"
                                           class="mx-1">
                                         @csrf
                                         <input type="hidden" name="order" value="{{ $order->id }}">
@@ -125,7 +125,7 @@
                                     </button>
                                 @endif
                             @else
-                                <form action="{{ route("Industry.confirmOrder", ['id' => $order->id]) }}"
+                                <form action="{{ route("seat-industry.confirmOrder", ['id' => $order->id]) }}"
                                       method="POST"
                                       class="mx-1">
                                     @csrf
@@ -135,8 +135,8 @@
                                         {{trans('seat-industry::ai-orders.confirm_order_btn')}}
                                     </button>
                                 </form>
-                                @if($order->deliveries->isEmpty() || !$order->hasPendingDeliveries() || $order->completed || auth()->user()->can("Industry.admin"))
-                                    <form action="{{ route("Industry.deleteOrder") }}" method="POST"
+                                @if($order->deliveries->isEmpty() || !$order->hasPendingDeliveries() || $order->completed || auth()->user()->can("seat-industry.admin"))
+                                    <form action="{{ route("seat-industry.deleteOrder") }}" method="POST"
                                           class="mx-1">
                                         @csrf
                                         <input type="hidden" name="order" value="{{ $order->id }}">
@@ -150,8 +150,8 @@
                             @endif
                         @endcan
                         @if($order->confirmed)
-                            @can('Industry.corp_delivery')
-                                <form action="{{ route("Industry.toggleReserveCorp", ['id' => $order->id]) }}"
+                            @can('seat-industry.corp_delivery')
+                                <form action="{{ route("seat-industry.toggleReserveCorp", ['id' => $order->id]) }}"
                                       method="POST"
                                       class="mx-1">
                                     @csrf
@@ -166,7 +166,7 @@
                                 </form>
                                 @if($order->assignedQuantity() < $order->totalQuantity() && $order->corp_id == auth()->user()->main_character->affiliation->corporation_id)
                                     <a
-                                            href="{{ route("Industry.prepareDelivery", ['id' => $order->id]) }}"
+                                            href="{{ route("seat-industry.prepareDelivery", ['id' => $order->id]) }}"
                                             class="btn btn-primary mx-1 ml-auto">
                                         <i class="fas fa-truck"></i>&nbsp;
                                         {{trans('seat-industry::ai-deliveries.order_create_delivery_btn')}}
@@ -174,7 +174,7 @@
                                 @endif
                             @endcan
                             @if($order->assignedQuantity() < $order->totalQuantity() && !$order->corporation)
-                                <a href="{{ route("Industry.prepareDelivery", ['id' => $order->id]) }}"
+                                <a href="{{ route("seat-industry.prepareDelivery", ['id' => $order->id]) }}"
                                    class="btn btn-primary mx-1 ml-auto">
                                     <i class="fas fa-truck"></i>&nbsp;
                                     {{trans('seat-industry::ai-deliveries.order_create_delivery_btn')}}

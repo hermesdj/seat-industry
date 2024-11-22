@@ -31,7 +31,7 @@
             </td>
             <td class="d-flex flex-row text-center align-middle" style="min-width: 120px;">
                 @can("seat-industry.same-user",$delivery->user_id)
-                    <form action="{{ route("Industry.setDeliveryItemState", ['deliveryId' => $delivery->id, 'itemId' => $item->id]) }}"
+                    <form action="{{ route("seat-industry.setDeliveryItemState", ['deliveryId' => $delivery->id, 'itemId' => $item->id]) }}"
                           method="POST"
                           style="width: 50%"
                     >
@@ -49,8 +49,8 @@
                         @endif
                     </form>
 
-                    @if(!$item->completed || auth()->user()->can("Industry.admin"))
-                        <form action="{{ route("Industry.deleteDeliveryItem",['deliveryId' => $delivery->id, 'itemId' => $item->id]) }}"
+                    @if(!$item->completed || auth()->user()->can("seat-industry.admin"))
+                        <form action="{{ route("seat-industry.deleteDeliveryItem",['deliveryId' => $delivery->id, 'itemId' => $item->id]) }}"
                               method="POST"
                               style="width: 50%">
                             @csrf
