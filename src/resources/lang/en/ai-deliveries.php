@@ -26,24 +26,24 @@ return [
 
     'instructions' => [
         'title' => 'Instructions',
-        'text' => 'You can deliver items line by line, in this case you handle the price of every contracts you do. If you Cancel the delivery, or a line of the delivery, it will delete the line and cannot be cancelled.'
+        'text' => 'You can deliver items line by line, in this case you handle the price of every contracts you do. If you Cancel the delivery, or a line of the delivery, it will delete the line and cannot be cancelled.',
     ],
 
     'headers' => [
-        'code' => 'Delivery Code'
+        'code' => 'Delivery Code',
     ],
 
     'prepare' => [
         'title' => 'Prepare Delivery',
-        'description' => 'In this page you can specify the quantities you will provide for each items of the order and then click create Delivery'
+        'description' => 'In this page you can specify the quantities you will provide for each items of the order and then click create Delivery',
     ],
 
     'items' => [
         'headers' => [
             'type' => 'Item Type',
             'available_quantity' => 'Available Quantity',
-            'selected_quantity' => 'Selected Quantity'
-        ]
+            'selected_quantity' => 'Selected Quantity',
+        ],
     ],
 
     'contract' => [
@@ -57,7 +57,7 @@ return [
         'location' => 'Location',
         'introduction' => 'Please create a contract with the data shown below',
         'tip_title' => 'Tip:',
-        'tip' => 'You can click on the results marked with a * to copy them directly to your clipboard.'
+        'tip' => 'You can click on the results marked with a * to copy them directly to your clipboard.',
     ],
 
     'fields' => [
@@ -66,5 +66,5 @@ return [
         'producer' => 'Producer',
         'quantity' => 'Total Quantity',
         'completed' => 'Completed',
-    ]
+    ],
 ];

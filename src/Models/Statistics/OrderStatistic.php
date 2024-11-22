@@ -16,13 +16,13 @@ class OrderStatistic extends Model
 
     public static function generateAll(): object
     {
-        return (object)[
+        return (object) [
             'completed' => self::totalCompletedOrderCount(),
             'completedByMonth' => self::totalOrderCompletedByMonth(),
             'meanCompletionTime' => self::meanOrderCompletionTime(),
             'completedDeliveries' => DeliveryStatistic::totalCompletedDeliveryCount(),
             'meanDeliveryCompletionTime' => DeliveryStatistic::meanDeliveryCompletionTime(),
-            'userPerformances' => self::userPerformances()
+            'userPerformances' => self::userPerformances(),
         ];
     }
 
@@ -52,8 +52,8 @@ class OrderStatistic extends Model
 
     public static function userPerformances(): object
     {
-        return (object)[
-            'deliveryTime' => DeliveryStatistic::meanUserDeliveryTime()
+        return (object) [
+            'deliveryTime' => DeliveryStatistic::meanUserDeliveryTime(),
         ];
     }
 }

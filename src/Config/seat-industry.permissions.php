@@ -31,14 +31,14 @@ return [
     ],
     'order_priority' => [
         'label' => 'seat-industry::ai-config.permissions.priority_label',
-        'description' => 'seat-industry::ai-config.permissions.priority_desc'
+        'description' => 'seat-industry::ai-config.permissions.priority_desc',
     ],
     'corp_delivery' => [
         'label' => 'seat-industry::ai-config.permissions.corp_delivery_label',
-        'description' => 'seat-industry::ai-config.permissions.corp_delivery_desc'
+        'description' => 'seat-industry::ai-config.permissions.corp_delivery_desc',
     ],
     'change_price_provider' => [
         'label' => 'seat-industry::ai-config.permissions.change_price_provider_label',
-        'description' => 'seat-industry::ai-config.permissions.change_price_provider_desc'
-    ]
+        'description' => 'seat-industry::ai-config.permissions.change_price_provider_desc',
+    ],
 ];

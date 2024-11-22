@@ -14,11 +14,11 @@ use Seat\Notifications\Traits\NotificationDispatchTool;
 
 class SendExpiredOrderNotifications implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, NotificationDispatchTool;
+    use Dispatchable, InteractsWithQueue, NotificationDispatchTool, Queueable, SerializesModels;
 
     public function tags(): array
     {
-        return ["seat-industry", "order", "notifications"];
+        return ['seat-industry', 'order', 'notifications'];
     }
 
     public function handle(): void
@@ -27,18 +27,18 @@ class SendExpiredOrderNotifications implements ShouldQueue
         $last_expiring = IndustrySettings::$LAST_EXPIRING_NOTIFICATION_BATCH->get();
 
         if ($last_expiring === null) {
-            $expiring_orders = Order::where("confirmed", true)
+            $expiring_orders = Order::where('confirmed', true)
                 ->where('completed', false)
                 ->where('produce_until', '<', $now->addHours(24))
                 ->get();
         } else {
-            $expiring_orders = Order::where("confirmed", true)
+            $expiring_orders = Order::where('confirmed', true)
                 ->where('completed', false)
                 ->where('produce_until', '<', $last_expiring->addHours(24))
                 ->get();
         }
 
-        if (!$expiring_orders->isEmpty()) {
+        if (! $expiring_orders->isEmpty()) {
             foreach ($expiring_orders as $order) {
                 $this->dispatchExpiringOrderNotification($order);
             }
@@ -54,7 +54,7 @@ class SendExpiredOrderNotifications implements ShouldQueue
                 $query->where('alert', 'seat_alliance_industry_expiring_order_notification');
             })->get();
 
-        $this->dispatchNotifications("seat_alliance_industry_expiring_order_notification", $groups, function ($constructor) use ($order) {
+        $this->dispatchNotifications('seat_alliance_industry_expiring_order_notification', $groups, function ($constructor) use ($order) {
             return new $constructor($order);
         });
     }

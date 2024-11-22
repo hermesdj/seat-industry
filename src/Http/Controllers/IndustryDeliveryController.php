@@ -23,87 +23,94 @@ class IndustryDeliveryController extends Controller
     {
         $user_id = auth()->user()->id;
 
-        $deliveries = Delivery::with("order")->where("user_id", $user_id)->get();
+        $deliveries = Delivery::with('order')->where('user_id', $user_id)->get();
 
-        return view("seat-industry::deliveries", compact("deliveries"));
+        return view('seat-industry::deliveries', compact('deliveries'));
     }
 
     public function deliveryDetails($id, Request $request): View|Application|Factory|\Illuminate\Contracts\Foundation\Application|RedirectResponse
     {
-        $delivery = Delivery::with("deliveryItems")->find($id);
+        $delivery = Delivery::with('deliveryItems')->find($id);
 
-        if (!$delivery) {
-            $request->session()->flash("error", trans('seat-industry::ai-common.error_delivery_not_found'));
+        if (! $delivery) {
+            $request->session()->flash('error', trans('seat-industry::ai-common.error_delivery_not_found'));
+
             return redirect()->back();
         }
 
-        return view("seat-industry::deliveryDetails", compact("delivery"));
+        return view('seat-industry::deliveryDetails', compact('delivery'));
     }
 
     public function prepareDelivery($orderId, Request $request): View|Application|Factory|\Illuminate\Contracts\Foundation\Application|RedirectResponse
     {
         $order = Order::find($orderId);
-        if (!$order) {
-            $request->session()->flash("error", trans('seat-industry::ai-common.error_order_not_found'));
-            return redirect()->route("Industry.orderDetails", ['id' => $orderId]);
+        if (! $order) {
+            $request->session()->flash('error', trans('seat-industry::ai-common.error_order_not_found'));
+
+            return redirect()->route('Industry.orderDetails', ['id' => $orderId]);
         }
 
         if ($order->corporation != null && $order->corporation->corporation_id != auth()->user()->main_character->affiliation->corporation_id) {
-            $request->session()->flash("error", trans('seat-industry::ai-common.error_not_allowed_to_create_delivery'));
-            return redirect()->route("Industry.orderDetails", ['id' => $orderId]);
+            $request->session()->flash('error', trans('seat-industry::ai-common.error_not_allowed_to_create_delivery'));
+
+            return redirect()->route('Industry.orderDetails', ['id' => $orderId]);
         }
 
         $items = $order->items->filter(function ($item) {
             return $item->availableQuantity() > 0;
         });
 
-        return view("seat-industry::prepareDelivery", compact("order", "items"));
+        return view('seat-industry::prepareDelivery', compact('order', 'items'));
     }
 
     public function addDelivery($orderId, Request $request): RedirectResponse
     {
         $validated = $request->validate([
-            "quantities" => "required|array",
-            "quantities.*" => "required|integer|min:0"
+            'quantities' => 'required|array',
+            'quantities.*' => 'required|integer|min:0',
         ]);
 
         $order = Order::find($orderId);
-        if (!$order) {
-            $request->session()->flash("error", trans('seat-industry::ai-common.error_order_not_found'));
+        if (! $order) {
+            $request->session()->flash('error', trans('seat-industry::ai-common.error_order_not_found'));
+
             return redirect()->back();
         }
 
         if ($order->is_repeating) {
-            $request->session()->flash("error", trans('seat-industry::ai-common.error_delivery_not_assignable_to_repeating_order'));
-            return redirect()->route("Industry.orders");
+            $request->session()->flash('error', trans('seat-industry::ai-common.error_delivery_not_assignable_to_repeating_order'));
+
+            return redirect()->route('Industry.orders');
         }
 
         $quantities = $validated['quantities'];
 
-        $delivery = new Delivery();
+        $delivery = new Delivery;
         $delivery->delivery_code = OrderHelper::generateRandomString(self::MaxDeliveryCodeLength);
         $delivery->order_id = $order->id;
         $delivery->user_id = auth()->user()->id;
         $delivery->completed = false;
         $delivery->accepted = now();
 
-        $deliveryItems = array();
+        $deliveryItems = [];
         $totalQuantity = 0;
 
         foreach ($quantities as $id => $quantity) {
             $item = OrderItem::find($id);
             if ($item->order_id != $orderId) {
-                $request->session()->flash("error", trans('seat-industry::ai-common.error_item_order_id_does_not_match'));
+                $request->session()->flash('error', trans('seat-industry::ai-common.error_item_order_id_does_not_match'));
+
                 return redirect()->back();
             }
 
             if ($item->assignedQuantity() + $quantity > $item->quantity) {
-                $request->session()->flash("error", trans('seat-industry::ai-common.error_too_much_quantity_provided'));
+                $request->session()->flash('error', trans('seat-industry::ai-common.error_too_much_quantity_provided'));
+
                 return redirect()->back();
             }
 
             if ($quantity > 0) {
-                $model = new DeliveryItem();
+                $model = new DeliveryItem;
                 $model->order_id = $order->id;
                 $model->order_item_id = $item->id;
                 $model->completed = false;
@@ -116,7 +123,8 @@ class IndustryDeliveryController extends Controller
         }
 
         if (empty($deliveryItems)) {
-            $request->session()->flash("error", trans('seat-industry::ai-common.error_delivery_not_assignable_to_repeating_order'));
+            $request->session()->flash('error', trans('seat-industry::ai-common.error_delivery_not_assignable_to_repeating_order'));
+
             return redirect()->back();
         }
 
@@ -128,19 +136,20 @@ class IndustryDeliveryController extends Controller
             $deliveryItem->save();
         }
 
-        $request->session()->flash("success", trans('seat-industry::ai-deliveries.delivery_creation_success'));
-        return redirect()->route("Industry.deliveryDetails", ['id' => $delivery->id]);
+        $request->session()->flash('success', trans('seat-industry::ai-deliveries.delivery_creation_success'));
+
+        return redirect()->route('Industry.deliveryDetails', ['id' => $delivery->id]);
     }
 
     public function setDeliveryState($deliveryId, Request $request): RedirectResponse
     {
         $request->validate([
-            "completed" => "required|boolean"
+            'completed' => 'required|boolean',
         ]);
 
         $delivery = Delivery::find($deliveryId);
 
-        Gate::authorize("seat-industry.same-user", $delivery->user_id);
+        Gate::authorize('seat-industry.same-user', $delivery->user_id);
 
         if ($request->completed) {
             $delivery->completed_at = now();
@@ -162,13 +171,13 @@ class IndustryDeliveryController extends Controller
     public function setDeliveryItemState($deliveryId, $itemId, Request $request): RedirectResponse
     {
         $request->validate([
-            "completed" => "required|boolean"
+            'completed' => 'required|boolean',
         ]);
 
         $delivery = Delivery::find($deliveryId);
         $item = DeliveryItem::find($itemId);
 
-        Gate::authorize("seat-industry.same-user", $delivery->user_id);
+        Gate::authorize('seat-industry.same-user', $delivery->user_id);
 
         if ($request->completed) {
             $item->completed_at = now();
@@ -201,20 +210,20 @@ class IndustryDeliveryController extends Controller
         $delivery = Delivery::find($deliveryId);
 
         if ($delivery) {
-            Gate::authorize("seat-industry.same-user", $delivery->user_id);
+            Gate::authorize('seat-industry.same-user', $delivery->user_id);
 
             if ($delivery->completed) {
-                Gate::authorize("Industry.admin");
+                Gate::authorize('Industry.admin');
             }
 
             $delivery->delete();
 
-            $request->session()->flash("success", trans('seat-industry::ai-deliveries.delivery_removal_success'));
+            $request->session()->flash('success', trans('seat-industry::ai-deliveries.delivery_removal_success'));
         } else {
-            $request->session()->flash("error", trans('seat-industry::ai-common.error_delivery_not_found'));
+            $request->session()->flash('error', trans('seat-industry::ai-common.error_delivery_not_found'));
         }
 
-        return redirect()->route("Industry.deliveries");
+        return redirect()->route('Industry.deliveries');
     }
 
     public function deleteDeliveryItem($deliveryId, $itemId, Request $request): RedirectResponse
@@ -223,17 +232,17 @@ class IndustryDeliveryController extends Controller
         $item = DeliveryItem::find($itemId);
 
         if ($item) {
-            Gate::authorize("seat-industry.same-user", $delivery->user_id);
+            Gate::authorize('seat-industry.same-user', $delivery->user_id);
 
             if ($item->completed) {
-                Gate::authorize("Industry.admin");
+                Gate::authorize('Industry.admin');
             }
 
             $item->delete();
 
-            $request->session()->flash("success", trans('seat-industry::ai-deliveries.delivery_item_removal_success'));
+            $request->session()->flash('success', trans('seat-industry::ai-deliveries.delivery_item_removal_success'));
         } else {
-            $request->session()->flash("error", trans('seat-industry::ai-common.error_delivery_item_not_found'));
+            $request->session()->flash('error', trans('seat-industry::ai-common.error_delivery_item_not_found'));
         }
 
         $delivery->quantity = $delivery->totalQuantity();

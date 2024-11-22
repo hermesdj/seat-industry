@@ -15,7 +15,6 @@ use Seat\HermesDj\Industry\Models\Deliveries\Delivery;
 use Seat\HermesDj\Industry\Models\Deliveries\DeliveryItem;
 use Seat\Web\Models\User;
 
-
 class Order extends Model
 {
     public $timestamps = false;
@@ -24,17 +23,17 @@ class Order extends Model
 
     public function deliveries(): HasMany
     {
-        return $this->hasMany(Delivery::class, "order_id", "id");
+        return $this->hasMany(Delivery::class, 'order_id', 'id');
     }
 
     public function deliveryItems(): HasMany
     {
-        return $this->hasMany(DeliveryItem::class, "order_id", "id");
+        return $this->hasMany(DeliveryItem::class, 'order_id', 'id');
     }
 
     public function items(): HasMany
     {
-        return $this->hasMany(OrderItem::class, "order_id", "id");
+        return $this->hasMany(OrderItem::class, 'order_id', 'id');
     }
 
     public function user(): HasOne
@@ -74,17 +73,17 @@ class Order extends Model
 
     public function assignedQuantity(): int
     {
-        return $this->deliveryItems->sum("quantity_delivered");
+        return $this->deliveryItems->sum('quantity_delivered');
     }
 
     public function totalQuantity(): int
     {
-        return $this->items->sum("quantity");
+        return $this->items->sum('quantity');
     }
 
     public function hasPendingDeliveries(): bool
     {
-        return $this->deliveries()->where("completed", false)->exists();
+        return $this->deliveries()->where('completed', false)->exists();
     }
 
     public function totalValue(): float

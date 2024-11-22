@@ -33,7 +33,7 @@ class SendOrderNotification
                 $query->where('alert', 'seat_alliance_industry_new_order_notification');
             })->get();
 
-        $this->dispatchNotifications("seat_alliance_industry_new_order_notification", $groups, function ($constructor) use ($order) {
+        $this->dispatchNotifications('seat_alliance_industry_new_order_notification', $groups, function ($constructor) use ($order) {
             return new $constructor($order);
         });
     }

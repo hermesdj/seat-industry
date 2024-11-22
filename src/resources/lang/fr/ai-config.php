@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'seat_alliance_industry_new_order_notification' => "Nouvelles commandes de seat-industry",
+    'seat_alliance_industry_new_order_notification' => 'Nouvelles commandes de seat-industry',
     'seat_alliance_industry_expiring_order_notification' => 'Expiration des commandes de seat-industry',
     'new_orders_are_available' => 'De nouvelles commandes seat-industry sont disponibles !',
     'build_time_price_provider' => 'Délai de fabrication de l\'article',
@@ -43,6 +43,6 @@ return [
         'corp_delivery_desc' => 'Permet à l\'utilisateur de réserver une commande pour qu\'elle soit livrée au nom de sa corporation',
 
         'change_price_provider_label' => 'Changer fournisseur de prix',
-        'change_price_provider_desc' => 'Permet à un utilisateur de changer le fournisseur de prix sur une commande'
-    ]
+        'change_price_provider_desc' => 'Permet à un utilisateur de changer le fournisseur de prix sur une commande',
+    ],
 ];

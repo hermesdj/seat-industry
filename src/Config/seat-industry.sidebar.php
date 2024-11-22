@@ -1,4 +1,5 @@
 <?php
+
 return [
     'Industry' => [
         'name' => 'Industry',
@@ -42,6 +43,6 @@ return [
                 'route' => 'seat-industry.about',
                 'permission' => 'seat-industry.view_orders',
             ],
-        ]
-    ]
+        ],
+    ],
 ];

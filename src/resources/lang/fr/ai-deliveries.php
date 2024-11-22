@@ -26,24 +26,24 @@ return [
 
     'instructions' => [
         'title' => 'Instructions',
-        'text' => 'Vous pouvez livrer chaque ligne indépendamment mais dans ce cas vous devez gérer le montant de chaque contrat que vous faites en fonction de sa composition. Si vous annulez la Livraison, cela la supprimera ainsi que toutes les lignes. Si vous annulez une ligne, cela supprimera la ligne. La suppression est irréversible.'
+        'text' => 'Vous pouvez livrer chaque ligne indépendamment mais dans ce cas vous devez gérer le montant de chaque contrat que vous faites en fonction de sa composition. Si vous annulez la Livraison, cela la supprimera ainsi que toutes les lignes. Si vous annulez une ligne, cela supprimera la ligne. La suppression est irréversible.',
     ],
 
     'headers' => [
-        'code' => 'Code Livraison'
+        'code' => 'Code Livraison',
     ],
 
     'prepare' => [
         'title' => 'Préparer Livraison',
-        'description' => 'Sur cette page vous pouvez spécifier les quantités que vous prenez en charge pour chaque élément de la commande.'
+        'description' => 'Sur cette page vous pouvez spécifier les quantités que vous prenez en charge pour chaque élément de la commande.',
     ],
 
     'items' => [
         'headers' => [
             'type' => 'Type Objet',
             'available_quantity' => 'Quantité Commandé',
-            'selected_quantity' => 'Quantité que je livre'
-        ]
+            'selected_quantity' => 'Quantité que je livre',
+        ],
     ],
 
     'contract' => [
@@ -57,6 +57,6 @@ return [
         'description' => 'Description',
         'introduction' => 'Veuillez créer un contrat en respectant les instructions ci dessous.',
         'tip_title' => 'Astuce:',
-        'tip' => 'Vous pouvez cliquer directement sur la valeur d\'un champ marqué par une "*" pour le copier dans votre presse papier.'
-    ]
+        'tip' => 'Vous pouvez cliquer directement sur la valeur d\'un champ marqué par une "*" pour le copier dans votre presse papier.',
+    ],
 ];

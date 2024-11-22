@@ -32,7 +32,7 @@ class Delivery extends Model
 
     public function deliveryItems(): HasMany
     {
-        return $this->hasMany(DeliveryItem::class, "delivery_id", "id");
+        return $this->hasMany(DeliveryItem::class, 'delivery_id', 'id');
     }
 
     public function totalQuantity(): int
