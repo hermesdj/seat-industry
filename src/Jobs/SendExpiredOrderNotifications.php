@@ -1,14 +1,14 @@
 <?php
 
-namespace HermesDj\Seat\Industry\Jobs;
+namespace Seat\HermesDj\Industry\Jobs;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use HermesDj\Seat\Industry\IndustrySettings;
-use HermesDj\Seat\Industry\Models\Order;
+use Seat\HermesDj\Industry\IndustrySettings;
+use Seat\HermesDj\Industry\Models\Orders\Order;
 use Seat\Notifications\Models\NotificationGroup;
 use Seat\Notifications\Traits\NotificationDispatchTool;
 

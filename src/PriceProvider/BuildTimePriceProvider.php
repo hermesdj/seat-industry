@@ -1,6 +1,6 @@
 <?php
 
-namespace HermesDj\Seat\Industry\PriceProvider;
+namespace Seat\HermesDj\Industry\PriceProvider;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;

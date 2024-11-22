@@ -48,7 +48,7 @@
                         </div>
                     </div>
                     <div class="d-flex flex-row">
-                        @can("Industry.same-user",$delivery->user_id)
+                        @can("seat-industry.same-user",$delivery->user_id)
                             <form action="{{ route("Industry.setDeliveryState", ['deliveryId' => $delivery->id]) }}"
                                   method="POST"
                                   class="mx-1"

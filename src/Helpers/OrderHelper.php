@@ -1,12 +1,12 @@
 <?php
 
-namespace HermesDj\Seat\Industry\Helpers;
+namespace Seat\HermesDj\Industry\Helpers;
 
-use HermesDj\Seat\Industry\IndustrySettings;
+use Seat\HermesDj\Industry\IndustrySettings;
 use RecursiveTree\Seat\PricesCore\Models\PriceProviderInstance;
 use Seat\Services\Settings\Profile;
 
-class IndustryHelper
+class OrderHelper
 {
     public static function generateRandomString(int $length = 25): string
     {

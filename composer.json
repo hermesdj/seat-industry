@@ -15,7 +15,7 @@
   ],
   "autoload": {
     "psr-4": {
-      "HermesDj\\Seat\\Industry\\": "src/"
+      "Seat\\HermesDj\\Industry\\": "src/"
     }
   },
   "minimum-stability": "dev",
@@ -33,7 +33,7 @@
   "extra": {
     "laravel": {
       "providers": [
-        "HermesDj\\Seat\\Industry\\IndustryServiceProvider"
+        "Seat\\HermesDj\\Industry\\IndustryServiceProvider"
       ]
     }
   }

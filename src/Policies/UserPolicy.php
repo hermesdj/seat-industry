@@ -1,6 +1,6 @@
 <?php
 
-namespace HermesDj\Seat\Industry\Policies;
+namespace Seat\HermesDj\Industry\Policies;
 
 class UserPolicy
 {

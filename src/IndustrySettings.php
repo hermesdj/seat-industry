@@ -1,9 +1,9 @@
 <?php
 
-namespace HermesDj\Seat\Industry;
+namespace Seat\HermesDj\Industry;
 
 use Illuminate\Database\QueryException;
-use HermesDj\Seat\TreeLib\Helpers\Setting;
+use RecursiveTree\Seat\TreeLib\Helpers\Setting;
 
 class IndustrySettings
 {
@@ -26,7 +26,7 @@ class IndustrySettings
 
     public static $ALLOWED_PRICE_PROVIDERS;
 
-    public static function init()
+    public static function init(): void
     {
         self::$LAST_NOTIFICATION_BATCH = Setting::create("Industry", "notifications.batch.last", true);
         self::$DEFAULT_ORDER_LOCATION = Setting::create("Industry", "order.location.default", true);

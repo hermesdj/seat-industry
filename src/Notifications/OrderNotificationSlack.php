@@ -1,14 +1,14 @@
 <?php
 
-namespace HermesDj\Seat\Industry\Notifications;
+namespace Seat\HermesDj\Industry\Notifications;
 
-use HermesDj\Seat\Industry\Models\Order;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\SlackMessage;
 use Illuminate\Queue\SerializesModels;
-use HermesDj\Seat\Industry\IndustrySettings;
-use HermesDj\Seat\Industry\Models\OrderItem;
 use RecursiveTree\Seat\TreeLib\Helpers\PrioritySystem;
+use Seat\HermesDj\Industry\IndustrySettings;
+use Seat\HermesDj\Industry\Models\Orders\Order;
+use Seat\HermesDj\Industry\Models\Orders\OrderItem;
 use Seat\Notifications\Notifications\AbstractSlackNotification;
 
 class OrderNotificationSlack extends AbstractSlackNotification implements ShouldQueue

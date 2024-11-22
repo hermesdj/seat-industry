@@ -1,13 +1,13 @@
 <?php
 
-namespace HermesDj\Seat\Industry\Http\Controllers;
+namespace Seat\HermesDj\Industry\Http\Controllers;
 
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use HermesDj\Seat\Industry\IndustrySettings;
+use Seat\HermesDj\Industry\IndustrySettings;
 use Seat\Eveapi\Models\Universe\UniverseStation;
 use Seat\Eveapi\Models\Universe\UniverseStructure;
 use Seat\Web\Http\Controllers\Controller;

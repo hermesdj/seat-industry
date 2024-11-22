@@ -84,14 +84,14 @@
                     <div class="form-group">
                         <label for="priority">{{trans('seat-industry::ai-orders.priority_label')}}</label>
                         <select id="priority" class="form-control" name="priority">
-                            @foreach(\HermesDj\Seat\TreeLib\Helpers\PrioritySystem::getPriorityData() as $priority=>$data)
+                            @foreach(\RecursiveTree\Seat\TreeLib\Helpers\PrioritySystem::getPriorityData() as $priority=>$data)
                                 <option value="{{$priority}}" @selected($priority == $defaultPriority)>{{trans('seat-industry::ai-orders.priority_' . $data["name"])}}</option>
                             @endforeach
                         </select>
                     </div>
                 @endcan
 
-                @if(\HermesDj\Seat\TreeLib\Helpers\SeatInventoryPluginHelper::pluginIsAvailable())
+                @if(\RecursiveTree\Seat\TreeLib\Helpers\SeatInventoryPluginHelper::pluginIsAvailable())
                     @can("Industry.add_to_seat_inventory")
                         <div class="form-group" style="display: none;">
                             <label for="addToSeatInventory">{{trans('seat-industry::ai-orders.seat_inventory_label')}}</label>

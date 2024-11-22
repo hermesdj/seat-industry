@@ -1,6 +1,6 @@
 <?php
 
-namespace HermesDj\Seat\Industry\Http\Controllers;
+namespace Seat\HermesDj\Industry\Http\Controllers;
 
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;

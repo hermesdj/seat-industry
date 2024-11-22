@@ -1,6 +1,6 @@
 <?php
 
-use HermesDj\Seat\Industry\PriceProvider\BuildTimePriceProvider;
+use Seat\HermesDj\Industry\PriceProvider\BuildTimePriceProvider;
 
 return [
     'hermesdj/seat-industry/build-time' => [

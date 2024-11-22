@@ -1,6 +1,6 @@
 <?php
 
-namespace HermesDj\Seat\Industry\Item;
+namespace Seat\HermesDj\Industry\Item;
 
 use RecursiveTree\Seat\TreeLib\Items\EveItem;
 use Seat\Services\Contracts\IPriceable;

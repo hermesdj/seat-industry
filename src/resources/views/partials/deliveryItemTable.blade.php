@@ -19,18 +19,18 @@
                 ])
             </td>
             <td class="text-right" data-sort="{{$item->quantity_delivered}}">
-                {{\HermesDj\Seat\Industry\Helpers\IndustryHelper::formatNumber($item->quantity_delivered, 0)}}
+                {{\Seat\HermesDj\Industry\Helpers\OrderHelper::formatNumber($item->quantity_delivered, 0)}}
             </td>
             <td class="text-right" data-sort="{{$item->orderItem->unit_price / 100}}">
-                {{\HermesDj\Seat\Industry\Helpers\IndustryHelper::formatNumber($item->orderItem->unit_price / 100)}}
+                {{\Seat\HermesDj\Industry\Helpers\OrderHelper::formatNumber($item->orderItem->unit_price / 100)}}
                 ISK
             </td>
             <td class="text-right" data-sort="{{$item->orderItem->unit_price / 100 * $item->quantity_delivered}}">
-                {{\HermesDj\Seat\Industry\Helpers\IndustryHelper::formatNumber($item->orderItem->unit_price / 100 * $item->quantity_delivered)}}
+                {{\Seat\HermesDj\Industry\Helpers\OrderHelper::formatNumber($item->orderItem->unit_price / 100 * $item->quantity_delivered)}}
                 ISK
             </td>
             <td class="d-flex flex-row text-center align-middle" style="min-width: 120px;">
-                @can("Industry.same-user",$delivery->user_id)
+                @can("seat-industry.same-user",$delivery->user_id)
                     <form action="{{ route("Industry.setDeliveryItemState", ['deliveryId' => $delivery->id, 'itemId' => $item->id]) }}"
                           method="POST"
                           style="width: 50%"

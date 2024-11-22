@@ -1,9 +1,11 @@
 <?php
 
-namespace HermesDj\Seat\Industry\Models;
+namespace Seat\HermesDj\Industry\Models\Deliveries;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Seat\HermesDj\Industry\Models\Orders\Order;
+use Seat\HermesDj\Industry\Models\Orders\OrderItem;
 
 class DeliveryItem extends Model
 {

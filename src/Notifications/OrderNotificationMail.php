@@ -1,11 +1,11 @@
 <?php
 
-namespace HermesDj\Seat\Industry\Notifications;
+namespace Seat\HermesDj\Industry\Notifications;
 
-use HermesDj\Seat\Industry\Models\Order;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Queue\SerializesModels;
+use Seat\HermesDj\Industry\Models\Orders\Order;
 use Seat\Notifications\Notifications\AbstractMailNotification;
 
 class OrderNotificationMail extends AbstractMailNotification implements ShouldQueue

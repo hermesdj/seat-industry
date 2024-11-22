@@ -1,18 +1,18 @@
 <?php
 
-namespace HermesDj\Seat\Industry;
+namespace Seat\HermesDj\Industry;
 
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Gate;
-use HermesDj\Seat\Industry\Jobs\RemoveExpiredDeliveries;
-use HermesDj\Seat\Industry\Jobs\SendExpiredOrderNotifications;
-use HermesDj\Seat\Industry\Jobs\UpdateRepeatingOrders;
-use HermesDj\Seat\Industry\Models\Delivery;
-use HermesDj\Seat\Industry\Models\Order;
-use HermesDj\Seat\Industry\Observers\DeliveryObserver;
-use HermesDj\Seat\Industry\Observers\OrderObserver;
-use HermesDj\Seat\Industry\Observers\UserObserver;
-use HermesDj\Seat\Industry\Policies\UserPolicy;
+use Seat\HermesDj\Industry\Jobs\RemoveExpiredDeliveries;
+use Seat\HermesDj\Industry\Jobs\SendExpiredOrderNotifications;
+use Seat\HermesDj\Industry\Jobs\UpdateRepeatingOrders;
+use Seat\HermesDj\Industry\Models\Deliveries\Delivery;
+use Seat\HermesDj\Industry\Models\Orders\Order;
+use Seat\HermesDj\Industry\Observers\DeliveryObserver;
+use Seat\HermesDj\Industry\Observers\OrderObserver;
+use Seat\HermesDj\Industry\Observers\UserObserver;
+use Seat\HermesDj\Industry\Policies\UserPolicy;
 use Seat\Services\AbstractSeatPlugin;
 use Seat\Web\Models\User;
 
@@ -22,31 +22,53 @@ class IndustryServiceProvider extends AbstractSeatPlugin
     {
         IndustrySettings::init();
 
-        if (!$this->app->routesAreCached()) {
-            include __DIR__ . '/Http/routes.php';
-        }
-
-        $this->loadTranslationsFrom(__DIR__ . '/resources/lang/', 'seat-industry');
-        $this->loadViewsFrom(__DIR__ . '/resources/views/', 'seat-industry');
         $this->loadMigrationsFrom(__DIR__ . '/database/migrations/');
-
-        Gate::define('Industry.same-user', UserPolicy::class . '@checkUser');
 
         Delivery::observe(DeliveryObserver::class);
         Order::observe(OrderObserver::class);
         User::observe(UserObserver::class);
 
-        $this->mergeConfigFrom(
-            __DIR__ . '/Config/notifications.alerts.php', 'notifications.alerts'
-        );
+        $this->addCommands();
+        $this->addViews();
+        $this->addTranslations();
+        $this->addCommands();
+    }
 
-        $this->mergeConfigFrom(
-            __DIR__ . '/Config/inventory.sources.php', 'inventory.sources'
-        );
+    public function register(): void
+    {
+        $this->mergeConfigFrom(__DIR__ . '/Config/seat-industry.sidebar.php', 'package.sidebar');
+        $this->mergeConfigFrom(__DIR__ . '/Config/notifications.alerts.php', 'notifications.alerts');
+        $this->mergeConfigFrom(__DIR__ . '/Config/inventory.sources.php', 'inventory.sources');
         $this->mergeConfigFrom(__DIR__ . '/Config/priceproviders.backends.php', 'priceproviders.backends');
+        $this->mergeConfigFrom(__DIR__ . '/Config/seat-industry.sde.tables.php', 'seat.sde.tables');
 
-        $this->mergeConfigFrom(__DIR__ . '/Config/Industry.sde.tables.php', 'seat.sde.tables');
+        $this->registerPermissions(__DIR__ . '/Config/seat-industry.permissions.php', 'seat-industry');
 
+        Gate::define('seat-industry.same-user', UserPolicy::class . '@checkUser');
+    }
+
+    private function addRoutes(): void
+    {
+        $this->loadRoutesFrom(__DIR__ . '/Http/routes.php');
+    }
+
+    private function addViews(): void
+    {
+        $this->loadViewsFrom(__DIR__ . '/resources/views/', 'seat-industry');
+    }
+
+    private function addTranslations(): void
+    {
+        $this->loadTranslationsFrom(__DIR__ . '/resources/lang/', 'seat-industry');
+    }
+
+    private function addMigrations(): void
+    {
+
+    }
+
+    private function addCommands(): void
+    {
         Artisan::command('seat-industry:notifications {--sync}', function () {
             if ($this->option("sync")) {
                 $this->info("processing...");
@@ -73,12 +95,6 @@ class IndustryServiceProvider extends AbstractSeatPlugin
                 RemoveExpiredDeliveries::dispatch();
             }
         });
-    }
-
-    public function register(): void
-    {
-        $this->mergeConfigFrom(__DIR__ . '/Config/industry.sidebar.php', 'package.sidebar');
-        $this->registerPermissions(__DIR__ . '/Config/Industry.permissions.php', 'Industry');
     }
 
     public function getName(): string

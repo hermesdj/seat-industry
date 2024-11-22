@@ -1,18 +1,18 @@
 <?php
 
-namespace HermesDj\Seat\Industry\Http\Controllers;
+namespace Seat\HermesDj\Industry\Http\Controllers;
 
-use HermesDj\Seat\Industry\Helpers\IndustryHelper;
-use HermesDj\Seat\Industry\Models\Delivery;
-use HermesDj\Seat\Industry\Models\DeliveryItem;
-use HermesDj\Seat\Industry\Models\Order;
-use HermesDj\Seat\Industry\Models\OrderItem;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Seat\HermesDj\Industry\Helpers\OrderHelper;
+use Seat\HermesDj\Industry\Models\Deliveries\Delivery;
+use Seat\HermesDj\Industry\Models\Deliveries\DeliveryItem;
+use Seat\HermesDj\Industry\Models\Orders\Order;
+use Seat\HermesDj\Industry\Models\Orders\OrderItem;
 use Seat\Web\Http\Controllers\Controller;
 
 class IndustryDeliveryController extends Controller
@@ -81,7 +81,7 @@ class IndustryDeliveryController extends Controller
         $quantities = $validated['quantities'];
 
         $delivery = new Delivery();
-        $delivery->delivery_code = IndustryHelper::generateRandomString(self::MaxDeliveryCodeLength);
+        $delivery->delivery_code = OrderHelper::generateRandomString(self::MaxDeliveryCodeLength);
         $delivery->order_id = $order->id;
         $delivery->user_id = auth()->user()->id;
         $delivery->completed = false;
@@ -140,7 +140,7 @@ class IndustryDeliveryController extends Controller
 
         $delivery = Delivery::find($deliveryId);
 
-        Gate::authorize("Industry.same-user", $delivery->user_id);
+        Gate::authorize("seat-industry.same-user", $delivery->user_id);
 
         if ($request->completed) {
             $delivery->completed_at = now();
@@ -168,7 +168,7 @@ class IndustryDeliveryController extends Controller
         $delivery = Delivery::find($deliveryId);
         $item = DeliveryItem::find($itemId);
 
-        Gate::authorize("Industry.same-user", $delivery->user_id);
+        Gate::authorize("seat-industry.same-user", $delivery->user_id);
 
         if ($request->completed) {
             $item->completed_at = now();
@@ -201,7 +201,7 @@ class IndustryDeliveryController extends Controller
         $delivery = Delivery::find($deliveryId);
 
         if ($delivery) {
-            Gate::authorize("Industry.same-user", $delivery->user_id);
+            Gate::authorize("seat-industry.same-user", $delivery->user_id);
 
             if ($delivery->completed) {
                 Gate::authorize("Industry.admin");
@@ -223,7 +223,7 @@ class IndustryDeliveryController extends Controller
         $item = DeliveryItem::find($itemId);
 
         if ($item) {
-            Gate::authorize("Industry.same-user", $delivery->user_id);
+            Gate::authorize("seat-industry.same-user", $delivery->user_id);
 
             if ($item->completed) {
                 Gate::authorize("Industry.admin");

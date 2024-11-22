@@ -1,11 +1,12 @@
 <?php
 
-namespace HermesDj\Seat\Industry\Models;
+namespace Seat\HermesDj\Industry\Models\Deliveries;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use RecursiveTree\Seat\TreeLib\Helpers\SeatInventoryPluginHelper;
+use Seat\HermesDj\Industry\Models\Orders\Order;
 use Seat\Web\Models\User;
 
 class Delivery extends Model

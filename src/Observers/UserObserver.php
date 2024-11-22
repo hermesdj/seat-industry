@@ -1,9 +1,9 @@
 <?php
 
-namespace HermesDj\Seat\Industry\Observers;
+namespace Seat\HermesDj\Industry\Observers;
 
-use HermesDj\Seat\Industry\Models\Delivery;
-use HermesDj\Seat\Industry\Models\Order;
+use Seat\HermesDj\Industry\Models\Deliveries\Delivery;
+use Seat\HermesDj\Industry\Models\Orders\Order;
 
 class UserObserver
 {

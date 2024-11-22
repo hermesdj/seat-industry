@@ -1,12 +1,12 @@
 <?php
 
-namespace HermesDj\Seat\Industry\Notifications;
+namespace Seat\HermesDj\Industry\Notifications;
 
-use HermesDj\Seat\Industry\Models\Order;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\SerializesModels;
-use HermesDj\Seat\Industry\Helpers\IndustryHelper;
-use HermesDj\Seat\Industry\Models\OrderItem;
+use Seat\HermesDj\Industry\Helpers\OrderHelper;
+use Seat\HermesDj\Industry\Models\Orders\Order;
+use Seat\HermesDj\Industry\Models\Orders\OrderItem;
 use Seat\Notifications\Notifications\AbstractDiscordNotification;
 use Seat\Notifications\Services\Discord\Messages\DiscordEmbed;
 use Seat\Notifications\Services\Discord\Messages\DiscordMessage;
@@ -35,7 +35,7 @@ class OrderNotificationDiscord extends AbstractDiscordNotification implements Sh
                     ->title(trans('seat-industry::ai-orders.notifications.new_order', ['code' => $order->order_id]), route('Industry.orderDetails', ['id' => $order->id]))
                     ->description(OrderItem::formatOrderItemsForDiscord($order))
                     ->field(trans('seat-industry::ai-orders.notifications.reference'), $order->reference)
-                    ->field(trans('seat-industry::ai-orders.notifications.order_price'), IndustryHelper::formatNumber($order->totalValue()) . ' ISK')
+                    ->field(trans('seat-industry::ai-orders.notifications.order_price'), OrderHelper::formatNumber($order->totalValue()) . ' ISK')
                     ->field(trans('seat-industry::ai-orders.notifications.nb_items'), $order->items->count())
                     ->field(trans('seat-industry::ai-orders.notifications.location'), $order->location()->name);
             });

@@ -1,6 +1,6 @@
 <?php
 
-namespace HermesDj\Seat\Industry\Models;
+namespace Seat\HermesDj\Industry\Models\Orders;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -11,6 +11,8 @@ use Seat\Eveapi\Models\Character\CharacterInfo;
 use Seat\Eveapi\Models\Corporation\CorporationInfo;
 use Seat\Eveapi\Models\Universe\UniverseStation;
 use Seat\Eveapi\Models\Universe\UniverseStructure;
+use Seat\HermesDj\Industry\Models\Deliveries\Delivery;
+use Seat\HermesDj\Industry\Models\Deliveries\DeliveryItem;
 use Seat\Web\Models\User;
 
 

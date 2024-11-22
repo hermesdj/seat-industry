@@ -1,8 +1,8 @@
 <?php
 
-namespace HermesDj\Seat\Industry\Jobs;
+namespace Seat\HermesDj\Industry\Jobs;
 
-use HermesDj\Seat\Industry\Models\Order;
+use Seat\HermesDj\Industry\Models\Orders\Order;
 use Seat\Notifications\Models\NotificationGroup;
 use Seat\Notifications\Traits\NotificationDispatchTool;
 

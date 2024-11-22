@@ -1,8 +1,8 @@
 <?php
 
-namespace HermesDj\Seat\Industry\Observers;
+namespace Seat\HermesDj\Industry\Observers;
 
-use HermesDj\Seat\Industry\Models\Statistics\OrderStatistic;
+use Seat\HermesDj\Industry\Models\Statistics\OrderStatistic;
 
 class OrderObserver
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace HermesDj\Seat\Industry\Observers;
+namespace Seat\HermesDj\Industry\Observers;
 
-use HermesDj\Seat\Industry\Models\Statistics\DeliveryStatistic;
+use Seat\HermesDj\Industry\Models\Statistics\DeliveryStatistic;
 use RecursiveTree\Seat\TreeLib\Helpers\SeatInventoryPluginHelper;
 
 class DeliveryObserver

@@ -17,7 +17,7 @@
                 ])
             </td>
             <td class="text-center" data-sort="{{$item->quantity}}">
-                {{\HermesDj\Seat\Industry\Helpers\IndustryHelper::formatNumber($item->availableQuantity(), 0)}}
+                {{\Seat\HermesDj\Industry\Helpers\OrderHelper::formatNumber($item->availableQuantity(), 0)}}
             </td>
             <td class="text-center" data-sort="{{$item->unit_price / 100}}">
                 <input
@@ -28,7 +28,7 @@
                         max="{{$item->availableQuantity()}}"
                         min="0"
                         class="form-control"
-                        value="{{$item->availableQuantity()}}"
+                        value="0"
                 />
             </td>
         </tr>

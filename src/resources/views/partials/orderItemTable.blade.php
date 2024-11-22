@@ -23,16 +23,16 @@
                 ])
             </td>
             <td class="text-right" data-sort="{{$item->quantity}}">
-                {{\HermesDj\Seat\Industry\Helpers\IndustryHelper::formatNumber($item->assignedQuantity(), 0)}}
+                {{\Seat\HermesDj\Industry\Helpers\OrderHelper::formatNumber($item->assignedQuantity(), 0)}}
                 /
-                {{\HermesDj\Seat\Industry\Helpers\IndustryHelper::formatNumber($item->quantity, 0)}}
+                {{\Seat\HermesDj\Industry\Helpers\OrderHelper::formatNumber($item->quantity, 0)}}
             </td>
             <td class="text-right" data-sort="{{$item->unit_price / 100}}">
-                {{\HermesDj\Seat\Industry\Helpers\IndustryHelper::formatNumber($item->unit_price / 100)}}
+                {{\Seat\HermesDj\Industry\Helpers\OrderHelper::formatNumber($item->unit_price / 100)}}
                 ISK
             </td>
             <td class="text-right" data-sort="{{$item->unit_price / 100 * $item->quantity}}">
-                {{\HermesDj\Seat\Industry\Helpers\IndustryHelper::formatNumber($item->unit_price / 100 * $item->quantity)}}
+                {{\Seat\HermesDj\Industry\Helpers\OrderHelper::formatNumber($item->unit_price / 100 * $item->quantity)}}
                 ISK
             </td>
         </tr>

@@ -1,6 +1,6 @@
 <?php
 
-namespace HermesDj\Seat\Industry\Models\Statistics;
+namespace Seat\HermesDj\Industry\Models\Statistics;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;

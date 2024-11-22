@@ -1,15 +1,15 @@
 <?php
 
-namespace HermesDj\Seat\Industry\Jobs;
+namespace Seat\HermesDj\Industry\Jobs;
 
-use HermesDj\Seat\Industry\IndustrySettings;
-use HermesDj\Seat\Industry\Models\Delivery;
-use HermesDj\Seat\Industry\Models\Order;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Seat\HermesDj\Industry\IndustrySettings;
+use Seat\HermesDj\Industry\Models\Deliveries\Delivery;
+use Seat\HermesDj\Industry\Models\Orders\Order;
 
 
 class RemoveExpiredDeliveries implements ShouldQueue

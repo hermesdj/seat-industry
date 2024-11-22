@@ -1,6 +1,6 @@
 <?php
 
-namespace HermesDj\Seat\Industry\Http\Controllers;
+namespace Seat\HermesDj\Industry\Http\Controllers;
 
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -9,20 +9,20 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
-use HermesDj\Seat\Industry\IndustrySettings;
-use HermesDj\Seat\Industry\Helpers\IndustryHelper;
-use HermesDj\Seat\Industry\Item\PriceableEveItem;
-use HermesDj\Seat\Industry\Jobs\SendOrderNotification;
-use HermesDj\Seat\Industry\Jobs\UpdateRepeatingOrders;
-use HermesDj\Seat\Industry\Models\Order;
-use HermesDj\Seat\Industry\Models\OrderItem;
-use HermesDj\Seat\Industry\Models\Statistics\OrderStatistic;
 use RecursiveTree\Seat\PricesCore\Exceptions\PriceProviderException;
 use RecursiveTree\Seat\PricesCore\Facades\PriceProviderSystem;
 use RecursiveTree\Seat\TreeLib\Helpers\SeatInventoryPluginHelper;
 use RecursiveTree\Seat\TreeLib\Parser\Parser;
 use Seat\Eveapi\Models\Universe\UniverseStation;
 use Seat\Eveapi\Models\Universe\UniverseStructure;
+use Seat\HermesDj\Industry\Helpers\OrderHelper;
+use Seat\HermesDj\Industry\IndustrySettings;
+use Seat\HermesDj\Industry\Item\PriceableEveItem;
+use Seat\HermesDj\Industry\Jobs\SendOrderNotification;
+use Seat\HermesDj\Industry\Jobs\UpdateRepeatingOrders;
+use Seat\HermesDj\Industry\Models\Orders\Order;
+use Seat\HermesDj\Industry\Models\Orders\OrderItem;
+use Seat\HermesDj\Industry\Models\Statistics\OrderStatistic;
 use Seat\Web\Http\Controllers\Controller;
 
 class IndustryOrderController extends Controller
@@ -186,7 +186,7 @@ class IndustryOrderController extends Controller
         $total_price = $this->computeOrderTotal($items);
 
         $order = new Order();
-        $order->order_id = IndustryHelper::generateRandomString(self::MaxOrderIdLength);
+        $order->order_id = OrderHelper::generateRandomString(self::MaxOrderIdLength);
 
         if ($request->reference != null) {
             $order->reference = $request->reference;
@@ -268,7 +268,7 @@ class IndustryOrderController extends Controller
             return redirect()->back();
         }
 
-        Gate::authorize("Industry.same-user", $order->user_id);
+        Gate::authorize("seat-industry.same-user", $order->user_id);
 
         $order->produce_until = carbon($order->produce_until)->addDays($data->time);
         $order->save();
@@ -306,7 +306,7 @@ class IndustryOrderController extends Controller
 
         $order->save();
 
-        Gate::authorize("Industry.same-user", $order->user_id);
+        Gate::authorize("seat-industry.same-user", $order->user_id);
 
         $profit_multiplier = 1 + ($order->profit / 100.0);
 
@@ -370,7 +370,7 @@ class IndustryOrderController extends Controller
             return redirect()->route("Industry.orders");
         }
 
-        Gate::authorize("Industry.same-user", $order->user_id);
+        Gate::authorize("seat-industry.same-user", $order->user_id);
 
         if ($order->hasPendingDeliveries() && !auth()->user()->can("Industry.admin")) {
             $request->session()->flash("error", trans('seat-industry::ai-common.error_deleted_in_progress_order'));

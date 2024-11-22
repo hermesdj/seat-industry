@@ -86,7 +86,7 @@
                     </div>
 
                     <div class="d-flex flex-row">
-                        @can("Industry.same-user",$order->user_id)
+                        @can("seat-industry.same-user",$order->user_id)
                             @if($order->confirmed)
                                 @if($order->deliveries->isEmpty() || !$order->hasPendingDeliveries() || $order->completed || auth()->user()->can("Industry.admin"))
                                     <form action="{{ route("Industry.deleteOrder") }}" method="POST"

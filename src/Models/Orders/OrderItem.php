@@ -1,13 +1,14 @@
 <?php
 
-namespace HermesDj\Seat\Industry\Models;
+namespace Seat\HermesDj\Industry\Models\Orders;
 
-use HermesDj\Seat\Industry\Item\PriceableEveItem;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use RecursiveTree\Seat\TreeLib\Items\ToEveItem;
 use Seat\Eveapi\Models\Sde\InvType;
+use Seat\HermesDj\Industry\Item\PriceableEveItem;
+use Seat\HermesDj\Industry\Models\Deliveries\DeliveryItem;
 use Seat\Services\Contracts\HasTypeID;
 
 class OrderItem extends Model implements ToEveItem, HasTypeID
