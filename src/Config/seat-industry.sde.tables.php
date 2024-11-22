@@ -2,5 +2,10 @@
 
 return [
     "industryActivity",
-    "industryActivityProducts"
+    "industryActivityProducts",
+    "industryBlueprints",
+    "industryActivityMaterials",
+    "industryActivityProbabilities",
+    "industryActivitySkills",
+    "invVolumes"
 ];
