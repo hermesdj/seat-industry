@@ -1,11 +1,11 @@
 <?php
 
 return [
-    "industryActivity",
-    "industryActivityProducts",
-    "industryBlueprints",
-    "industryActivityMaterials",
-    "industryActivityProbabilities",
-    "industryActivitySkills",
-    "invVolumes"
+    'industryActivity',
+    'industryActivityProducts',
+    'industryBlueprints',
+    'industryActivityMaterials',
+    'industryActivityProbabilities',
+    'industryActivitySkills',
+    'invVolumes',
 ];

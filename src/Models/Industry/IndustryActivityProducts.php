@@ -9,14 +9,14 @@ class IndustryActivityProducts extends Model
 {
     use IsReadOnly;
 
-    protected $table = "industryActivityProducts";
+    protected $table = 'industryActivityProducts';
 
     public $incrementing = false;
+
     public $timestamps = false;
 
     /**
      * typeID is the blueprint typeid in invTypes
-     * @return int
      */
     public function getTypeID(): int
     {
@@ -25,7 +25,6 @@ class IndustryActivityProducts extends Model
 
     /**
      * activity type id is either copy/improve/invention etc. See ActivityTypeEnum
-     * @return ActivityTypeEnum
      */
     public function getActivityID(): ActivityTypeEnum
     {
@@ -34,17 +33,14 @@ class IndustryActivityProducts extends Model
 
     /**
      * type of product being produced per run of blueprint
-     * @return int
      */
     public function getProductTypeID(): int
     {
         return $this->productTypeID;
     }
 
-
     /**
      * The quantity of productTypeID produced per run of blueprint
-     * @return int
      */
     public function getProducedQuantity(): int
     {

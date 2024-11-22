@@ -75,6 +75,6 @@ return [
         'completed_orders' => 'Completed Orders',
         'mean_order_completion_time' => 'Mean Order Completion Time',
         'completed_deliveries' => 'Completed Deliveries',
-        'mean_delivery_completion_time' => 'Mean Delivery Completion Time'
-    ]
+        'mean_delivery_completion_time' => 'Mean Delivery Completion Time',
+    ],
 ];

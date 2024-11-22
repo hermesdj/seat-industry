@@ -10,6 +10,7 @@ use Seat\HermesDj\Industry\Models\Orders\OrderItem;
 class DeliveryItem extends Model
 {
     public $timestamps = false;
+
     protected $table = 'seat_industry_delivery_items';
 
     public function delivery(): HasOne

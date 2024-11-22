@@ -7,13 +7,12 @@ use Seat\HermesDj\Industry\Models\Orders\Order;
 
 class UserObserver
 {
-
     public static function deleted($user): void
     {
-        $deliveries = Delivery::where("user_id", $user->id)->pluck("id");
+        $deliveries = Delivery::where('user_id', $user->id)->pluck('id');
         Delivery::destroy($deliveries);
 
-        $orders = Order::where("user_id", $user->id)->pluck("id");
+        $orders = Order::where('user_id', $user->id)->pluck('id');
         Order::destroy($orders);
     }
 }

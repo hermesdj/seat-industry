@@ -84,8 +84,8 @@ return [
             'type' => 'Objet',
             'quantity' => 'Quantité',
             'unit_price' => 'Px Unitaire',
-            'total' => 'Total'
-        ]
+            'total' => 'Total',
+        ],
     ],
 
     'fields' => [
@@ -93,7 +93,7 @@ return [
         'code' => 'N° Commande',
         'location' => 'Lieu de Livraison',
         'quantities' => 'Quantités Totales',
-        'corporation' => 'Reservé par'
+        'corporation' => 'Reservé par',
     ],
 
     'summary' => [
@@ -113,17 +113,17 @@ return [
         'location' => 'Lieu',
         'reference' => 'Référence',
         'expiring_order' => 'Commande :code va expirer !',
-        'expiring_message' => 'Cette commande va expirer dans :remaining !'
+        'expiring_message' => 'Cette commande va expirer dans :remaining !',
     ],
 
     'modals' => [
         'editPrices' => [
             'title' => 'Modifier les prix de :code',
-            'desc' => 'Cette fenêtre vous permet de recalculer le prix des éléments de la commande avec des données à jour.'
+            'desc' => 'Cette fenêtre vous permet de recalculer le prix des éléments de la commande avec des données à jour.',
         ],
         'editTime' => [
             'title' => 'Étendre le délai de :code',
-            'desc' => 'Cette fenêtre vous permet d\'ajouter des jours au délai de livraison de cette commande.'
-        ]
-    ]
+            'desc' => 'Cette fenêtre vous permet d\'ajouter des jours au délai de livraison de cette commande.',
+        ],
+    ],
 ];

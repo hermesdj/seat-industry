@@ -9,16 +9,16 @@ class IndustryBlueprints extends Model
 {
     use IsReadOnly;
 
-    protected $table = "industryActivityProbabilities";
+    protected $table = 'industryActivityProbabilities';
 
     public $incrementing = false;
+
     public $timestamps = false;
 
-    protected $primaryKey = "typeID";
+    protected $primaryKey = 'typeID';
 
     /**
      * typeID is the blueprint typeid in invTypes
-     * @return int
      */
     public function getTypeID(): int
     {
@@ -27,7 +27,6 @@ class IndustryBlueprints extends Model
 
     /**
      * How many blueprint runs can be on a BPC
-     * @return int
      */
     public function getMaxProductionLimit(): int
     {

@@ -10,21 +10,23 @@ use Seat\Eveapi\Traits\IsReadOnly;
 class IndustryActivity extends Model
 {
     use HasCompositePrimaryKey;
-    use IsReadOnly;
     use HasFactory;
+    use IsReadOnly;
 
     public $incrementing = false;
+
     public $timestamps = false;
+
     protected $table = 'industryActivity';
+
     protected $primaryKey = ['typeID', 'activityID'];
 
     protected $casts = [
-        "activityID" => ActivityTypeEnum::class
+        'activityID' => ActivityTypeEnum::class,
     ];
 
     /**
      * typeID is the blueprint typeid in invTypes
-     * @return int
      */
     public function getTypeID(): int
     {
@@ -33,7 +35,6 @@ class IndustryActivity extends Model
 
     /**
      * activity type id is either copy/improve/invention etc. See ActivityTypeEnum
-     * @return ActivityTypeEnum
      */
     public function getActivityID(): ActivityTypeEnum
     {
@@ -42,7 +43,6 @@ class IndustryActivity extends Model
 
     /**
      * Base time before modifier for an industry job
-     * @return int
      */
     public function getTime(): int
     {

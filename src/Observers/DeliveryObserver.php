@@ -2,8 +2,8 @@
 
 namespace Seat\HermesDj\Industry\Observers;
 
-use Seat\HermesDj\Industry\Models\Statistics\DeliveryStatistic;
 use RecursiveTree\Seat\TreeLib\Helpers\SeatInventoryPluginHelper;
+use Seat\HermesDj\Industry\Models\Statistics\DeliveryStatistic;
 
 class DeliveryObserver
 {
@@ -25,20 +25,22 @@ class DeliveryObserver
                 //check if we have to add a source
                 if ($order->add_seat_inventory && $source === null) {
                     //TODO fix inventory integration
-                    $workspace = SeatInventoryPluginHelper::$WORKSPACE_MODEL::where("name", "like", "%add2Industry%")->first();
+                    $workspace = SeatInventoryPluginHelper::$WORKSPACE_MODEL::where('name', 'like', '%add2Industry%')->first();
 
-                    if (!$workspace) return;
+                    if (! $workspace) {
+                        return;
+                    }
 
                     $user_name = $delivery->user->name;
-                    $source = new SeatInventoryPluginHelper::$INVENTORY_SOURCE_MODEL();
-                    $source->location_id = SeatInventoryPluginHelper::$LOCATION_MODEL::where("structure_id", $order->location_id)->orWhere("station_id", $order->location_id)->first()->id;
+                    $source = new SeatInventoryPluginHelper::$INVENTORY_SOURCE_MODEL;
+                    $source->location_id = SeatInventoryPluginHelper::$LOCATION_MODEL::where('structure_id', $order->location_id)->orWhere('station_id', $order->location_id)->first()->id;
                     $source->source_name = "alliance-industry delivery (#$order->id) from $user_name";
-                    $source->source_type = "alliance_industry_delivery";
+                    $source->source_type = 'alliance_industry_delivery';
                     $source->workspace_id = $workspace->id;
                     $source->save();
 
                     foreach ($order->items as $order_item) {
-                        $item = new SeatInventoryPluginHelper::$INVENTORY_ITEM_MODEL();
+                        $item = new SeatInventoryPluginHelper::$INVENTORY_ITEM_MODEL;
                         $item->source_id = $source->id;
                         $item->type_id = $order_item->type_id;
                         $item->amount = $order_item->quantity * $order->quantity;
@@ -65,7 +67,7 @@ class DeliveryObserver
             'delivery_id' => $delivery->id,
             'user_id' => $delivery->user_id,
             'accepted' => $delivery->accepted,
-            'completed_at' => $delivery->completed_at
+            'completed_at' => $delivery->completed_at,
         ]);
     }
 
@@ -87,11 +89,13 @@ class DeliveryObserver
         $order = $delivery->order;
 
         //this is the case when the order observe triggers the deletion of related deliveries
-        if (!$order) return;
+        if (! $order) {
+            return;
+        }
 
         $is_completed = false;
         foreach ($order->deliveries as $delivery) {
-            if (!$delivery->completed) {
+            if (! $delivery->completed) {
                 $is_completed = false;
                 break;
             } else {

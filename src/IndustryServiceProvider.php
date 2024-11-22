@@ -22,7 +22,7 @@ class IndustryServiceProvider extends AbstractSeatPlugin
     {
         IndustrySettings::init();
 
-        $this->loadMigrationsFrom(__DIR__ . '/database/migrations/');
+        $this->loadMigrationsFrom(__DIR__.'/database/migrations/');
 
         Delivery::observe(DeliveryObserver::class);
         Order::observe(OrderObserver::class);
@@ -36,52 +36,49 @@ class IndustryServiceProvider extends AbstractSeatPlugin
 
     public function register(): void
     {
-        $this->mergeConfigFrom(__DIR__ . '/Config/seat-industry.sidebar.php', 'package.sidebar');
-        $this->mergeConfigFrom(__DIR__ . '/Config/notifications.alerts.php', 'notifications.alerts');
-        $this->mergeConfigFrom(__DIR__ . '/Config/inventory.sources.php', 'inventory.sources');
-        $this->mergeConfigFrom(__DIR__ . '/Config/priceproviders.backends.php', 'priceproviders.backends');
-        $this->mergeConfigFrom(__DIR__ . '/Config/seat-industry.sde.tables.php', 'seat.sde.tables');
+        $this->mergeConfigFrom(__DIR__.'/Config/seat-industry.sidebar.php', 'package.sidebar');
+        $this->mergeConfigFrom(__DIR__.'/Config/notifications.alerts.php', 'notifications.alerts');
+        $this->mergeConfigFrom(__DIR__.'/Config/inventory.sources.php', 'inventory.sources');
+        $this->mergeConfigFrom(__DIR__.'/Config/priceproviders.backends.php', 'priceproviders.backends');
+        $this->mergeConfigFrom(__DIR__.'/Config/seat-industry.sde.tables.php', 'seat.sde.tables');
 
-        $this->registerPermissions(__DIR__ . '/Config/seat-industry.permissions.php', 'seat-industry');
+        $this->registerPermissions(__DIR__.'/Config/seat-industry.permissions.php', 'seat-industry');
 
-        Gate::define('seat-industry.same-user', UserPolicy::class . '@checkUser');
+        Gate::define('seat-industry.same-user', UserPolicy::class.'@checkUser');
     }
 
     private function addRoutes(): void
     {
-        $this->loadRoutesFrom(__DIR__ . '/Http/routes.php');
+        $this->loadRoutesFrom(__DIR__.'/Http/routes.php');
     }
 
     private function addViews(): void
     {
-        $this->loadViewsFrom(__DIR__ . '/resources/views/', 'seat-industry');
+        $this->loadViewsFrom(__DIR__.'/resources/views/', 'seat-industry');
     }
 
     private function addTranslations(): void
     {
-        $this->loadTranslationsFrom(__DIR__ . '/resources/lang/', 'seat-industry');
+        $this->loadTranslationsFrom(__DIR__.'/resources/lang/', 'seat-industry');
     }
 
-    private function addMigrations(): void
-    {
-
-    }
+    private function addMigrations(): void {}
 
     private function addCommands(): void
     {
         Artisan::command('seat-industry:notifications {--sync}', function () {
-            if ($this->option("sync")) {
-                $this->info("processing...");
+            if ($this->option('sync')) {
+                $this->info('processing...');
                 SendExpiredOrderNotifications::dispatchSync();
-                $this->info("Synchronously sent notification!");
+                $this->info('Synchronously sent notification!');
             } else {
                 SendExpiredOrderNotifications::dispatch()->onQueue('notifications');
-                $this->info("Scheduled notifications!");
+                $this->info('Scheduled notifications!');
             }
         });
 
         Artisan::command('seat-industry:orders:repeating {--sync}', function () {
-            if ($this->option("sync")) {
+            if ($this->option('sync')) {
                 UpdateRepeatingOrders::dispatchSync();
             } else {
                 UpdateRepeatingOrders::dispatch();
@@ -89,7 +86,7 @@ class IndustryServiceProvider extends AbstractSeatPlugin
         });
 
         Artisan::command('seat-industry:deliveries:expired {--sync}', function () {
-            if ($this->option("sync")) {
+            if ($this->option('sync')) {
                 RemoveExpiredDeliveries::dispatchSync();
             } else {
                 RemoveExpiredDeliveries::dispatch();

@@ -26,7 +26,7 @@ class OrderNotificationSlack extends AbstractSlackNotification implements Should
     {
         $order = $this->order;
 
-        $pings = implode(" ", array_map(function ($role) {
+        $pings = implode(' ', array_map(function ($role) {
             return "<@&$role>";
         }, IndustrySettings::$ORDER_CREATION_PING_ROLES->get([])));
 
@@ -34,20 +34,20 @@ class OrderNotificationSlack extends AbstractSlackNotification implements Should
             ->success()
             ->from(trans('seat-industry::ai-config.notification_from'));
 
-        if ($pings !== "") {
+        if ($pings !== '') {
             $message->content($pings);
         }
 
         $message->attachment(function ($attachment) use ($order) {
             $attachment
-                ->title(trans('seat-industry::ai-config.seat_alliance_industry_new_order_notification'), route("Industry.orders"));
+                ->title(trans('seat-industry::ai-config.seat_alliance_industry_new_order_notification'), route('Industry.orders'));
 
             $item_text = OrderItem::formatOrderItemsList($order);
             $location = $order->location()->name;
             $price = number_metric($order->price);
             $totalPrice = number_metric($order->price * $order->quantity);
-            $priorityName = PrioritySystem::getPriorityData()[$order->priority]["name"];
-            $priority = $priorityName ? trans("seat-industry::ai-orders.priority_$priorityName") : trans("seat.web.unknown");
+            $priorityName = PrioritySystem::getPriorityData()[$order->priority]['name'];
+            $priority = $priorityName ? trans("seat-industry::ai-orders.priority_$priorityName") : trans('seat.web.unknown');
 
             $attachment->field(function ($field) use ($item_text, $priority, $totalPrice, $price, $location) {
                 $field
@@ -57,10 +57,11 @@ class OrderNotificationSlack extends AbstractSlackNotification implements Should
                         'priority' => $priority,
                         'price' => $price,
                         'totalPrice' => $totalPrice,
-                        'location' => $location
+                        'location' => $location,
                     ]));
             });
         });
+
         return $message;
     }
 }

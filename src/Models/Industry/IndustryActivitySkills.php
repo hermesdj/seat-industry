@@ -9,14 +9,14 @@ class IndustryActivitySkills extends Model
 {
     use IsReadOnly;
 
-    protected $table = "industryActivitySkills";
+    protected $table = 'industryActivitySkills';
 
     public $incrementing = false;
+
     public $timestamps = false;
 
     /**
      * typeID is the blueprint typeid in invTypes
-     * @return int
      */
     public function getTypeID(): int
     {
@@ -25,7 +25,6 @@ class IndustryActivitySkills extends Model
 
     /**
      * activity type id is either copy/improve/invention etc. See ActivityTypeEnum
-     * @return ActivityTypeEnum
      */
     public function getActivityID(): ActivityTypeEnum
     {
@@ -34,7 +33,6 @@ class IndustryActivitySkills extends Model
 
     /**
      * Return the ID of the skill required to run the job
-     * @return int
      */
     public function getSkillID(): int
     {
@@ -43,7 +41,6 @@ class IndustryActivitySkills extends Model
 
     /**
      * Return the level of the skill needed
-     * @return int
      */
     public function getLevel(): int
     {

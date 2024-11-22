@@ -7,9 +7,9 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Seat\HermesDj\Industry\IndustrySettings;
 use Seat\Eveapi\Models\Universe\UniverseStation;
 use Seat\Eveapi\Models\Universe\UniverseStructure;
+use Seat\HermesDj\Industry\IndustrySettings;
 use Seat\Web\Http\Controllers\Controller;
 
 class IndustrySettingsController extends Controller
@@ -21,9 +21,8 @@ class IndustrySettingsController extends Controller
 
         $defaultOrderLocation = IndustrySettings::$DEFAULT_ORDER_LOCATION->get(60003760);
         $mpp = IndustrySettings::$MINIMUM_PROFIT_PERCENTAGE->get(2.5);
-        $orderCreationPingRoles = implode(" ", IndustrySettings::$ORDER_CREATION_PING_ROLES->get([]));
+        $orderCreationPingRoles = implode(' ', IndustrySettings::$ORDER_CREATION_PING_ROLES->get([]));
         $allowPriceBelowAutomatic = IndustrySettings::$ALLOW_PRICES_BELOW_AUTOMATIC->get(false);
-
 
         $default_price_provider = IndustrySettings::$DEFAULT_PRICE_PROVIDER->get();
         //dd($default_price_provider);
@@ -33,17 +32,17 @@ class IndustrySettingsController extends Controller
         $allowedPriceProviders = IndustrySettings::$ALLOWED_PRICE_PROVIDERS->get([$default_price_provider]);
 
         return view(
-            "seat-industry::settings",
+            'seat-industry::settings',
             compact(
-                "removeExpiredDeliveries",
-                "default_price_provider",
-                "mpp",
-                "orderCreationPingRoles",
-                "allowPriceBelowAutomatic",
-                "stations",
-                "structures",
-                "defaultOrderLocation",
-                "allowedPriceProviders"
+                'removeExpiredDeliveries',
+                'default_price_provider',
+                'mpp',
+                'orderCreationPingRoles',
+                'allowPriceBelowAutomatic',
+                'stations',
+                'structures',
+                'defaultOrderLocation',
+                'allowedPriceProviders'
             )
         );
     }
@@ -51,13 +50,13 @@ class IndustrySettingsController extends Controller
     public function saveSettings(Request $request): RedirectResponse
     {
         $request->validate([
-            "minimumprofitpercentage" => "required|numeric",
-            "pingRolesOrderCreation" => "string|nullable",
-            "allowPriceBelowAutomatic" => "nullable|in:on",
-            "defaultLocation" => "required|integer",
-            "defaultPriceProvider" => "required|integer",
-            "removeExpiredDeliveries" => "nullable|in:on",
-            "priceProviderWhitelist.*" => "integer"
+            'minimumprofitpercentage' => 'required|numeric',
+            'pingRolesOrderCreation' => 'string|nullable',
+            'allowPriceBelowAutomatic' => 'nullable|in:on',
+            'defaultLocation' => 'required|integer',
+            'defaultPriceProvider' => 'required|integer',
+            'removeExpiredDeliveries' => 'nullable|in:on',
+            'priceProviderWhitelist.*' => 'integer',
         ]);
 
         $roles = [];
@@ -69,7 +68,7 @@ class IndustrySettingsController extends Controller
             $roles = $matches[0];
         }
 
-        IndustrySettings::$DEFAULT_PRICE_PROVIDER->set((int)$request->defaultPriceProvider);
+        IndustrySettings::$DEFAULT_PRICE_PROVIDER->set((int) $request->defaultPriceProvider);
 
         IndustrySettings::$MINIMUM_PROFIT_PERCENTAGE->set(floatval($request->minimumprofitpercentage));
         IndustrySettings::$ORDER_CREATION_PING_ROLES->set($roles);
@@ -78,7 +77,8 @@ class IndustrySettingsController extends Controller
         IndustrySettings::$REMOVE_EXPIRED_DELIVERIES->set(boolval($request->removeExpiredDeliveries));
         IndustrySettings::$ALLOWED_PRICE_PROVIDERS->set($request->priceProviderWhitelist);
 
-        $request->session()->flash("success", trans('seat-industry::ai-settings.update_settings_success'));
-        return redirect()->route("Industry.settings");
+        $request->session()->flash('success', trans('seat-industry::ai-settings.update_settings_success'));
+
+        return redirect()->route('Industry.settings');
     }
 }
