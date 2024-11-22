@@ -12,7 +12,7 @@
 
                 <form
                         id="formEditOrderPrices" method="POST"
-                        action="{{ route('Industry.extendOrderTime', ['orderId' => $order->id]) }}"
+                        action="{{ route('seat-industry.extendOrderTime', ['orderId' => $order->id]) }}"
                         class="form-horizontal"
                 >
                     @csrf

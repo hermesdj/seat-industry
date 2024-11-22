@@ -10,8 +10,8 @@
         <div class="card-body">
             <h5 class="card-header d-flex flex-row align-items-baseline">
                 {{trans('seat-industry::ai-orders.open_orders_title')}}
-                @can("Industry.create_orders")
-                    <a href="{{ route("Industry.createOrder") }}"
+                @can("seat-industry.create_orders")
+                    <a href="{{ route("seat-industry.createOrder") }}"
                        class="btn btn-primary ml-auto">{{trans('seat-industry::ai-orders.create_order_title')}}</a>
                 @endcan
             </h5>
@@ -27,7 +27,7 @@
                 {{trans('seat-industry::ai-orders.your_orders_title')}}
 
                 @if($personalOrders->where("completed",true)->isNotEmpty())
-                    <form action="{{ route("Industry.deleteCompletedOrders") }}" method="POST" class="ml-auto">
+                    <form action="{{ route("seat-industry.deleteCompletedOrders") }}" method="POST" class="ml-auto">
                         @csrf
                         <button class="btn btn-danger">{{trans('seat-industry::ai-orders.close_all_completed_orders_btn')}}</button>
                     </form>

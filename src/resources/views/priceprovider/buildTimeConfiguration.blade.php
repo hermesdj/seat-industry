@@ -11,7 +11,7 @@
             <h3 class="card-title">{{trans('seat-industry::ai-common.edit_price_provider_title')}}</h3>
         </div>
         <div class="card-body">
-            <form action="{{ route('Industry.priceprovider.buildtime.configuration.post') }}" method="POST">
+            <form action="{{ route('seat-industry.priceprovider.buildtime.configuration.post') }}" method="POST">
                 @csrf
                 <input type="hidden" name="id" value="{{ $id ?? "" }}">
 

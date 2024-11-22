@@ -29,9 +29,11 @@ class IndustryServiceProvider extends AbstractSeatPlugin
         User::observe(UserObserver::class);
 
         $this->addCommands();
+        $this->addMigrations();
         $this->addViews();
         $this->addTranslations();
         $this->addCommands();
+        $this->addRoutes();
     }
 
     public function register(): void

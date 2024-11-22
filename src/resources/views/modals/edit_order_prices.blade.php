@@ -12,11 +12,11 @@
 
                 <form
                         id="formEditOrderPrices" method="POST"
-                        action="{{ route('Industry.updateOrderPrice', ['orderId' => $order->id]) }}"
+                        action="{{ route('seat-industry.updateOrderPrice', ['orderId' => $order->id]) }}"
                         class="form-horizontal"
                 >
                     @csrf
-                    @can('Industry.change_price_provider')
+                    @can('seat-industry.change_price_provider')
                         <div class="form-group">
                             <label for="priceprovider">{{trans('seat-industry::ai-common.price_provider_label')}}</label>
                             @include("seat-industry::utils.priceProviderSelector",["id"=>"priceprovider","name"=>"priceprovider","instance_id"=>$order->priceProvider])

@@ -79,6 +79,6 @@ class IndustrySettingsController extends Controller
 
         $request->session()->flash('success', trans('seat-industry::ai-settings.update_settings_success'));
 
-        return redirect()->route('Industry.settings');
+        return redirect()->route('seat-industry.settings');
     }
 }

@@ -40,7 +40,7 @@ class OrderNotificationSlack extends AbstractSlackNotification implements Should
 
         $message->attachment(function ($attachment) use ($order) {
             $attachment
-                ->title(trans('seat-industry::ai-config.seat_alliance_industry_new_order_notification'), route('Industry.orders'));
+                ->title(trans('seat-industry::ai-config.seat_alliance_industry_new_order_notification'), route('seat-industry.orders'));
 
             $item_text = OrderItem::formatOrderItemsList($order);
             $location = $order->location()->name;

@@ -23,11 +23,11 @@
     @foreach($deliveries as $delivery)
         <tr>
             <td>
-                <a href="{{ route("Industry.deliveryDetails",$delivery->id) }}">{{$delivery->delivery_code}}</a>
+                <a href="{{ route("seat-industry.deliveryDetails",$delivery->id) }}">{{$delivery->delivery_code}}</a>
             </td>
             @if($showOrder ?? false)
                 <td>
-                    <a href="{{ route("Industry.orderDetails",$delivery->order_id) }}">{{ $delivery->order->reference }}</a>
+                    <a href="{{ route("seat-industry.orderDetails",$delivery->order_id) }}">{{ $delivery->order->reference }}</a>
                 </td>
             @endif
             <td data-order="{{ $delivery->totalQuantity() }}" data-filter="_">

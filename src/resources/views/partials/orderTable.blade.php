@@ -1,7 +1,7 @@
 <table class="data-table table table-striped table-hover">
     <thead>
     <tr>
-        @can("Industry.order_priority")
+        @can("seat-industry.order_priority")
             <th>{{trans('seat-industry::ai-common.tags_header')}}</th>
         @endcan
         <th>{{trans('seat-industry::ai-orders.order_id')}}</th>
@@ -18,7 +18,7 @@
     <tbody>
     @foreach($orders as $order)
         <tr>
-            @can("Industry.order_priority")
+            @can("seat-industry.order_priority")
                 <td data-sort="{{ $order->priority }}" data-filter="_">
                     @include("treelib::partials.priority",["priority"=>$order->priority])
                     @if($order->is_repeating)
@@ -27,7 +27,7 @@
                 </td>
             @endcan
             <td>
-                <a href="{{ route("Industry.orderDetails",$order->id) }}">{{ $order->order_id }}</a>
+                <a href="{{ route("seat-industry.orderDetails",$order->id) }}">{{ $order->order_id }}</a>
             </td>
             <td>
                 {{ $order->reference }} x{{$order->quantity}}

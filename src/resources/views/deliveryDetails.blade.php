@@ -20,7 +20,7 @@
                         <div class="col mb-3">
                             <p class="small text-muted mb-1">{{trans('seat-industry::ai-deliveries.fields.order')}}</p>
                             <p>
-                                <a href="{{ route("Industry.orderDetails",$delivery->order_id) }}">{{ $delivery->order->order_id }}</a>
+                                <a href="{{ route("seat-industry.orderDetails",$delivery->order_id) }}">{{ $delivery->order->order_id }}</a>
                             </p>
                         </div>
                         <div class="col mb-3">
@@ -49,7 +49,7 @@
                     </div>
                     <div class="d-flex flex-row">
                         @can("seat-industry.same-user",$delivery->user_id)
-                            <form action="{{ route("Industry.setDeliveryState", ['deliveryId' => $delivery->id]) }}"
+                            <form action="{{ route("seat-industry.setDeliveryState", ['deliveryId' => $delivery->id]) }}"
                                   method="POST"
                                   class="mx-1"
                             >
@@ -72,8 +72,8 @@
                                     <input type="hidden" name="completed" value="1">
                                 @endif
                             </form>
-                            @if(!$delivery->completed || auth()->user()->can("Industry.admin"))
-                                <form action="{{ route("Industry.deleteDelivery", ['deliveryId' => $delivery->id]) }}"
+                            @if(!$delivery->completed || auth()->user()->can("seat-industry.admin"))
+                                <form action="{{ route("seat-industry.deleteDelivery", ['deliveryId' => $delivery->id]) }}"
                                       method="POST"
                                       class="mx-1">
                                     @csrf
