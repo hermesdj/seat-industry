@@ -119,7 +119,7 @@ class IndustryHelper
 
     public static function computeDeliveryBuildPlan($delivery): Collection
     {
-        $orderItems = $delivery->deliveryItems()->get()->filte(function ($d) {
+        $orderItems = $delivery->deliveryItems()->get()->filter(function ($d) {
             return ! $d->orderItem->rejected;
         })->map(function ($d) {
             return $d->orderItem;
