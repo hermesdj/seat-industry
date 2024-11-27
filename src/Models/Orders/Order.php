@@ -37,7 +37,8 @@ class Order extends Model
         return $this->hasMany(OrderItem::class, 'order_id', 'id');
     }
 
-    public function allowedItems(): HasMany {
+    public function allowedItems(): HasMany
+    {
         return $this->hasMany(OrderItem::class, 'order_id', 'id')->where('rejected', false);
     }
 

@@ -42,7 +42,7 @@ class IndustryHelper
 
             $metaType = $metaTypes->where('typeID', $item->productTypeId)->first();
 
-            if (!self::isAllowed($metaType)) {
+            if (! self::isAllowed($metaType)) {
                 Log::debug("No Allowed Item Meta Type $metaType->metaGroupID");
 
                 continue;
@@ -68,7 +68,7 @@ class IndustryHelper
             $blueprint = $blueprints->where('typeID', $item->blueprintTypeId)->first();
 
             if ($blueprint == null) {
-                Log::debug("No IndustryBlueprint found for $item->productTypeId with blueprint id " . $item->blueprintTypeId);
+                Log::debug("No IndustryBlueprint found for $item->productTypeId with blueprint id ".$item->blueprintTypeId);
 
                 continue;
             }
@@ -120,7 +120,7 @@ class IndustryHelper
     public static function computeDeliveryBuildPlan($delivery): Collection
     {
         $orderItems = $delivery->deliveryItems()->get()->filte(function ($d) {
-            return !$d->orderItem->rejected;
+            return ! $d->orderItem->rejected;
         })->map(function ($d) {
             return $d->orderItem;
         });
@@ -135,9 +135,7 @@ class IndustryHelper
         return $metaType == null || $allowedMetaGroups->contains($metaType->metaGroupID);
     }
 
-    private static function computeMaterialsRecursive($typeIds)
-    {
-    }
+    private static function computeMaterialsRecursive($typeIds) {}
 
     public static function computeBuildPlanManufacturing(BuildPlan $buildPlan): Collection
     {
