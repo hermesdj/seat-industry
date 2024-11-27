@@ -22,10 +22,10 @@ return new class extends Migration {
             $table->boolean('add_seat_inventory')->default(false);
             $table->float('profit');
             $table->integer('priority')->unsigned();
-            $table->bigInteger('priceProvider')->unsigned()->nullable();
             $table->boolean('is_repeating')->default(false)->nullable();
             $table->dateTime('repeat_date')->nullable();
             $table->smallInteger('repeat_interval')->unsigned()->nullable();
+            $table->bigInteger('priceProvider')->unsigned()->nullable();
             $table->string('order_id', 6);
             $table->string('reference', 32);
             $table->bigInteger('corp_id')->nullable();
