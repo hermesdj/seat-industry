@@ -23,10 +23,10 @@ class IndustrySkillsHelper
     private static function getBlueprintId($typeId)
     {
         $blueprintId = $typeId;
-        if (! IndustryBlueprints::where('typeID', $blueprintId)->exists()) {
+        if (!IndustryBlueprints::where('typeID', $blueprintId)->exists()) {
             // Go get the blueprint
             $blueprintType = IndustryActivityProducts::where('productTypeID', $typeId)->where('activityID', ActivityTypeEnum::MANUFACTURING)->first();
-            if (! $blueprintType) {
+            if (!$blueprintType) {
                 return collect();
             }
             $blueprintId = $blueprintType->typeID;
@@ -68,7 +68,11 @@ class IndustrySkillsHelper
     public static function computeManufacturingSkillsForOrderItems($user, $items)
     {
         foreach ($items as $item) {
-            $item->skills = self::hasRequiredManufacturingSkills($user, $item->type_id);
+            if (!$item->rejected) {
+                $item->skills = self::hasRequiredManufacturingSkills($user, $item->type_id);
+            } else {
+                $item->skills = null;
+            }
         }
 
         return $items;
