@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     public function up(): void
     {
         if (Schema::hasTable('seat_alliance_industry_orders')) {
@@ -13,7 +12,7 @@ return new class extends Migration
         }
 
         if (Schema::hasTable('seat_alliance_industry_order_items')) {
-            DB::statement('INSERT INTO seat_industry_order_items SELECT * FROM seat_alliance_industry_order_items');
+            DB::statement('INSERT INTO seat_industry_order_items SELECT id, order_id, type_id, quantity, unit_price, 0 FROM seat_alliance_industry_order_items');
         }
 
         if (Schema::hasTable('seat_alliance_industry_deliveries')) {
@@ -33,5 +32,7 @@ return new class extends Migration
         }
     }
 
-    public function down(): void {}
+    public function down(): void
+    {
+    }
 };

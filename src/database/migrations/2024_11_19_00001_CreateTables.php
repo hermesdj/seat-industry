@@ -6,8 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     public function up(): void
     {
         Schema::create('seat_industry_orders', function (Blueprint $table) {
@@ -24,7 +23,7 @@ return new class extends Migration
             $table->float('profit');
             $table->integer('priority')->unsigned();
             $table->bigInteger('priceProvider')->unsigned()->nullable();
-            $table->boolean('is_repeating')->default(false);
+            $table->boolean('is_repeating')->default(false)->nullable();
             $table->dateTime('repeat_date')->nullable();
             $table->smallInteger('repeat_interval')->unsigned()->nullable();
             $table->string('order_id', 6);
@@ -45,7 +44,6 @@ return new class extends Migration
 
         Schema::create('seat_industry_deliveries', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('delivery_code', 6);
             $table->bigInteger('order_id');
             $table->bigInteger('user_id');
             $table->integer('quantity');
@@ -53,6 +51,7 @@ return new class extends Migration
             $table->dateTime('accepted');
             $table->dateTime('completed_at')->nullable();
             $table->bigInteger('seat_inventory_source')->nullable();
+            $table->string('delivery_code', 6);
         });
 
         Schema::create('seat_industry_delivery_items', function (Blueprint $table) {
