@@ -16,6 +16,6 @@ jobs:
           coverage: xdebug
           tools: php-cs-fixer, phpunit
       - name: Install Dependencies
-        run: composer install -q --no-interaction --no-scripts
+        run: composer install -q --no-interaction --no-scripts --ignore-platform-reqs
       - name: Run translations check
         run: php artisan translations:check --excludedDirectories=vendor
