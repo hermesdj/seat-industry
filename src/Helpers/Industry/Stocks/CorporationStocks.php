@@ -49,7 +49,7 @@ class CorporationStocks extends AbstractStocks
             });
 
         foreach ($assets as $stock) {
-            if (!$this->stocks->has($stock->typeId)) {
+            if (! $this->stocks->has($stock->typeId)) {
                 $this->stocks->put($stock->typeId, collect());
             }
             $this->stocks->get($stock->typeId)->push($stock);
@@ -66,7 +66,7 @@ class CorporationStocks extends AbstractStocks
             });
 
         foreach ($jobs as $stock) {
-            if (!$this->stocks->has($stock->typeId)) {
+            if (! $this->stocks->has($stock->typeId)) {
                 $this->stocks->put($stock->typeId, collect());
             }
             $this->stocks->get($stock->typeId)->push($stock);
