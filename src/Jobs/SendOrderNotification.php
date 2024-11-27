@@ -30,10 +30,10 @@ class SendOrderNotification
 
         $groups = NotificationGroup::with('alerts')
             ->whereHas('alerts', function ($query) {
-                $query->where('alert', 'seat_alliance_industry_new_order_notification');
+                $query->where('alert', 'seat_industry_new_order_notification');
             })->get();
 
-        $this->dispatchNotifications('seat_alliance_industry_new_order_notification', $groups, function ($constructor) use ($order) {
+        $this->dispatchNotifications('seat_industry_new_order_notification', $groups, function ($constructor) use ($order) {
             return new $constructor($order);
         });
     }

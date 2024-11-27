@@ -87,9 +87,9 @@ return new class extends Migration
     {
         Schema::dropIfExists('seat_industry_orders');
         Schema::dropIfExists('seat_industry_deliveries');
-        Schema::dropIfExists('seat_alliance_industry_order_items');
-        Schema::dropIfExists('seat_alliance_industry_delivery_items');
-        Schema::dropIfExists('seat_alliance_industry_orders_statistics');
-        Schema::dropIfExists('seat_alliance_industry_deliveries_statistics');
+        Schema::dropIfExists('seat_industry_order_items');
+        Schema::dropIfExists('seat_industry_delivery_items');
+        Schema::dropIfExists('seat_industry_orders_statistics');
+        Schema::dropIfExists('seat_industry_deliveries_statistics');
     }
 };

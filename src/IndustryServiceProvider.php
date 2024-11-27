@@ -11,9 +11,7 @@ use Seat\HermesDj\Industry\Commands\SyncUserAssetNames;
 use Seat\HermesDj\Industry\Http\Composers\DeliveryMenu;
 use Seat\HermesDj\Industry\Http\Composers\OrderMenu;
 use Seat\HermesDj\Industry\Http\Composers\OrdersMenu;
-use Seat\HermesDj\Industry\Jobs\RemoveExpiredDeliveries;
 use Seat\HermesDj\Industry\Jobs\SendExpiredOrderNotifications;
-use Seat\HermesDj\Industry\Jobs\UpdateRepeatingOrders;
 use Seat\HermesDj\Industry\Models\Deliveries\Delivery;
 use Seat\HermesDj\Industry\Models\Industry\ActivityTypeEnum;
 use Seat\HermesDj\Industry\Models\Industry\IndustryActivityProducts;
@@ -31,7 +29,7 @@ class IndustryServiceProvider extends AbstractSeatPlugin
     {
         IndustrySettings::init();
 
-        $this->loadMigrationsFrom(__DIR__.'/database/migrations/');
+        $this->loadMigrationsFrom(__DIR__ . '/database/migrations/');
 
         Delivery::observe(DeliveryObserver::class);
         Order::observe(OrderObserver::class);
@@ -49,29 +47,29 @@ class IndustryServiceProvider extends AbstractSeatPlugin
 
     public function register(): void
     {
-        $this->mergeConfigFrom(__DIR__.'/Config/seat-industry.sidebar.php', 'package.sidebar');
-        $this->mergeConfigFrom(__DIR__.'/Config/notifications.alerts.php', 'notifications.alerts');
-        $this->mergeConfigFrom(__DIR__.'/Config/inventory.sources.php', 'inventory.sources');
-        $this->mergeConfigFrom(__DIR__.'/Config/seat-industry.sde.tables.php', 'seat.sde.tables');
+        $this->mergeConfigFrom(__DIR__ . '/Config/seat-industry.sidebar.php', 'package.sidebar');
+        $this->mergeConfigFrom(__DIR__ . '/Config/notifications.alerts.php', 'notifications.alerts');
+        $this->mergeConfigFrom(__DIR__ . '/Config/inventory.sources.php', 'inventory.sources');
+        $this->mergeConfigFrom(__DIR__ . '/Config/seat-industry.sde.tables.php', 'seat.sde.tables');
 
         // Menus
-        $this->mergeConfigFrom(__DIR__.'/Config/package.orders.menu.php', 'package.seat-industry.orders.menu');
-        $this->mergeConfigFrom(__DIR__.'/Config/package.order.menu.php', 'package.seat-industry.order.menu');
-        $this->mergeConfigFrom(__DIR__.'/Config/package.delivery.menu.php', 'package.seat-industry.delivery.menu');
+        $this->mergeConfigFrom(__DIR__ . '/Config/package.orders.menu.php', 'package.seat-industry.orders.menu');
+        $this->mergeConfigFrom(__DIR__ . '/Config/package.order.menu.php', 'package.seat-industry.order.menu');
+        $this->mergeConfigFrom(__DIR__ . '/Config/package.delivery.menu.php', 'package.seat-industry.delivery.menu');
 
-        $this->registerPermissions(__DIR__.'/Config/seat-industry.permissions.php', 'seat-industry');
+        $this->registerPermissions(__DIR__ . '/Config/seat-industry.permissions.php', 'seat-industry');
 
-        Gate::define('seat-industry.same-user', UserPolicy::class.'@checkUser');
+        Gate::define('seat-industry.same-user', UserPolicy::class . '@checkUser');
     }
 
     private function addRoutes(): void
     {
-        $this->loadRoutesFrom(__DIR__.'/Http/routes.php');
+        $this->loadRoutesFrom(__DIR__ . '/Http/routes.php');
     }
 
     private function addViews(): void
     {
-        $this->loadViewsFrom(__DIR__.'/resources/views/', 'seat-industry');
+        $this->loadViewsFrom(__DIR__ . '/resources/views/', 'seat-industry');
     }
 
     private function addViewComposers(): void
@@ -91,10 +89,12 @@ class IndustryServiceProvider extends AbstractSeatPlugin
 
     private function addTranslations(): void
     {
-        $this->loadTranslationsFrom(__DIR__.'/resources/lang/', 'seat-industry');
+        $this->loadTranslationsFrom(__DIR__ . '/resources/lang/', 'seat-industry');
     }
 
-    private function addMigrations(): void {}
+    private function addMigrations(): void
+    {
+    }
 
     private function addCommands(): void
     {
@@ -111,30 +111,6 @@ class IndustryServiceProvider extends AbstractSeatPlugin
             } else {
                 SendExpiredOrderNotifications::dispatch()->onQueue('notifications');
                 $this->info('Scheduled notifications!');
-            }
-        });
-
-        Artisan::command('seat-industry:orders:repeating {--sync}', function () {
-            if ($this->option('sync')) {
-                UpdateRepeatingOrders::dispatchSync();
-            } else {
-                UpdateRepeatingOrders::dispatch();
-            }
-        });
-
-        Artisan::command('seat-industry:deliveries:expired {--sync}', function () {
-            if ($this->option('sync')) {
-                RemoveExpiredDeliveries::dispatchSync();
-            } else {
-                RemoveExpiredDeliveries::dispatch();
-            }
-        });
-
-        Artisan::command('seat-industry:assets:containers:names', function () {
-            if ($this->option('sync')) {
-                RemoveExpiredDeliveries::dispatchSync();
-            } else {
-                RemoveExpiredDeliveries::dispatch();
             }
         });
     }

@@ -34,7 +34,7 @@ class DeliveryObserver
                     $user_name = $delivery->user->name;
                     $source = new SeatInventoryPluginHelper::$INVENTORY_SOURCE_MODEL;
                     $source->location_id = SeatInventoryPluginHelper::$LOCATION_MODEL::where('structure_id', $order->location_id)->orWhere('station_id', $order->location_id)->first()->id;
-                    $source->source_name = "alliance-industry delivery (#$order->id) from $user_name";
+                    $source->source_name = "seat-industry delivery (#$order->id) from $user_name";
                     $source->source_type = 'alliance_industry_delivery';
                     $source->workspace_id = $workspace->id;
                     $source->save();
