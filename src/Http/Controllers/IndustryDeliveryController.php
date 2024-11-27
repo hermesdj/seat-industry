@@ -77,6 +77,7 @@ class IndustryDeliveryController extends Controller
 
         $items = $items->map(function ($item) {
             $item->deliveredQuantity = 0;
+
             return $item;
         });
 
