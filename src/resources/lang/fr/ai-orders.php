@@ -137,7 +137,7 @@ return [
         'delivered' => 'Livré',
         'remaining' => 'Reste à Livrer',
         'reference' => 'Référence',
-        'rejected' => 'Rejeté',
+        'rejected' => 'Non Fabriqué',
     ],
 
     'notifications' => [

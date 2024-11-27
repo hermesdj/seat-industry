@@ -141,7 +141,7 @@ return [
         'in_delivery' => 'In Delivery',
         'delivered' => 'Delivered',
         'remaining' => 'Remaining',
-        'rejected' => 'Rejected',
+        'rejected' => 'Not Crafted',
     ],
 
     'notifications' => [
