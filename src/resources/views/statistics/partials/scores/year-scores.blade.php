@@ -6,7 +6,7 @@
             [
                 'title' => trans('seat-industry::stats.scoreboard.bestProducersByCount'),
                 'scoreHeader' => trans('seat-industry::stats.scoreboard.headers.nb_deliveries'),
-                'rows' => $producersCountQuery->whereYear('completed_at', '=', \Carbon\Carbon::now()->year)->get()
+                'rows' => $producersCountQuery->clone()->whereYear('completed_at', '=', \Carbon\Carbon::now()->year)->get()
             ]
         )
     </div>
@@ -15,7 +15,7 @@
             [
                 'title' => trans('seat-industry::stats.scoreboard.bestProducersByTime'),
                 'scoreHeader' => trans('seat-industry::stats.scoreboard.headers.timediff'),
-                'rows' => \Seat\HermesDj\Industry\Helpers\StatsHelper::displayTimeValueAsHumanReadable($producersMeanTimeQuery->whereYear('completed_at', '=', \Carbon\Carbon::now()->year)->get())
+                'rows' => \Seat\HermesDj\Industry\Helpers\StatsHelper::displayTimeValueAsHumanReadable($producersMeanTimeQuery->clone()->whereYear('completed_at', '=', \Carbon\Carbon::now()->year)->get())
             ]
         )
     </div>
@@ -24,7 +24,7 @@
             [
                 'title' => trans('seat-industry::stats.scoreboard.fastestProducer'),
                 'scoreHeader' => trans('seat-industry::stats.scoreboard.headers.fastest_time'),
-                'rows' => \Seat\HermesDj\Industry\Helpers\StatsHelper::displayTimeValueAsHumanReadable($fastestProducerQuery->whereYear('completed_at', '=', \Carbon\Carbon::now()->year)->get())
+                'rows' => \Seat\HermesDj\Industry\Helpers\StatsHelper::displayTimeValueAsHumanReadable($fastestProducerQuery->clone()->whereYear('completed_at', '=', \Carbon\Carbon::now()->year)->get())
             ]
         )
     </div>
