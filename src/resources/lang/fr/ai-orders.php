@@ -15,7 +15,6 @@ return [
         'build_plan' => 'Plan de Fabrication',
     ],
 
-
     'repeating_order_title' => 'Commande répétée',
     'repeating_order_desc' => 'Ceci est une commande qui se republie elle-même chaque :days jours. La prochaine republication au lieu le :date.',
 
@@ -92,13 +91,13 @@ return [
         'titles' => [
             'available' => 'Disponibles',
             'corporation' => 'Réservées Corporation',
-            'my' => 'Mes Commandes'
-        ]
+            'my' => 'Mes Commandes',
+        ],
     ],
 
     'status' => [
         'available' => 'Disponible',
-        'unconfirmed' => 'Non Confirmé'
+        'unconfirmed' => 'Non Confirmé',
     ],
 
     'btns' => [
@@ -106,13 +105,13 @@ return [
         'reserveCorp' => 'Reservé Corp.',
         'unReserveCorp' => 'Non Reservé Corp.',
         'deleteOrder' => 'Supprimer',
-        'completeOrder' => 'Terminer'
+        'completeOrder' => 'Terminer',
     ],
 
     'items' => [
         'title' => [
             'accepted' => 'Lignes Acceptées',
-            'rejected' => 'Lignes Rejetées'
+            'rejected' => 'Lignes Rejetées',
         ],
         'headers' => [
             'type' => 'Objet',
@@ -128,7 +127,7 @@ return [
         'location' => 'Lieu de Livraison',
         'quantities' => 'Quantités Totales',
         'corporation' => 'Reservé par',
-        'reference' => 'Référence'
+        'reference' => 'Référence',
     ],
 
     'summary' => [
@@ -138,7 +137,7 @@ return [
         'delivered' => 'Livré',
         'remaining' => 'Reste à Livrer',
         'reference' => 'Référence',
-        'rejected' => 'Rejeté'
+        'rejected' => 'Rejeté',
     ],
 
     'notifications' => [
@@ -164,6 +163,6 @@ return [
     ],
 
     'messages' => [
-        'order_items_state_updated' => 'Etats des lignes recalculées avec succès !'
-    ]
+        'order_items_state_updated' => 'Etats des lignes recalculées avec succès !',
+    ],
 ];

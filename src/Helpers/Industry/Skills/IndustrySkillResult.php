@@ -7,6 +7,7 @@ use Illuminate\Support\Collection;
 class IndustrySkillResult
 {
     public Collection $skills;
+
     public Collection $missingSkills;
 
     public function __construct()

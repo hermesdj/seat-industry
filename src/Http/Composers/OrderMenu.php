@@ -33,7 +33,7 @@ class OrderMenu extends AbstractMenu
         $menu = [];
         $menuConfig = config('package.seat-industry.order.menu');
 
-        if (!empty($menuConfig)) {
+        if (! empty($menuConfig)) {
             foreach ($menuConfig as $menuData) {
                 $menu[] = $menuData;
             }

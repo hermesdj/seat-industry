@@ -18,7 +18,7 @@ return [
     'orders_menu' => [
         'available' => 'Disponible',
         'reserved_corp' => 'Réservées Corporation',
-        'my_orders' => 'Mes Commandes'
+        'my_orders' => 'Mes Commandes',
     ],
 
     'repeating_order_title' => 'Repeating Order',
@@ -96,13 +96,13 @@ return [
         'titles' => [
             'available' => 'Available',
             'corporation' => 'Corporation',
-            'my' => 'My Orders'
-        ]
+            'my' => 'My Orders',
+        ],
     ],
 
     'status' => [
         'available' => 'Available',
-        'unconfirmed' => 'Unconfirmed'
+        'unconfirmed' => 'Unconfirmed',
     ],
 
     'btns' => [
@@ -110,13 +110,13 @@ return [
         'reserveCorp' => 'Reserve Corp',
         'unReserveCorp' => 'Not Reserve Corp',
         'deleteOrder' => 'Delete Order',
-        'completeOrder' => 'Complete Order'
+        'completeOrder' => 'Complete Order',
     ],
 
     'items' => [
         'title' => [
             'accepted' => 'Accepted Items',
-            'rejected' => 'Rejected Items'
+            'rejected' => 'Rejected Items',
         ],
         'headers' => [
             'type' => 'Item',
@@ -132,7 +132,7 @@ return [
         'location' => 'Location',
         'quantities' => 'Total Quantities',
         'corporation' => 'Reserved By',
-        'reference' => 'Reference'
+        'reference' => 'Reference',
     ],
 
     'summary' => [
@@ -141,7 +141,7 @@ return [
         'in_delivery' => 'In Delivery',
         'delivered' => 'Delivered',
         'remaining' => 'Remaining',
-        'rejected' => 'Rejected'
+        'rejected' => 'Rejected',
     ],
 
     'notifications' => [
@@ -168,11 +168,11 @@ return [
 
     'ravworks' => [
         'export' => [
-            'btn' => 'Ravworks Export'
-        ]
+            'btn' => 'Ravworks Export',
+        ],
     ],
 
     'messages' => [
-        'order_items_state_updated' => 'Items states have been successfully updated !'
-    ]
+        'order_items_state_updated' => 'Items states have been successfully updated !',
+    ],
 ];

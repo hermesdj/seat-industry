@@ -25,7 +25,7 @@ class DeliveryMenu extends AbstractMenu
         $menu = [];
         $menuConfig = config('package.seat-industry.delivery.menu');
 
-        if (!empty($menuConfig)) {
+        if (! empty($menuConfig)) {
             foreach ($menuConfig as $menuData) {
                 $menu[] = $menuData;
             }

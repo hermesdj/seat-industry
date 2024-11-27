@@ -27,13 +27,13 @@ return [
 
     'btns' => [
         'fill' => 'Fill Order',
-        'empty' => 'Empty Order'
+        'empty' => 'Empty Order',
     ],
 
     'delivery_menu' => [
         'details' => 'Details',
         'ravworks' => 'Ravworks',
-        'build_plan' => 'Build Plan'
+        'build_plan' => 'Build Plan',
     ],
 
     'instructions' => [
@@ -56,7 +56,7 @@ return [
             'type' => 'Item Type',
             'available_quantity' => 'Available Quantity',
             'selected_quantity' => 'Selected Quantity',
-            'skills' => 'Skills'
+            'skills' => 'Skills',
         ],
     ],
 

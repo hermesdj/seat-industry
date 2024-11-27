@@ -32,6 +32,6 @@ return [
     'update_settings_success' => 'Mise à jour des paramètres effectuée.',
 
     'meta_type_whitelist' => [
-        'label' => 'Meta Types Autorisés'
-    ]
+        'label' => 'Meta Types Autorisés',
+    ],
 ];

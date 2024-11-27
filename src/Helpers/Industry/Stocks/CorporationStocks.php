@@ -33,6 +33,7 @@ class CorporationStocks extends AbstractStocks
     {
         if ($this->containers->isEmpty()) {
             $this->stocks = collect();
+
             return;
         }
 
@@ -47,12 +48,11 @@ class CorporationStocks extends AbstractStocks
             });
 
         foreach ($assets as $stock) {
-            if (!$this->stocks->has($stock->typeId)) {
+            if (! $this->stocks->has($stock->typeId)) {
                 $this->stocks->put($stock->typeId, collect());
             }
             $this->stocks->get($stock->typeId)->push($stock);
         }
-
 
         $jobs = CorporationIndustryJob::where('corporation_id', $this->corporation_id)
             ->where('status', 'active')
@@ -64,7 +64,7 @@ class CorporationStocks extends AbstractStocks
             });
 
         foreach ($jobs as $stock) {
-            if (!$this->stocks->has($stock->typeId)) {
+            if (! $this->stocks->has($stock->typeId)) {
                 $this->stocks->put($stock->typeId, collect());
             }
             $this->stocks->get($stock->typeId)->push($stock);

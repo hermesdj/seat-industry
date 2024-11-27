@@ -51,7 +51,7 @@ class IndustrySettings
         // when migrating fresh, this error might trigger
         try {
             $price_provider = self::$DEFAULT_PRICE_PROVIDER->get();
-            if (!is_numeric($price_provider)) {
+            if (! is_numeric($price_provider)) {
                 self::$DEFAULT_PRICE_PROVIDER->set(null);
             }
         } catch (QueryException $_) {

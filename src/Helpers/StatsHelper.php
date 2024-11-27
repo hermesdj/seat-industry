@@ -10,7 +10,8 @@ class StatsHelper
     public static function displayTimeValueAsHumanReadable(Collection $collection): Collection
     {
         return $collection->map(function ($row) {
-            $row->text = CarbonInterval::seconds((int)$row->value)->cascade()->forHumans(['parts' => 2, 'short' => true]);
+            $row->text = CarbonInterval::seconds((int) $row->value)->cascade()->forHumans(['parts' => 2, 'short' => true]);
+
             return $row;
         });
     }

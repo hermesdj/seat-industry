@@ -33,9 +33,6 @@ class UpdateCorpContainerNames extends AbstractAuthCorporationJob
      */
     protected $roles = ['Director'];
 
-    /**
-     * @var array
-     */
     protected array $tags = ['corporation', 'asset', 'deployable'];
 
     protected int $item_id_limit = 1000;
@@ -66,9 +63,9 @@ class UpdateCorpContainerNames extends AbstractAuthCorporationJob
 
                 $names->each(function ($name) {
                     // "None" seems to indidate that no name is set.
-                    if ($name->name === 'None')
+                    if ($name->name === 'None') {
                         return;
-
+                    }
 
                     CorporationAsset::where('corporation_id', $this->getCorporationId())
                         ->where('item_id', $name->item_id)

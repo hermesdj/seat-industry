@@ -19,9 +19,9 @@ class IndustryHelper
     private static function computeBuildPlan($items): Collection
     {
         $result = collect();
-        Log::debug("=================================================");
-        Log::debug("=================================================");
-        Log::debug("=========== BEGIN INDUSTRY BUILD PLAN ===========");
+        Log::debug('=================================================');
+        Log::debug('=================================================');
+        Log::debug('=========== BEGIN INDUSTRY BUILD PLAN ===========');
 
         $typeIds = $items->collect()->pluck('type_id');
         // These give the per run how many is produced
@@ -33,7 +33,7 @@ class IndustryHelper
 
         foreach ($items as $orderItem) {
             $type = $orderItem->type;
-            $item = new EndProductItem();
+            $item = new EndProductItem;
             $item->productTypeId = $type->getTypeID();
             $item->productName = $type->typeName;
             $item->targetQuantity = $orderItem->quantity;
@@ -42,8 +42,9 @@ class IndustryHelper
 
             $metaType = $metaTypes->where('typeID', $item->productTypeId)->first();
 
-            if (!self::isAllowed($metaType)) {
+            if (! self::isAllowed($metaType)) {
                 Log::debug("No Allowed Item Meta Type $metaType->metaGroupID");
+
                 continue;
             }
 
@@ -51,6 +52,7 @@ class IndustryHelper
 
             if ($activityProduct == null) {
                 Log::debug("No IndustryActivityProduct found for productTypeId $item->productTypeId");
+
                 continue;
             }
 
@@ -66,7 +68,8 @@ class IndustryHelper
             $blueprint = $blueprints->where('typeID', $item->blueprintTypeId)->first();
 
             if ($blueprint == null) {
-                Log::debug("No IndustryBlueprint found for $item->productTypeId with blueprint id " . $item->blueprintTypeId);
+                Log::debug("No IndustryBlueprint found for $item->productTypeId with blueprint id ".$item->blueprintTypeId);
+
                 continue;
             }
 
@@ -83,6 +86,7 @@ class IndustryHelper
                 $itemOne = clone $item;
                 $itemOne->nbTasks = 1;
                 $result->push($itemOne);
+
                 continue;
             }
 
@@ -125,13 +129,11 @@ class IndustryHelper
     private static function isAllowed($metaType): bool
     {
         $allowedMetaGroups = collect(self::$allowedMetaGroupIds);
+
         return $metaType == null || $allowedMetaGroups->contains($metaType->metaGroupID);
     }
 
-    private static function computeMaterialsRecursive($typeIds)
-    {
-
-    }
+    private static function computeMaterialsRecursive($typeIds) {}
 
     public static function computeBuildPlanManufacturing(BuildPlan $buildPlan): Collection
     {

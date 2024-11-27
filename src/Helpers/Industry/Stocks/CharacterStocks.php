@@ -11,6 +11,7 @@ use Seat\Web\Models\User;
 class CharacterStocks extends AbstractStocks
 {
     public User $user;
+
     public Collection $characterIds;
 
     public function __construct(Order $order, User $user)
@@ -23,6 +24,7 @@ class CharacterStocks extends AbstractStocks
     {
         $stocks = new CharacterStocks($order, $user);
         $stocks->characterIds = $user->characters()->get()->pluck('character_id');
+
         return $stocks;
     }
 
@@ -38,6 +40,7 @@ class CharacterStocks extends AbstractStocks
     {
         if ($this->containers->isEmpty()) {
             $this->stocks = collect();
+
             return;
         }
 
@@ -52,12 +55,11 @@ class CharacterStocks extends AbstractStocks
             });
 
         foreach ($assets as $stock) {
-            if (!$this->stocks->has($stock->typeId)) {
+            if (! $this->stocks->has($stock->typeId)) {
                 $this->stocks->put($stock->typeId, collect());
             }
             $this->stocks->get($stock->typeId)->push($stock);
         }
-
 
         $jobs = CharacterIndustryJob::where('character_id', $this->characterIds)
             ->where('status', 'active')
@@ -69,7 +71,7 @@ class CharacterStocks extends AbstractStocks
             });
 
         foreach ($jobs as $stock) {
-            if (!$this->stocks->has($stock->typeId)) {
+            if (! $this->stocks->has($stock->typeId)) {
                 $this->stocks->put($stock->typeId, collect());
             }
             $this->stocks->get($stock->typeId)->push($stock);

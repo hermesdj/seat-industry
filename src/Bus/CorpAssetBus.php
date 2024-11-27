@@ -61,6 +61,6 @@ class CorpAssetBus extends Bus
                             'total' => $batch->totalJobs,
                         ],
                     ]);
-            })->onQueue('corporations')->name($corporation->name . " Container Names")->allowFailures()->dispatch();
+            })->onQueue('corporations')->name($corporation->name.' Container Names')->allowFailures()->dispatch();
     }
 }

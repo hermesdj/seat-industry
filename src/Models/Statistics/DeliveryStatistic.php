@@ -2,7 +2,6 @@
 
 namespace Seat\HermesDj\Industry\Models\Statistics;
 
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -74,7 +73,8 @@ class DeliveryStatistic extends Model
             ->limit('10');
     }
 
-    public static function queryFastestCompletionTimeByUser(): Builder {
+    public static function queryFastestCompletionTimeByUser(): Builder
+    {
         return self::select(DB::raw('MIN(TIME_TO_SEC(TIMEDIFF(completed_at, accepted))) AS value, user_id'))
             ->whereNotNull('completed_at')
             ->groupBy('user_id')

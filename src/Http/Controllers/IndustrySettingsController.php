@@ -60,7 +60,7 @@ class IndustrySettingsController extends Controller
             'defaultPriceProvider' => 'required|integer',
             'removeExpiredDeliveries' => 'nullable|in:on',
             'priceProviderWhitelist.*' => 'integer',
-            'metaTypeWhiteList.*' => 'integer'
+            'metaTypeWhiteList.*' => 'integer',
         ]);
 
         $roles = [];
@@ -72,7 +72,7 @@ class IndustrySettingsController extends Controller
             $roles = $matches[0];
         }
 
-        IndustrySettings::$DEFAULT_PRICE_PROVIDER->set((int)$request->defaultPriceProvider);
+        IndustrySettings::$DEFAULT_PRICE_PROVIDER->set((int) $request->defaultPriceProvider);
 
         IndustrySettings::$MINIMUM_PROFIT_PERCENTAGE->set(floatval($request->minimumprofitpercentage));
         IndustrySettings::$ORDER_CREATION_PING_ROLES->set($roles);

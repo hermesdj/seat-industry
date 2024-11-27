@@ -44,17 +44,17 @@ return [
 
         'change_price_provider' => [
             'label' => 'Change Price Provider',
-            'desc' => 'Allow the user to change the price provider on an order'
+            'desc' => 'Allow the user to change the price provider on an order',
         ],
 
         'update_stocks' => [
             'label' => 'Update Stocks',
-            'description' => 'Allow the user to trigger update assets & assets names to sync stocks for an order'
+            'description' => 'Allow the user to trigger update assets & assets names to sync stocks for an order',
         ],
 
         'view_scoreboard' => [
             'label' => 'View Scoreboard',
-            'description' => 'Allow the user to consult the scoreboard'
-        ]
+            'description' => 'Allow the user to consult the scoreboard',
+        ],
     ],
 ];

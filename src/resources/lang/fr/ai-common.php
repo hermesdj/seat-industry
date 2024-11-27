@@ -8,7 +8,7 @@ return [
         'settings' => 'Paramètres',
         'about' => 'À propos',
         'create_order' => 'Nouvelle Commande',
-        'scoreboard' => 'Palmarès'
+        'scoreboard' => 'Palmarès',
     ],
 
     'cancel' => 'Annuler',
@@ -77,7 +77,7 @@ return [
     'error_not_allowed_to_create_delivery' => 'Vous n\'êtes pas autorisé à livrer pour cette commande.',
 
     'headers' => [
-        'order_status' => 'État'
+        'order_status' => 'État',
     ],
 
     'statistics' => [
@@ -88,10 +88,10 @@ return [
     ],
 
     'errors' => [
-        'no_allowed_meta_types' => 'Aucun Meta Type autorisé dans le plugin, création de commandes non autorisée'
+        'no_allowed_meta_types' => 'Aucun Meta Type autorisé dans le plugin, création de commandes non autorisée',
     ],
 
     'messages' => [
-        'copy_response' => 'Copié!'
-    ]
+        'copy_response' => 'Copié!',
+    ],
 ];

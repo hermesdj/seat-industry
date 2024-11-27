@@ -19,7 +19,8 @@ class SyncCorpAssetNames extends Command
         $corporations = $orders->pluck('corporation');
 
         if ($corporations->isEmpty()) {
-            logger()->debug("No corporations found");
+            logger()->debug('No corporations found');
+
             return $this::INVALID;
         } else {
             $corporations->each(function ($corp) {
@@ -32,6 +33,7 @@ class SyncCorpAssetNames extends Command
                     }
                 }
             });
+
             return $this::SUCCESS;
         }
     }

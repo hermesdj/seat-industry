@@ -44,6 +44,7 @@ class UserAssetBus extends Bus
 
         if ($this->jobs->isEmpty()) {
             logger()->warning('No jobs scheduled');
+
             return;
         }
 
@@ -76,6 +77,6 @@ class UserAssetBus extends Bus
                             'total' => $batch->totalJobs,
                         ],
                     ]);
-            })->onQueue('characters')->name($mainCharacter->name . " Container Names")->allowFailures()->dispatch();
+            })->onQueue('characters')->name($mainCharacter->name.' Container Names')->allowFailures()->dispatch();
     }
 }

@@ -37,15 +37,12 @@ class UpdateCharacterContainerNames extends AbstractAuthCharacterJob
     /**
      * The maximum number of itemids we can request name
      * information for.
-     *
-     * @var int
      */
     protected int $item_id_limit = 1000;
 
     /**
      * Execute the job.
      *
-     * @return void
      *
      * @throws Exception|Throwable
      */
@@ -75,8 +72,9 @@ class UpdateCharacterContainerNames extends AbstractAuthCharacterJob
                 $names->each(function ($name) {
 
                     // "None" seems to indicate that no name is set.
-                    if ($name->name === 'None')
+                    if ($name->name === 'None') {
                         return;
+                    }
 
                     CharacterAsset::where('character_id', $this->getCharacterId())
                         ->where('item_id', $name->item_id)

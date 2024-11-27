@@ -18,12 +18,12 @@ class OrdersMenu extends AbstractMenu
         $menu = [];
         $menuConfig = config('package.seat-industry.orders.menu');
 
-        if (!empty($menuConfig)) {
+        if (! empty($menuConfig)) {
             foreach ($menuConfig as $menuData) {
                 if (isset($menuData['badgeValueClass']) && isset($menuData['badgeValueMethod'])) {
                     $badgeClass = $menuData['badgeValueClass'];
                     $badgeMethod = $menuData['badgeValueMethod'];
-                    $menuData['value'] = call_user_func($badgeClass . '::' . $badgeMethod);
+                    $menuData['value'] = call_user_func($badgeClass.'::'.$badgeMethod);
                 }
                 $menu[] = $menuData;
             }

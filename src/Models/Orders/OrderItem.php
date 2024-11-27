@@ -78,7 +78,7 @@ class OrderItem extends Model implements HasTypeID, ToEveItem
         return $order->items->sortBy(function ($item) {
             return $item->type->typeName;
         })->map(function ($item) {
-            return '- ' . $item->type->typeName . ' ' . 'x' . $item->quantity;
+            return '- '.$item->type->typeName.' '.'x'.$item->quantity;
         })->join("\n");
     }
 
@@ -108,12 +108,15 @@ class OrderItem extends Model implements HasTypeID, ToEveItem
     private static function getBlueprintId($typeId)
     {
         $blueprintId = $typeId;
-        if (!IndustryBlueprints::where('typeID', $blueprintId)->exists()) {
+        if (! IndustryBlueprints::where('typeID', $blueprintId)->exists()) {
             // Go get the blueprint
             $blueprintType = IndustryActivityProducts::where('productTypeID', $typeId)->where('activityID', ActivityTypeEnum::MANUFACTURING)->first();
-            if (!$blueprintType) return 0;
+            if (! $blueprintType) {
+                return 0;
+            }
             $blueprintId = $blueprintType->typeID;
         }
+
         return $blueprintId;
     }
 

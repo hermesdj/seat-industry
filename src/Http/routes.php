@@ -14,7 +14,7 @@ Route::group([
     ]);
 
     Route::group([
-        'prefix' => 'orders'
+        'prefix' => 'orders',
     ], function (): void {
         Route::get('/', [
             'as' => 'seat-industry.orders',
@@ -127,7 +127,7 @@ Route::group([
         Route::post('/{order}/updateStocks', [
             'as' => 'seat-industry.updateStocks',
             'uses' => 'IndustryOrderController@updateStocks',
-            'middleware' => 'can:seat-industry.update_stocks'
+            'middleware' => 'can:seat-industry.update_stocks',
         ]);
 
         Route::post('/my/completed/delete', [
@@ -138,7 +138,7 @@ Route::group([
     });
 
     Route::group([
-        'prefix' => 'deliveries'
+        'prefix' => 'deliveries',
     ], function (): void {
         Route::get('/', [
             'as' => 'seat-industry.deliveries',
@@ -190,7 +190,7 @@ Route::group([
     });
 
     Route::group([
-        'prefix' => 'settings'
+        'prefix' => 'settings',
     ], function (): void {
         Route::get('/', [
             'as' => 'seat-industry.settings',
@@ -206,12 +206,12 @@ Route::group([
     });
 
     Route::group([
-        'prefix' => 'statistics'
+        'prefix' => 'statistics',
     ], function (): void {
         Route::get('/scoreboard', [
             'as' => 'seat-industry.scoreboard',
             'uses' => 'IndustryStatsController@scoreboard',
-            'middleware' => 'can:seat-industry.view_scoreboard'
+            'middleware' => 'can:seat-industry.view_scoreboard',
         ]);
     });
 });

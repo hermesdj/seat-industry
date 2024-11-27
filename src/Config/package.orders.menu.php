@@ -1,6 +1,5 @@
 <?php
 
-
 use Seat\HermesDj\Industry\Models\Orders\Order;
 
 return [
@@ -11,7 +10,7 @@ return [
         'highlight_view' => 'available',
         'route' => 'seat-industry.orders',
         'badgeValueClass' => Order::class,
-        'badgeValueMethod' => 'countAvailableOrders'
+        'badgeValueMethod' => 'countAvailableOrders',
     ],
     [
         'name' => 'corporationOrders',
@@ -20,7 +19,7 @@ return [
         'highlight_view' => 'corporationOrders',
         'route' => 'seat-industry.corporationOrders',
         'badgeValueClass' => Order::class,
-        'badgeValueMethod' => 'countCorporationOrders'
+        'badgeValueMethod' => 'countCorporationOrders',
     ],
     [
         'name' => 'myOrders',
@@ -29,6 +28,6 @@ return [
         'highlight_view' => 'myOrders',
         'route' => 'seat-industry.myOrders',
         'badgeValueClass' => Order::class,
-        'badgeValueMethod' => 'countPersonalOrders'
-    ]
+        'badgeValueMethod' => 'countPersonalOrders',
+    ],
 ];

@@ -8,7 +8,7 @@ return [
         'settings' => 'Settings',
         'about' => 'About',
         'create_order' => 'Create Order',
-        'scoreboard' => 'Scoreboard'
+        'scoreboard' => 'Scoreboard',
     ],
 
     'cancel' => 'Cancel',
@@ -76,7 +76,7 @@ return [
     'error_not_allowed_to_create_delivery' => 'You are not allowed to deliver for this order.',
 
     'headers' => [
-        'order_status' => 'Status'
+        'order_status' => 'Status',
     ],
 
     'statistics' => [
@@ -87,10 +87,10 @@ return [
     ],
 
     'errors' => [
-        'no_allowed_meta_types' => 'No Meta Types have been allowed, order creation is not authorized'
+        'no_allowed_meta_types' => 'No Meta Types have been allowed, order creation is not authorized',
     ],
 
     'messages' => [
-        'copy_response' => 'Copied!'
-    ]
+        'copy_response' => 'Copied!',
+    ],
 ];

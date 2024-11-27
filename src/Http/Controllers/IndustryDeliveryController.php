@@ -40,6 +40,7 @@ class IndustryDeliveryController extends Controller
         $buildPlan = new BuildPlan($delivery->order);
         $buildPlan->computeBuildPlanForDelivery($delivery);
         $buildPlan->computeOrderStocks(auth()->user());
+
         return view('seat-industry::deliveries.ravworks', compact('delivery', 'buildPlan'));
     }
 
@@ -53,7 +54,7 @@ class IndustryDeliveryController extends Controller
         $validated = $request->validate([
             'fill' => 'boolean',
             'item_ids' => 'array',
-            'item_ids.*' => 'integer'
+            'item_ids.*' => 'integer',
         ]);
 
         $corpIds = auth()->user()->characters->map(function ($char) {
@@ -64,8 +65,9 @@ class IndustryDeliveryController extends Controller
             return $id == $order->corp_id;
         });
 
-        if ($order->corp_id != null && !$isCorp) {
+        if ($order->corp_id != null && ! $isCorp) {
             $request->session()->flash('error', trans('seat-industry::ai-common.error_not_allowed_to_create_delivery'));
+
             return redirect()->route('seat-industry.orderDetails', ['order' => $order->id]);
         }
 
@@ -75,12 +77,14 @@ class IndustryDeliveryController extends Controller
 
         $items = $items->map(function ($item) {
             $item->deliveredQuantity = 0;
+
             return $item;
         });
 
         if (isset($validated['fill']) && $validated['fill']) {
             $items = $items->map(function ($item) {
                 $item->deliveredQuantity = $item->quantity;
+
                 return $item;
             });
         }

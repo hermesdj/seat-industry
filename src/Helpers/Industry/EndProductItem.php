@@ -5,6 +5,7 @@ namespace Seat\HermesDj\Industry\Helpers\Industry;
 class EndProductItem
 {
     public int $productTypeId;
+
     public string $productName;
 
     public int $targetQuantity;

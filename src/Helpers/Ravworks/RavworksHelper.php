@@ -31,7 +31,7 @@ class RavworksHelper
         $line->push($endProduct->materialEfficiency);
 
         if ($endProduct->nbTasks > 1) {
-            $line->push("x" . $endProduct->nbTasks);
+            $line->push('x'.$endProduct->nbTasks);
         }
 
         return $line->join(' ');
@@ -67,7 +67,9 @@ class RavworksHelper
 
     public static function buildStockToString(Collection $items): string
     {
-        if ($items->count() == 0) return '';
+        if ($items->count() == 0) {
+            return '';
+        }
         $item = $items->first();
 
         $line = collect();

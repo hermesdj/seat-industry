@@ -13,7 +13,9 @@ use Seat\HermesDj\Industry\Models\Orders\Order;
 abstract class AbstractStocks
 {
     public Collection $containers;
+
     public Collection $stocks;
+
     public Order $order;
 
     public function __construct($order)
@@ -30,25 +32,26 @@ abstract class AbstractStocks
 
     protected function buildAssetsQuery(Builder $query): Builder
     {
-        return $query->where('name', 'like', $this->order->order_id . '%')
+        return $query->where('name', 'like', $this->order->order_id.'%')
             ->with('type', 'station', 'structure');
     }
 
     protected function assetToStockItem(CharacterAsset|CorporationAsset $asset): StockItem
     {
-        $stock = new StockItem();
+        $stock = new StockItem;
         $stock->typeId = $asset->type->typeID;
         $stock->typeName = $asset->type->typeName;
         $stock->quantity = $asset->quantity;
         $stock->inProduction = false;
         $stock->containerId = $asset->container->item_id;
         $stock->locationId = $asset->container->location_id;
+
         return $stock;
     }
 
     protected function jobToStockItem(CharacterIndustryJob|CorporationIndustryJob $job): StockItem
     {
-        $stock = new StockItem();
+        $stock = new StockItem;
         $stock->typeId = $job->product->typeID;
         $stock->typeName = $job->product->typeName;
         $stock->blueprintId = $job->blueprint->typeID;
@@ -56,10 +59,11 @@ abstract class AbstractStocks
         $stock->containerId = $job->output_location_id;
         $stock->locationId = $job->location_id;
         $stock->quantity = $job->industryActivityProductManufacturing->quantity * $job->runs;
+
         return $stock;
     }
 
-    public abstract function queryContainers(): void;
+    abstract public function queryContainers(): void;
 
-    public abstract function queryAssets(): void;
+    abstract public function queryAssets(): void;
 }

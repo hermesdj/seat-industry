@@ -28,7 +28,7 @@ return [
     'delivery_menu' => [
         'details' => 'Détails',
         'ravworks' => 'Ravworks',
-        'build_plan' => 'Plan de Fabrication'
+        'build_plan' => 'Plan de Fabrication',
     ],
 
     'instructions' => [
@@ -51,7 +51,7 @@ return [
             'type' => 'Type Objet',
             'available_quantity' => 'Quantité Commandé',
             'selected_quantity' => 'Quantité que je livre',
-            'skills' => 'Compétences'
+            'skills' => 'Compétences',
         ],
     ],
 

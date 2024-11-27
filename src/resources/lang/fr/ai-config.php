@@ -44,17 +44,17 @@ return [
 
         'change_price_provider' => [
             'label' => 'Changer fournisseur de prix',
-            'desc' => 'Permets à un utilisateur de changer le fournisseur de prix sur une commande'
+            'desc' => 'Permets à un utilisateur de changer le fournisseur de prix sur une commande',
         ],
 
         'update_stocks' => [
             'label' => 'Mettre à jour les Stocks',
-            'description' => 'Permet à l\'utilisateur de déclencher une mise à jour des stocks des assets.'
+            'description' => 'Permet à l\'utilisateur de déclencher une mise à jour des stocks des assets.',
         ],
 
         'view_scoreboard' => [
             'label' => 'Voir palmarès',
-            'description' => 'Permet à un utilisateur de consulter le palmarès'
-        ]
+            'description' => 'Permet à un utilisateur de consulter le palmarès',
+        ],
     ],
 ];

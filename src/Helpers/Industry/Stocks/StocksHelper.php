@@ -2,7 +2,6 @@
 
 namespace Seat\HermesDj\Industry\Helpers\Industry\Stocks;
 
-
 use Seat\HermesDj\Industry\Models\Orders\Order;
 use Seat\Web\Models\User;
 

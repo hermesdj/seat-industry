@@ -48,5 +48,5 @@ return [
     'view_scoreboard' => [
         'label' => 'seat-industry::ai-config.permissions.view_scoreboard.label',
         'description' => 'seat-industry::ai-config.permissions.view_scoreboard.description',
-    ]
+    ],
 ];

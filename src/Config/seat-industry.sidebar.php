@@ -34,7 +34,7 @@ return [
                 'label' => 'seat-industry::ai-common.menu.scoreboard',
                 'icon' => 'fas fa-trophy',
                 'route' => 'seat-industry.scoreboard',
-                'permissions' => 'seat-industry.view_scoreboard'
+                'permissions' => 'seat-industry.view_scoreboard',
             ],
             [
                 'name' => 'Settings',
