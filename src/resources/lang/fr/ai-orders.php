@@ -110,8 +110,8 @@ return [
 
     'items' => [
         'title' => [
-            'accepted' => 'Lignes Acceptées',
-            'rejected' => 'Lignes Rejetées',
+            'accepted' => 'Lignes à Fabriquer',
+            'rejected' => 'Lignes non Fabriquées',
         ],
         'headers' => [
             'type' => 'Objet',

@@ -115,8 +115,8 @@ return [
 
     'items' => [
         'title' => [
-            'accepted' => 'Accepted Items',
-            'rejected' => 'Rejected Items',
+            'accepted' => 'Craftable Items',
+            'rejected' => 'Non Craftable Items',
         ],
         'headers' => [
             'type' => 'Item',
