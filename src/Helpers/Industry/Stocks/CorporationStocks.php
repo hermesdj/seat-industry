@@ -4,6 +4,7 @@ namespace Seat\HermesDj\Industry\Helpers\Industry\Stocks;
 
 use Seat\Eveapi\Models\Assets\CorporationAsset;
 use Seat\Eveapi\Models\Industry\CorporationIndustryJob;
+use Seat\HermesDj\Industry\Models\Industry\ActivityTypeEnum;
 use Seat\HermesDj\Industry\Models\Orders\Order;
 
 class CorporationStocks extends AbstractStocks
@@ -48,7 +49,7 @@ class CorporationStocks extends AbstractStocks
             });
 
         foreach ($assets as $stock) {
-            if (! $this->stocks->has($stock->typeId)) {
+            if (!$this->stocks->has($stock->typeId)) {
                 $this->stocks->put($stock->typeId, collect());
             }
             $this->stocks->get($stock->typeId)->push($stock);
@@ -56,6 +57,7 @@ class CorporationStocks extends AbstractStocks
 
         $jobs = CorporationIndustryJob::where('corporation_id', $this->corporation_id)
             ->where('status', 'active')
+            ->where('activity_id', ActivityTypeEnum::MANUFACTURING)
             ->whereIn('output_location_id', $this->getContainerIds())
             ->with('blueprint', 'product', 'industryActivityProductManufacturing')
             ->get()
@@ -64,7 +66,7 @@ class CorporationStocks extends AbstractStocks
             });
 
         foreach ($jobs as $stock) {
-            if (! $this->stocks->has($stock->typeId)) {
+            if (!$this->stocks->has($stock->typeId)) {
                 $this->stocks->put($stock->typeId, collect());
             }
             $this->stocks->get($stock->typeId)->push($stock);

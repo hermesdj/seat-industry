@@ -5,6 +5,7 @@ namespace Seat\HermesDj\Industry\Helpers\Industry\Stocks;
 use Illuminate\Support\Collection;
 use Seat\Eveapi\Models\Assets\CharacterAsset;
 use Seat\Eveapi\Models\Industry\CharacterIndustryJob;
+use Seat\HermesDj\Industry\Models\Industry\ActivityTypeEnum;
 use Seat\HermesDj\Industry\Models\Orders\Order;
 use Seat\Web\Models\User;
 
@@ -55,14 +56,15 @@ class CharacterStocks extends AbstractStocks
             });
 
         foreach ($assets as $stock) {
-            if (! $this->stocks->has($stock->typeId)) {
+            if (!$this->stocks->has($stock->typeId)) {
                 $this->stocks->put($stock->typeId, collect());
             }
             $this->stocks->get($stock->typeId)->push($stock);
         }
 
         $jobs = CharacterIndustryJob::where('character_id', $this->characterIds)
-            ->where('status', 'active')
+            ->where('status', 'delivered')
+            ->where('activity_id', ActivityTypeEnum::MANUFACTURING)
             ->whereIn('output_location_id', $this->getContainerIds())
             ->with('blueprint', 'product', 'industryActivityProductManufacturing')
             ->get()
@@ -71,7 +73,7 @@ class CharacterStocks extends AbstractStocks
             });
 
         foreach ($jobs as $stock) {
-            if (! $this->stocks->has($stock->typeId)) {
+            if (!$this->stocks->has($stock->typeId)) {
                 $this->stocks->put($stock->typeId, collect());
             }
             $this->stocks->get($stock->typeId)->push($stock);
