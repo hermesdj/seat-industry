@@ -3,7 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use RecursiveTree\Seat\TreeLib\Helpers\ScheduleHelper;
 
-return new class extends Migration {
+return new class extends Migration
+{
     public function up(): void
     {
         ScheduleHelper::scheduleCommand('seat-industry:notifications', '0 * * * *');
