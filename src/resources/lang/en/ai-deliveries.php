@@ -23,6 +23,18 @@ return [
 
     'order_create_delivery_btn' => 'Delivery',
     'create_delivery_btn' => 'Create Delivery',
+    'empty_deliveries' => 'No Deliveries',
+
+    'btns' => [
+        'fill' => 'Fill Order',
+        'empty' => 'Empty Order'
+    ],
+
+    'delivery_menu' => [
+        'details' => 'Details',
+        'ravworks' => 'Ravworks',
+        'build_plan' => 'Build Plan'
+    ],
 
     'instructions' => [
         'title' => 'Instructions',
@@ -39,10 +51,12 @@ return [
     ],
 
     'items' => [
+        'title' => 'Items to Deliver',
         'headers' => [
             'type' => 'Item Type',
             'available_quantity' => 'Available Quantity',
             'selected_quantity' => 'Selected Quantity',
+            'skills' => 'Skills'
         ],
     ],
 

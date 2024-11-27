@@ -31,6 +31,8 @@ class IndustrySettingsController extends Controller
 
         $allowedPriceProviders = IndustrySettings::$ALLOWED_PRICE_PROVIDERS->get([$default_price_provider]);
 
+        $metaTypeWhiteList = IndustrySettings::$ALLOWED_META_TYPES->get([]);
+
         return view(
             'seat-industry::settings',
             compact(
@@ -42,7 +44,8 @@ class IndustrySettingsController extends Controller
                 'stations',
                 'structures',
                 'defaultOrderLocation',
-                'allowedPriceProviders'
+                'allowedPriceProviders',
+                'metaTypeWhiteList'
             )
         );
     }
@@ -57,6 +60,7 @@ class IndustrySettingsController extends Controller
             'defaultPriceProvider' => 'required|integer',
             'removeExpiredDeliveries' => 'nullable|in:on',
             'priceProviderWhitelist.*' => 'integer',
+            'metaTypeWhiteList.*' => 'integer'
         ]);
 
         $roles = [];
@@ -68,7 +72,7 @@ class IndustrySettingsController extends Controller
             $roles = $matches[0];
         }
 
-        IndustrySettings::$DEFAULT_PRICE_PROVIDER->set((int) $request->defaultPriceProvider);
+        IndustrySettings::$DEFAULT_PRICE_PROVIDER->set((int)$request->defaultPriceProvider);
 
         IndustrySettings::$MINIMUM_PROFIT_PERCENTAGE->set(floatval($request->minimumprofitpercentage));
         IndustrySettings::$ORDER_CREATION_PING_ROLES->set($roles);
@@ -76,6 +80,7 @@ class IndustrySettingsController extends Controller
         IndustrySettings::$DEFAULT_ORDER_LOCATION->set($request->defaultLocation);
         IndustrySettings::$REMOVE_EXPIRED_DELIVERIES->set(boolval($request->removeExpiredDeliveries));
         IndustrySettings::$ALLOWED_PRICE_PROVIDERS->set($request->priceProviderWhitelist);
+        IndustrySettings::$ALLOWED_META_TYPES->set($request->metaTypeWhiteList);
 
         $request->session()->flash('success', trans('seat-industry::ai-settings.update_settings_success'));
 

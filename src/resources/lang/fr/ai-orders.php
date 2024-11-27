@@ -3,17 +3,24 @@
 return [
     'create_order_title' => 'Créer une Commande',
 
-    'order_title' => 'Commande N°:code',
+    'order_title' => 'Commande N°:code - :reference',
     'orders_title' => 'Commandes',
     'order_reference' => 'Référence Cde',
     'your_orders_title' => 'Vos Commandes',
+
+    'order_menu' => [
+        'details' => 'Commande',
+        'deliveries' => 'Livraisons',
+        'ravworks' => 'Ravworks',
+        'build_plan' => 'Plan de Fabrication',
+    ],
+
 
     'repeating_order_title' => 'Commande répétée',
     'repeating_order_desc' => 'Ceci est une commande qui se republie elle-même chaque :days jours. La prochaine republication au lieu le :date.',
 
     'items_label' => 'Items',
     'items_placeholder' => "MULTIBUY:\nTristan 100\nOmen 100\nTritanium 30000\n\nFITTINGS:\n[Pacifier, 2022 Scanner]\n\nCo-Processor II\nCo-Processor II\n\nMultispectrum Shield Hardener II\nMultispectrum Shield Hardener II\n\nSmall Tractor Beam II\nSmall Tractor Beam II",
-    'split_items' => 'Séparer les objets en différentes commandes.',
 
     'reward_label' => 'Profit en %',
     'reward_hint' => 'Le profit minimum est de :mpp% et sera ajouté au prix calculé automatiquement. Un profit plus élevé peut encourager les producteurs à travailler plus vite.',
@@ -58,7 +65,9 @@ return [
 
     'invalid_order_label' => 'Commande invalide',
 
-    'close_order_btn' => 'Fermer Commande',
+    'empty_deliveries' => 'Il n\'y a pas encore de Livraisons pour cette commande.',
+
+    'close_order_btn' => 'Fermer',
     'update_price_btn' => 'Mettre à jour le prix',
     'update_price_action' => 'Mettre à jour le prix ? Le prix manuel sera écrasé !',
     'extend_time_btn' => 'Ajouter du temps',
@@ -76,10 +85,35 @@ return [
     'close_order_success' => 'Fermeture de la commande réussi !',
 
     'order_id' => 'Code Commande',
-    'reserve_corp_btn' => 'Reservé par la Corp.',
-    'confirm_order_btn' => 'Confirmer Commande',
+    'reserve_corp_btn' => 'Reservé Corp.',
+    'confirm_order_btn' => 'Confirmer',
+
+    'list' => [
+        'titles' => [
+            'available' => 'Disponibles',
+            'corporation' => 'Réservées Corporation',
+            'my' => 'Mes Commandes'
+        ]
+    ],
+
+    'status' => [
+        'available' => 'Disponible',
+        'unconfirmed' => 'Non Confirmé'
+    ],
+
+    'btns' => [
+        'updateOrderItemStates' => 'Calcul Etat Lignes',
+        'reserveCorp' => 'Reservé Corp.',
+        'unReserveCorp' => 'Non Reservé Corp.',
+        'deleteOrder' => 'Supprimer',
+        'completeOrder' => 'Terminer'
+    ],
 
     'items' => [
+        'title' => [
+            'accepted' => 'Lignes Acceptées',
+            'rejected' => 'Lignes Rejetées'
+        ],
         'headers' => [
             'type' => 'Objet',
             'quantity' => 'Quantité',
@@ -94,6 +128,7 @@ return [
         'location' => 'Lieu de Livraison',
         'quantities' => 'Quantités Totales',
         'corporation' => 'Reservé par',
+        'reference' => 'Référence'
     ],
 
     'summary' => [
@@ -103,6 +138,7 @@ return [
         'delivered' => 'Livré',
         'remaining' => 'Reste à Livrer',
         'reference' => 'Référence',
+        'rejected' => 'Rejeté'
     ],
 
     'notifications' => [
@@ -126,4 +162,8 @@ return [
             'desc' => 'Cette fenêtre vous permet d\'ajouter des jours au délai de livraison de cette commande.',
         ],
     ],
+
+    'messages' => [
+        'order_items_state_updated' => 'Etats des lignes recalculées avec succès !'
+    ]
 ];

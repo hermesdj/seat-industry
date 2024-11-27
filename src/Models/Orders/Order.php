@@ -5,6 +5,7 @@ namespace Seat\HermesDj\Industry\Models\Orders;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use RecursiveTree\Seat\PricesCore\Models\PriceProviderInstance;
 use Seat\Eveapi\Models\Character\CharacterInfo;
@@ -33,7 +34,12 @@ class Order extends Model
 
     public function items(): HasMany
     {
-        return $this->hasMany(OrderItem::class, 'order_id', 'id');
+        return $this->hasMany(OrderItem::class, 'order_id', 'id')->where('rejected', false);
+    }
+
+    public function rejectedItems(): HasMany
+    {
+        return $this->hasMany(OrderItem::class, 'order_id', 'id')->where('rejected', true);
     }
 
     public function user(): HasOne
@@ -98,7 +104,7 @@ class Order extends Model
             ->get()
             ->reduce(function ($total, $item) {
                 return $total + ($item->orderItem->unit_price * $item->quantity_delivered / 100);
-            });
+            }, 0.0);
     }
 
     public function totalDelivered(): float
@@ -108,6 +114,70 @@ class Order extends Model
             ->get()
             ->reduce(function ($total, $item) {
                 return $total + ($item->orderItem->unit_price * $item->quantity_delivered / 100);
+            }, 0.0);
+    }
+
+    public function totalRejected(): float
+    {
+        return $this->rejectedItems()->sum(DB::raw('unit_price * quantity / 100'));
+    }
+
+    public function isCorpAllowed(User $user): bool
+    {
+        return $user->characters()->get()->some(function (CharacterInfo $character) {
+            return $character->affiliation->corporation_id == $this->corp_id;
+        });
+    }
+
+    public static function availableOrders(): Collection
+    {
+        return Order::with('deliveries')
+            ->where('confirmed', true)
+            ->where('completed', false)
+            ->where('produce_until', '>', DB::raw('NOW()'))
+            ->where('is_repeating', false)
+            ->whereNull('corp_id')
+            ->get()
+            ->filter(function ($order) {
+                return $order->assignedQuantity() < $order->totalQuantity();
             });
+    }
+
+    public static function corporationsOrders(): Collection
+    {
+        $corpIds = auth()->user()->characters->map(function ($char) {
+            return $char->affiliation->corporation_id;
+        });
+
+        return Order::with('deliveries')
+            ->where('confirmed', true)
+            ->where('completed', false)
+            ->where('produce_until', '>', DB::raw('NOW()'))
+            ->where('is_repeating', false)
+            ->whereIn('corp_id', $corpIds)
+            ->get()
+            ->filter(function ($order) {
+                return $order->assignedQuantity() < $order->totalQuantity();
+            });
+    }
+
+    public static function connectedUserOrders(): Collection
+    {
+        return Order::where('user_id', auth()->user()->id)->get();
+    }
+
+    public static function countAvailableOrders(): int
+    {
+        return self::availableOrders()->count();
+    }
+
+    public static function countCorporationOrders(): int
+    {
+        return self::corporationsOrders()->count();
+    }
+
+    public static function countPersonalOrders(): int
+    {
+        return self::connectedUserOrders()->count();
     }
 }

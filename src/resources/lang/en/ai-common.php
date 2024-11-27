@@ -1,12 +1,15 @@
 <?php
 
 return [
-    'menu_title' => 'Industry',
-    'menu_orders' => 'Orders',
-    'menu_deliveries' => 'Deliveries',
-    'menu_settings' => 'Settings',
-    'menu_about' => 'About',
-    'menu_create_order' => 'Create Order',
+    'menu' => [
+        'title' => 'Industry',
+        'orders' => 'Orders',
+        'deliveries' => 'Deliveries',
+        'settings' => 'Settings',
+        'about' => 'About',
+        'create_order' => 'Create Order',
+        'scoreboard' => 'Scoreboard'
+    ],
 
     'cancel' => 'Cancel',
     'back' => 'Back',
@@ -26,12 +29,13 @@ return [
     'ordered_by_header' => 'Ordered By',
     'producer_header' => 'Producer',
     'location_header' => 'Location',
+    'confirmed_header' => 'Confirmed',
 
     'tags_header' => 'Tags',
     'quantity_header' => 'Total',
     'created_header' => 'Created',
     'until_header' => 'Until',
-    'character_header' => 'Character',
+    'character_header' => 'Customer',
     'deliver_to_header' => 'Deliver To',
 
     'actions_header' => 'Actions',
@@ -71,10 +75,22 @@ return [
     'error_delivery_item_not_found' => 'The item does not exists.',
     'error_not_allowed_to_create_delivery' => 'You are not allowed to deliver for this order.',
 
+    'headers' => [
+        'order_status' => 'Status'
+    ],
+
     'statistics' => [
         'completed_orders' => 'Completed Orders',
         'mean_order_completion_time' => 'Mean Order Completion Time',
         'completed_deliveries' => 'Completed Deliveries',
         'mean_delivery_completion_time' => 'Mean Delivery Completion Time',
     ],
+
+    'errors' => [
+        'no_allowed_meta_types' => 'No Meta Types have been allowed, order creation is not authorized'
+    ],
+
+    'messages' => [
+        'copy_response' => 'Copied!'
+    ]
 ];

@@ -42,7 +42,19 @@ return [
         'corp_delivery_label' => 'Corp Delivery',
         'corp_delivery_desc' => 'Allow to reserve the delivery of an order in the name of the corporation of the user',
 
-        'change_price_provider_label' => 'Change Price Provider',
-        'change_price_provider_desc' => 'Allow the user to change the price provider on an order',
+        'change_price_provider' => [
+            'label' => 'Change Price Provider',
+            'desc' => 'Allow the user to change the price provider on an order'
+        ],
+
+        'update_stocks' => [
+            'label' => 'Update Stocks',
+            'description' => 'Allow the user to trigger update assets & assets names to sync stocks for an order'
+        ],
+
+        'view_scoreboard' => [
+            'label' => 'View Scoreboard',
+            'description' => 'Allow the user to consult the scoreboard'
+        ]
     ],
 ];

@@ -42,7 +42,19 @@ return [
         'corp_delivery_label' => 'Livraison Corpo',
         'corp_delivery_desc' => 'Permet à l\'utilisateur de réserver une commande pour qu\'elle soit livrée au nom de sa corporation',
 
-        'change_price_provider_label' => 'Changer fournisseur de prix',
-        'change_price_provider_desc' => 'Permet à un utilisateur de changer le fournisseur de prix sur une commande',
+        'change_price_provider' => [
+            'label' => 'Changer fournisseur de prix',
+            'desc' => 'Permets à un utilisateur de changer le fournisseur de prix sur une commande'
+        ],
+
+        'update_stocks' => [
+            'label' => 'Mettre à jour les Stocks',
+            'description' => 'Permet à l\'utilisateur de déclencher une mise à jour des stocks des assets.'
+        ],
+
+        'view_scoreboard' => [
+            'label' => 'Voir palmarès',
+            'description' => 'Permet à un utilisateur de consulter le palmarès'
+        ]
     ],
 ];

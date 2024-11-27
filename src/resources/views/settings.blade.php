@@ -70,16 +70,24 @@
                         <select id="priceProviderWhitelist" class="form-control" name="priceProviderWhitelist[]"
                                 multiple>
                             @foreach(\RecursiveTree\Seat\PricesCore\Models\PriceProviderInstance::all() as $instance)
-                                @if(in_array($instance->id, $allowedPriceProviders))
-                                    <option value="{{ $instance->id }}" selected>{{ $instance->name }}</option>
-                                @else
-                                    <option value="{{ $instance->id }}">{{ $instance->name }}</option>
-                                @endif
+                                <option value="{{ $instance->id }}"
+                                        @if(in_array($instance->id, $allowedPriceProviders)) selected @endif>{{ $instance->name }}</option>
                             @endforeach
                         </select>
                         <small class="text-muted">
                             {{trans('seat-industry::ai-settings.price_provider_whitelist_hint')}}
                         </small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="metaTypeWhiteList">{{trans('seat-industry::ai-settings.meta_type_whitelist.label')}}</label>
+                        <select id="metaTypeWhiteList" class="form-control" name="metaTypeWhiteList[]" multiple>
+                            @foreach(\Seat\HermesDj\Industry\Models\Inv\InvMetaGroups::all() as $instance)
+                                <option value="{{$instance->metaGroupID}}"
+                                        @if(in_array($instance->metaGroupID, $metaTypeWhiteList)) selected @endif
+                                >{{$instance->metaGroupName}}</option>
+                            @endforeach
+                        </select>
                     </div>
 
                     <div class="form-group">
@@ -96,7 +104,9 @@
         $(document).ready(function () {
             $("#defaultLocation").select2()
             $('[data-toggle="tooltip"]').tooltip()
-            $('.data-table').DataTable();
+            $('.data-table').DataTable({
+                pageLength: 50
+            });
         });
     </script>
 @endpush

@@ -33,4 +33,8 @@ return [
 
     'price_provider_whitelist_label' => 'Price Provider Whitelist',
     'price_provider_whitelist_hint' => 'The selected price providers can be used by users who have the correct permissions.',
+
+    'meta_type_whitelist' => [
+        'label' => 'Meta Types Whitelist'
+    ]
 ];

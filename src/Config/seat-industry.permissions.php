@@ -38,7 +38,15 @@ return [
         'description' => 'seat-industry::ai-config.permissions.corp_delivery_desc',
     ],
     'change_price_provider' => [
-        'label' => 'seat-industry::ai-config.permissions.change_price_provider_label',
-        'description' => 'seat-industry::ai-config.permissions.change_price_provider_desc',
+        'label' => 'seat-industry::ai-config.permissions.change_price_provider.label',
+        'description' => 'seat-industry::ai-config.permissions.change_price_provider.desc',
     ],
+    'update_stocks' => [
+        'label' => 'seat-industry::ai-config.permissions.update_stocks.label',
+        'description' => 'seat-industry::ai-config.permissions.update_stocks.description',
+    ],
+    'view_scoreboard' => [
+        'label' => 'seat-industry::ai-config.permissions.view_scoreboard.label',
+        'description' => 'seat-industry::ai-config.permissions.view_scoreboard.description',
+    ]
 ];

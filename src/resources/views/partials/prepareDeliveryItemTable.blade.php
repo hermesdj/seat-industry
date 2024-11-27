@@ -2,6 +2,7 @@
     <thead>
     <tr>
         <th>{{trans('seat-industry::ai-deliveries.items.headers.type')}}</th>
+        <th>{{trans('seat-industry::ai-deliveries.items.headers.skills')}}</th>
         <th>{{trans('seat-industry::ai-deliveries.items.headers.available_quantity')}}</th>
         <th>{{trans('seat-industry::ai-deliveries.items.headers.selected_quantity')}}</th>
     </tr>
@@ -16,6 +17,10 @@
                     'variation' => $item->type->group->categoryID == 9 ? 'bpc' : 'icon',
                 ])
             </td>
+            <td @if($item->skills->missingSkills->count() > 0)class="text-warning" @else class="text-success" @endif>
+                {{$item->skills->skills->count()}}
+                / {{$item->skills->skills->count() + $item->skills->missingSkills->count()}}
+            </td>
             <td class="text-center" data-sort="{{$item->quantity}}">
                 {{\Seat\HermesDj\Industry\Helpers\OrderHelper::formatNumber($item->availableQuantity(), 0)}}
             </td>
@@ -28,7 +33,7 @@
                         max="{{$item->availableQuantity()}}"
                         min="0"
                         class="form-control"
-                        value="0"
+                        value="{{$item->deliveredQuantity}}"
                 />
             </td>
         </tr>
@@ -41,7 +46,8 @@
         $(document).ready(function () {
             $('.prepare-delivery-item-table').DataTable({
                 stateSave: true,
-                paging: false
+                paging: false,
+                pageLength: 50
             });
         });
     </script>

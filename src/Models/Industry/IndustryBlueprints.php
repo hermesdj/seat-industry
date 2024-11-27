@@ -9,7 +9,7 @@ class IndustryBlueprints extends Model
 {
     use IsReadOnly;
 
-    protected $table = 'industryActivityProbabilities';
+    protected $table = 'industryBlueprints';
 
     public $incrementing = false;
 

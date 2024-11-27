@@ -44,6 +44,6 @@ class Delivery extends Model
     {
         return $this->deliveryItems->reduce(function (?float $carry, DeliveryItem $item) {
             return $carry + $item->orderItem->unit_price * $item->quantity_delivered;
-        });
+        }, 0.0);
     }
 }

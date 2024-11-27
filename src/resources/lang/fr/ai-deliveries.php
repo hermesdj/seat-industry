@@ -23,6 +23,13 @@ return [
 
     'order_create_delivery_btn' => 'Livraison',
     'create_delivery_btn' => 'Créer la Livraison',
+    'empty_deliveries' => 'Pas de livraisons',
+
+    'delivery_menu' => [
+        'details' => 'Détails',
+        'ravworks' => 'Ravworks',
+        'build_plan' => 'Plan de Fabrication'
+    ],
 
     'instructions' => [
         'title' => 'Instructions',
@@ -39,10 +46,12 @@ return [
     ],
 
     'items' => [
+        'title' => 'à Livrer',
         'headers' => [
             'type' => 'Type Objet',
             'available_quantity' => 'Quantité Commandé',
             'selected_quantity' => 'Quantité que je livre',
+            'skills' => 'Compétences'
         ],
     ],
 
@@ -58,5 +67,13 @@ return [
         'introduction' => 'Veuillez créer un contrat en respectant les instructions ci dessous.',
         'tip_title' => 'Astuce:',
         'tip' => 'Vous pouvez cliquer directement sur la valeur d\'un champ marqué par une "*" pour le copier dans votre presse papier.',
+    ],
+
+    'fields' => [
+        'accepted' => 'Accepté',
+        'order' => 'Commande',
+        'producer' => 'Fabricant',
+        'quantity' => 'Quantité Totale',
+        'completed' => 'Terminé',
     ],
 ];

@@ -37,7 +37,7 @@ class ExpiringOrderNotificationDiscord extends AbstractDiscordNotification imple
                         trans(
                             'seat-industry::ai-orders.notifications.expiring_order', ['code' => $order->order_id]
                         ),
-                        route('seat-industry.orderDetails', ['id' => $order->id])
+                        route('seat-industry.orderDetails', ['order' => $order->id])
                     )
                     ->description(trans('seat-industry::ai-orders.notifications.expiring_message', ['remaining' => CarbonInterval::seconds(Carbon::now()->diffInSeconds($order->produce_until))]))
                     ->field(trans('seat-industry::ai-orders.notifications.reference'), $order->reference)

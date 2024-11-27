@@ -6,8 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     public function up(): void
     {
         Schema::create('seat_industry_orders', function (Blueprint $table) {
@@ -40,6 +39,7 @@ return new class extends Migration
             $table->bigInteger('type_id')->unsigned();
             $table->integer('quantity')->unsigned();
             $table->bigInteger('unit_price')->default(0);
+            $table->boolean('rejected')->default(false);
         });
 
         Schema::create('seat_industry_deliveries', function (Blueprint $table) {

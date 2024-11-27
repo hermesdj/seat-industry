@@ -11,7 +11,7 @@
                 {{trans('seat-industry::ai-deliveries.your_deliveries_title')}}
             </h5>
             <div class="card-text pt-3">
-                @include("seat-industry::partials.deliveryTable",["deliveries"=>$deliveries,"showOrder"=>true])
+                @include("seat-industry::deliveries.partials.deliveryTable",["deliveries"=>$deliveries,"showOrder"=>true])
             </div>
         </div>
     </div>
@@ -19,10 +19,11 @@
 
 @push("javascript")
     <script>
-        $(document).ready( function () {
+        $(document).ready(function () {
             $('[data-toggle="tooltip"]').tooltip()
             $('.data-table').DataTable({
-                stateSave: true
+                stateSave: true,
+                pageLength: 50
             });
         });
     </script>

@@ -1,12 +1,15 @@
 <?php
 
 return [
-    'menu_title' => 'Industrie',
-    'menu_orders' => 'Commandes',
-    'menu_deliveries' => 'Livraisons',
-    'menu_settings' => 'Paramètres',
-    'menu_about' => 'À propos',
-    'menu_create_order' => 'Nouvelle Commande',
+    'menu' => [
+        'title' => 'Industrie',
+        'orders' => 'Commandes',
+        'deliveries' => 'Livraisons',
+        'settings' => 'Paramètres',
+        'about' => 'À propos',
+        'create_order' => 'Nouvelle Commande',
+        'scoreboard' => 'Palmarès'
+    ],
 
     'cancel' => 'Annuler',
     'back' => 'Retour',
@@ -26,12 +29,13 @@ return [
     'ordered_by_header' => 'Commandé par',
     'producer_header' => 'Fabricant',
     'location_header' => 'Emplacement',
+    'confirmed_header' => 'Confirmé',
 
     'tags_header' => 'Tags',
     'quantity_header' => 'Total',
     'created_header' => 'Créé',
     'until_header' => 'Jusqu\'à',
-    'character_header' => 'Commandé par',
+    'character_header' => 'Client',
     'deliver_to_header' => 'Livrer à',
     'delivered_by_header' => 'Livré par',
 
@@ -72,10 +76,22 @@ return [
     'error_delivery_item_not_found' => 'La Ligne de livraison n\'existe pas',
     'error_not_allowed_to_create_delivery' => 'Vous n\'êtes pas autorisé à livrer pour cette commande.',
 
+    'headers' => [
+        'order_status' => 'État'
+    ],
+
     'statistics' => [
         'completed_orders' => 'Commandes Terminées',
         'mean_order_completion_time' => 'Temps Moyen Commande',
         'completed_deliveries' => 'Livraisons Terminées',
         'mean_delivery_completion_time' => 'Temps Moyen Livraison',
     ],
+
+    'errors' => [
+        'no_allowed_meta_types' => 'Aucun Meta Type autorisé dans le plugin, création de commandes non autorisée'
+    ],
+
+    'messages' => [
+        'copy_response' => 'Copié!'
+    ]
 ];

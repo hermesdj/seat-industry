@@ -30,6 +30,8 @@ class IndustrySettings
 
     public static $ALLOWED_PRICE_PROVIDERS;
 
+    public static $ALLOWED_META_TYPES;
+
     public static function init(): void
     {
         self::$LAST_NOTIFICATION_BATCH = Setting::create('seat-industry', 'notifications.batch.last', true);
@@ -43,13 +45,13 @@ class IndustrySettings
         self::$ORDER_CREATION_PING_ROLES = Setting::createFromKey('hermesdj.seat-industry.orderCreationPingRoles', true);
         self::$ALLOW_PRICES_BELOW_AUTOMATIC = Setting::createFromKey('hermesdj.seat-industry.allowPricesBelowAutomatic', true);
         self::$NOTIFICATION_COMMAND_SCHEDULE_ID = Setting::createFromKey('hermesdj.seat-industry.notifications_schedule_id', true);
-
         self::$ALLOWED_PRICE_PROVIDERS = Setting::createFromKey('hermesdj.seat-industry.allowedPriceProviders', true);
+        self::$ALLOWED_META_TYPES = Setting::createFromKey('hermesdj.seat-industry.allowedMetaTypes', true);
 
         // when migrating fresh, this error might trigger
         try {
             $price_provider = self::$DEFAULT_PRICE_PROVIDER->get();
-            if (! is_numeric($price_provider)) {
+            if (!is_numeric($price_provider)) {
                 self::$DEFAULT_PRICE_PROVIDER->set(null);
             }
         } catch (QueryException $_) {

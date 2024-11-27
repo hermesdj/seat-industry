@@ -3,17 +3,29 @@
 return [
     'create_order_title' => 'Create Order',
 
-    'order_title' => 'Order N°:code',
+    'order_title' => 'Order N°:code - :reference',
     'orders_title' => 'Orders',
     'order_reference' => 'Order Reference',
     'your_orders_title' => 'Your Orders',
 
+    'order_menu' => [
+        'details' => 'Order Details',
+        'deliveries' => 'Deliveries',
+        'ravworks' => 'Ravworks',
+        'build_plan' => 'Build Plan',
+    ],
+
+    'orders_menu' => [
+        'available' => 'Disponible',
+        'reserved_corp' => 'Réservées Corporation',
+        'my_orders' => 'Mes Commandes'
+    ],
+
     'repeating_order_title' => 'Repeating Order',
     'repeating_order_desc' => 'This is a order repeating itself every :days days. The next repetition will be published on the :date.',
 
-    'items_label' => 'Items',
+    'items_label' => 'Order Items',
     'items_placeholder' => "MULTIBUY:\nTristan 100\nOmen 100\nTritanium 30000\n\nFITTINGS:\n[Pacifier, 2022 Scanner]\n\nCo-Processor II\nCo-Processor II\n\nMultispectrum Shield Hardener II\nMultispectrum Shield Hardener II\n\nSmall Tractor Beam II\nSmall Tractor Beam II",
-    'split_items' => 'Split items into separate orders',
 
     'reward_label' => 'Reward %',
     'reward_hint' => 'The minimal profit is :mpp% and will be added to the price automatically computed. Set a profit higher to incentive producer to handle the order faster',
@@ -57,7 +69,7 @@ return [
 
     'invalid_order_label' => 'invalid order',
 
-    'close_order_btn' => 'Close Order',
+    'close_order_btn' => 'Close',
     'update_price_btn' => 'Update Price',
     'update_price_action' => 'update the price? Manual prices will be overwritten!',
     'extend_time_btn' => 'Extend Time',
@@ -66,6 +78,8 @@ return [
     // Marketplace
     'order_marketplace_title' => 'Order Marketplace',
     'open_orders_title' => 'Open Orders',
+
+    'empty_deliveries' => 'There are no deliveries yet.',
 
     'close_all_completed_orders_btn' => 'Close all completed Orders',
 
@@ -76,9 +90,34 @@ return [
 
     'order_id' => 'Order Code',
     'reserve_corp_btn' => 'Reserve Corp',
-    'confirm_order_btn' => 'Confirm Order',
+    'confirm_order_btn' => 'Confirm',
+
+    'list' => [
+        'titles' => [
+            'available' => 'Available',
+            'corporation' => 'Corporation',
+            'my' => 'My Orders'
+        ]
+    ],
+
+    'status' => [
+        'available' => 'Available',
+        'unconfirmed' => 'Unconfirmed'
+    ],
+
+    'btns' => [
+        'updateOrderItemStates' => 'Calcul Etat Lignes',
+        'reserveCorp' => 'Reserve Corp',
+        'unReserveCorp' => 'Not Reserve Corp',
+        'deleteOrder' => 'Delete Order',
+        'completeOrder' => 'Complete Order'
+    ],
 
     'items' => [
+        'title' => [
+            'accepted' => 'Accepted Items',
+            'rejected' => 'Rejected Items'
+        ],
         'headers' => [
             'type' => 'Item',
             'quantity' => 'Quantity',
@@ -93,6 +132,7 @@ return [
         'location' => 'Location',
         'quantities' => 'Total Quantities',
         'corporation' => 'Reserved By',
+        'reference' => 'Reference'
     ],
 
     'summary' => [
@@ -101,6 +141,7 @@ return [
         'in_delivery' => 'In Delivery',
         'delivered' => 'Delivered',
         'remaining' => 'Remaining',
+        'rejected' => 'Rejected'
     ],
 
     'notifications' => [
@@ -124,4 +165,14 @@ return [
             'desc' => 'This modal allow you to extend the time of the order by adding more days to the current value.',
         ],
     ],
+
+    'ravworks' => [
+        'export' => [
+            'btn' => 'Ravworks Export'
+        ]
+    ],
+
+    'messages' => [
+        'order_items_state_updated' => 'Items states have been successfully updated !'
+    ]
 ];
