@@ -34,7 +34,7 @@ class BuildPlanHelper
 
         foreach ($items as $orderItem) {
             $type = $orderItem->type;
-            $item = new EndProductItem();
+            $item = new EndProductItem;
             $item->productTypeId = $type->getTypeID();
             $item->productName = $type->typeName;
             $item->targetQuantity = $orderItem->quantity;
@@ -43,7 +43,7 @@ class BuildPlanHelper
 
             $metaType = $metaTypes->where('typeID', $item->productTypeId)->first();
 
-            if (!self::isAllowed($metaType)) {
+            if (! self::isAllowed($metaType)) {
                 Log::debug("No Allowed Item Meta Type $metaType->metaGroupID");
 
                 continue;
@@ -54,7 +54,7 @@ class BuildPlanHelper
             if ($activityProduct == null) {
                 $activityProduct = $reactionProducts->where('productTypeID', $item->productTypeId)->first();
 
-                if (!$activityProduct) {
+                if (! $activityProduct) {
                     continue;
                 } else {
                     $item->activityType = ActivityTypeEnum::REACTION;
@@ -71,7 +71,7 @@ class BuildPlanHelper
 
             if ($item->activityType == ActivityTypeEnum::MANUFACTURING) {
                 $industryActivity = $industryActivities->where('typeID', $item->blueprintTypeId)->first();
-            } else if ($item->activityType == ActivityTypeEnum::REACTION) {
+            } elseif ($item->activityType == ActivityTypeEnum::REACTION) {
                 $industryActivity = $reactionActivities->where('typeID', $item->blueprintTypeId)->first();
             } else {
                 continue;
@@ -85,14 +85,14 @@ class BuildPlanHelper
 
             if ($item->activityType == ActivityTypeEnum::MANUFACTURING) {
                 $blueprint = $blueprints->where('typeID', $item->blueprintTypeId)->first();
-            } else if ($item->activityType == ActivityTypeEnum::REACTION) {
+            } elseif ($item->activityType == ActivityTypeEnum::REACTION) {
                 $blueprint = $formulas->where('typeID', $item->blueprintTypeId)->first();
             } else {
                 continue;
             }
 
             if ($blueprint == null) {
-                Log::debug("No IndustryBlueprint found for $item->productTypeId with blueprint id " . $item->blueprintTypeId);
+                Log::debug("No IndustryBlueprint found for $item->productTypeId with blueprint id ".$item->blueprintTypeId);
 
                 continue;
             }
@@ -149,7 +149,7 @@ class BuildPlanHelper
     public static function computeDeliveryBuildPlan($delivery): Collection
     {
         $orderItems = $delivery->deliveryItems()->get()->filter(function ($d) {
-            return !$d->orderItem->rejected;
+            return ! $d->orderItem->rejected;
         })->map(function ($d) {
             return $d->orderItem;
         });

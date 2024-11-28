@@ -11,10 +11,10 @@ class IndustryHelper
     public static function getManufacturingBlueprintId($typeId): int
     {
         $blueprintId = $typeId;
-        if (!IndustryBlueprints::where('typeID', $blueprintId)->exists()) {
+        if (! IndustryBlueprints::where('typeID', $blueprintId)->exists()) {
             // Go get the blueprint
             $blueprintType = IndustryActivityProducts::where('productTypeID', $typeId)->where('activityID', ActivityTypeEnum::MANUFACTURING)->first();
-            if (!$blueprintType) {
+            if (! $blueprintType) {
                 return -1;
             }
             $blueprintId = $blueprintType->typeID;
@@ -26,10 +26,10 @@ class IndustryHelper
     public static function getReactionFormulaId($typeId): int
     {
         $reactionFormulaId = $typeId;
-        if (!IndustryBlueprints::where('typeID', $reactionFormulaId)->exists()) {
+        if (! IndustryBlueprints::where('typeID', $reactionFormulaId)->exists()) {
             // Go get the blueprint
             $blueprintType = IndustryActivityProducts::where('productTypeID', $typeId)->where('activityID', ActivityTypeEnum::REACTION)->first();
-            if (!$blueprintType) {
+            if (! $blueprintType) {
                 return -1;
             }
             $reactionFormulaId = $blueprintType->typeID;
