@@ -76,7 +76,7 @@ class OrderItem extends Model implements HasTypeID, ToEveItem
         return $order->items->sortBy(function ($item) {
             return $item->type->typeName;
         })->map(function ($item) {
-            return '- ' . $item->type->typeName . ' ' . 'x' . $item->quantity;
+            return '- '.$item->type->typeName.' '.'x'.$item->quantity;
         })->join("\n");
     }
 

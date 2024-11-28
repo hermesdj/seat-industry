@@ -27,5 +27,6 @@ class EndProductItem
     public int $maxProdLimitPerBPC;
 
     public int $nbTasks;
+
     public ActivityTypeEnum $activityType;
 }
