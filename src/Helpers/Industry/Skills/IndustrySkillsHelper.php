@@ -3,10 +3,9 @@
 namespace Seat\HermesDj\Industry\Helpers\Industry\Skills;
 
 use Seat\Eveapi\Models\Character\CharacterSkill;
+use Seat\HermesDj\Industry\Helpers\Industry\IndustryHelper;
 use Seat\HermesDj\Industry\Models\Industry\ActivityTypeEnum;
-use Seat\HermesDj\Industry\Models\Industry\IndustryActivityProducts;
 use Seat\HermesDj\Industry\Models\Industry\IndustryActivitySkills;
-use Seat\HermesDj\Industry\Models\Industry\IndustryBlueprints;
 
 class IndustrySkillsHelper
 {
@@ -20,27 +19,37 @@ class IndustrySkillsHelper
         return self::getIndustrySkillForItem($blueprintId, ActivityTypeEnum::MANUFACTURING)->get();
     }
 
-    private static function getBlueprintId($typeId)
+    public static function getReactionSkills($blueprintId)
     {
-        $blueprintId = $typeId;
-        if (! IndustryBlueprints::where('typeID', $blueprintId)->exists()) {
-            // Go get the blueprint
-            $blueprintType = IndustryActivityProducts::where('productTypeID', $typeId)->where('activityID', ActivityTypeEnum::MANUFACTURING)->first();
-            if (! $blueprintType) {
-                return collect();
-            }
-            $blueprintId = $blueprintType->typeID;
-        }
-
-        return $blueprintId;
+        return self::getIndustrySkillForItem($blueprintId, ActivityTypeEnum::REACTION)->get();
     }
 
     public static function hasRequiredManufacturingSkills($user, $typeId): IndustrySkillResult
     {
         $results = new IndustrySkillResult;
-        $blueprintId = self::getBlueprintId($typeId);
-        $skills = self::getManufacturingSkills($blueprintId);
+        $activityType = ActivityTypeEnum::MANUFACTURING;
+        $blueprintId = IndustryHelper::getManufacturingBlueprintId($typeId);
+
+        if (!$blueprintId) {
+            $blueprintId = IndustryHelper::getReactionFormulaId($typeId);
+            if ($blueprintId != null) {
+                $activityType = ActivityTypeEnum::REACTION;
+            } else {
+                return $results;
+            }
+        }
+
+        $skills = collect();
         $characterIds = $user->characters->pluck('character_id');
+
+        if ($activityType == ActivityTypeEnum::MANUFACTURING) {
+            $skills = self::getManufacturingSkills($blueprintId);
+        } else if ($activityType == ActivityTypeEnum::REACTION) {
+            $skills = self::getReactionSkills($blueprintId);
+        } else {
+            return $results;
+        }
+
         foreach ($skills as $skill) {
             // skillID & level
             $characterSkills = CharacterSkill::whereIn('character_id', $characterIds)->where('skill_id', $skill->skillID)->get();
@@ -53,6 +62,7 @@ class IndustrySkillsHelper
                 $result->skillId = $characterSkill->skill_id;
                 $result->currentLevel = $characterSkill->active_skill_level;
                 $result->requiredLevel = $skill->level;
+                $result->activityType = $activityType;
 
                 if ($result->hasSkillLevel()) {
                     $results->skills->push($result);
@@ -68,7 +78,7 @@ class IndustrySkillsHelper
     public static function computeManufacturingSkillsForOrderItems($user, $items)
     {
         foreach ($items as $item) {
-            if (! $item->rejected) {
+            if (!$item->rejected) {
                 $item->skills = self::hasRequiredManufacturingSkills($user, $item->type_id);
             } else {
                 $item->skills = null;
