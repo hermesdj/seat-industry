@@ -61,25 +61,16 @@ class BuildPlan
 
     public function computeBuildPlan(): void
     {
-        $this->endProducts = IndustryHelper::computeOrderBuildPlan($this->order);
+        $this->endProducts = BuildPlanHelper::computeOrderBuildPlan($this->order);
     }
 
     public function computeBuildPlanForDelivery($delivery): void
     {
         if ($delivery->order_id == $this->order->id) {
-            $this->endProducts = IndustryHelper::computeDeliveryBuildPlan($delivery);
+            $this->endProducts = BuildPlanHelper::computeDeliveryBuildPlan($delivery);
         } else {
             $this->endProducts = collect();
         }
-    }
-
-    public function computeBuildPlanManufacturing(): void
-    {
-        if ($this->endProducts->count() === 0) {
-            $this->computeBuildPlan();
-        }
-
-        $this->stocks = IndustryHelper::computeBuildPlanManufacturing($this);
     }
 
     public function computeOrderStocks($user): void

@@ -7,12 +7,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use RecursiveTree\Seat\TreeLib\Items\ToEveItem;
 use Seat\Eveapi\Models\Sde\InvType;
+use Seat\HermesDj\Industry\Helpers\Industry\IndustryHelper;
 use Seat\HermesDj\Industry\IndustrySettings;
 use Seat\HermesDj\Industry\Item\PriceableEveItem;
 use Seat\HermesDj\Industry\Models\Deliveries\DeliveryItem;
-use Seat\HermesDj\Industry\Models\Industry\ActivityTypeEnum;
-use Seat\HermesDj\Industry\Models\Industry\IndustryActivityProducts;
-use Seat\HermesDj\Industry\Models\Industry\IndustryBlueprints;
 use Seat\HermesDj\Industry\Models\Inv\InvMetaTypes;
 use Seat\Services\Contracts\HasTypeID;
 
@@ -78,7 +76,7 @@ class OrderItem extends Model implements HasTypeID, ToEveItem
         return $order->items->sortBy(function ($item) {
             return $item->type->typeName;
         })->map(function ($item) {
-            return '- '.$item->type->typeName.' '.'x'.$item->quantity;
+            return '- ' . $item->type->typeName . ' ' . 'x' . $item->quantity;
         })->join("\n");
     }
 
@@ -105,21 +103,6 @@ class OrderItem extends Model implements HasTypeID, ToEveItem
         return $this->quantity - $this->assignedQuantity();
     }
 
-    private static function getBlueprintId($typeId)
-    {
-        $blueprintId = $typeId;
-        if (! IndustryBlueprints::where('typeID', $blueprintId)->exists()) {
-            // Go get the blueprint
-            $blueprintType = IndustryActivityProducts::where('productTypeID', $typeId)->where('activityID', ActivityTypeEnum::MANUFACTURING)->first();
-            if (! $blueprintType) {
-                return 0;
-            }
-            $blueprintId = $blueprintType->typeID;
-        }
-
-        return $blueprintId;
-    }
-
     public function detectMetaTypeState(): void
     {
         $allowedMetaTypes = IndustrySettings::$ALLOWED_META_TYPES->get([]);
@@ -134,8 +117,12 @@ class OrderItem extends Model implements HasTypeID, ToEveItem
             })->isEmpty();
         }
 
-        $blueprint = self::getBlueprintId($this->type_id);
+        $blueprintId = IndustryHelper::getManufacturingBlueprintId($this->type_id);
 
-        $this->rejected = $blueprint == 0;
+        if ($blueprintId == -1) {
+            $blueprintId = IndustryHelper::getReactionFormulaId($this->type_id);
+        }
+
+        $this->rejected = $blueprintId == -1;
     }
 }
