@@ -88,12 +88,17 @@
             @endif
         </form>
         @if($order->assignedQuantity() < $order->totalQuantity() && $order->isCorpAllowed(auth()->user()))
-            <a
-                    href="{{ route("seat-industry.prepareDelivery", ['order' => $order->id]) }}"
-                    class="btn btn-primary mx-1 ml-auto">
-                <i class="fas fa-truck"></i>&nbsp;
-                {{trans('seat-industry::ai-deliveries.order_create_delivery_btn')}}
-            </a>
+            <form action="{{ route("seat-industry.prepareDelivery", ['order' => $order->id]) }}"
+                  method="POST"
+                  class="mx-1 ml-auto"
+            >
+                @csrf
+                <input type="hidden" name="fill" value="0"/>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-truck"></i>&nbsp;
+                    &nbsp;{{trans('seat-industry::ai-deliveries.order_create_delivery_btn')}}
+                </button>
+            </form>
         @endif
     @endcan
     @if($order->confirmed)
