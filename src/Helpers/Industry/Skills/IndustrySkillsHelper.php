@@ -30,7 +30,7 @@ class IndustrySkillsHelper
         $activityType = ActivityTypeEnum::MANUFACTURING;
         $blueprintId = IndustryHelper::getManufacturingBlueprintId($typeId);
 
-        if (!$blueprintId) {
+        if (! $blueprintId) {
             $blueprintId = IndustryHelper::getReactionFormulaId($typeId);
             if ($blueprintId != null) {
                 $activityType = ActivityTypeEnum::REACTION;
@@ -44,7 +44,7 @@ class IndustrySkillsHelper
 
         if ($activityType == ActivityTypeEnum::MANUFACTURING) {
             $skills = self::getManufacturingSkills($blueprintId);
-        } else if ($activityType == ActivityTypeEnum::REACTION) {
+        } elseif ($activityType == ActivityTypeEnum::REACTION) {
             $skills = self::getReactionSkills($blueprintId);
         } else {
             return $results;
@@ -78,7 +78,7 @@ class IndustrySkillsHelper
     public static function computeManufacturingSkillsForOrderItems($user, $items)
     {
         foreach ($items as $item) {
-            if (!$item->rejected) {
+            if (! $item->rejected) {
                 $item->skills = self::hasRequiredManufacturingSkills($user, $item->type_id);
             } else {
                 $item->skills = null;
