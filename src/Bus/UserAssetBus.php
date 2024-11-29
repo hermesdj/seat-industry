@@ -6,6 +6,7 @@ use Illuminate\Bus\Batch;
 use Seat\Eveapi\Bus\Bus;
 use Seat\Eveapi\Jobs\Assets\Character\Assets;
 use Seat\Eveapi\Jobs\Industry\Character\Jobs;
+use Seat\Eveapi\Models\RefreshToken;
 use Seat\HermesDj\Industry\Jobs\Eve\UpdateCharacterContainerNames;
 use Seat\Web\Models\User;
 use Throwable;
@@ -27,18 +28,21 @@ class UserAssetBus extends Bus
         $mainCharacter = $user->main_character->first();
 
         foreach ($characters as $character) {
-            $token = $character->refresh_token;
-            $assetJob = new Assets($token);
-            if (in_array($assetJob->getScope(), $token->getScopes())) {
-                $this->jobs->add($assetJob);
-            }
-            $namesJob = new UpdateCharacterContainerNames($token);
-            if (in_array($namesJob->getScope(), $token->getScopes())) {
-                $this->jobs->add($namesJob);
-            }
-            $industryJob = new Jobs($token);
-            if (in_array($industryJob->getScope(), $token->getScopes())) {
-                $this->jobs->add($industryJob);
+            $token = RefreshToken::find($character->character_id);
+
+            if ($token) {
+                $assetJob = new Assets($token);
+                if (in_array($assetJob->getScope(), $token->getScopes())) {
+                    $this->jobs->add($assetJob);
+                }
+                $namesJob = new UpdateCharacterContainerNames($token);
+                if (in_array($namesJob->getScope(), $token->getScopes())) {
+                    $this->jobs->add($namesJob);
+                }
+                $industryJob = new Jobs($token);
+                if (in_array($industryJob->getScope(), $token->getScopes())) {
+                    $this->jobs->add($industryJob);
+                }
             }
         }
 
@@ -77,6 +81,6 @@ class UserAssetBus extends Bus
                             'total' => $batch->totalJobs,
                         ],
                     ]);
-            })->onQueue('characters')->name($mainCharacter->name.' Container Names')->allowFailures()->dispatch();
+            })->onQueue('characters')->name($mainCharacter->name . ' Container Names')->allowFailures()->dispatch();
     }
 }
