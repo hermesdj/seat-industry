@@ -154,7 +154,7 @@ return [
         'remaining' => 'Time',
         'expiring_order' => 'Order :code Expiration !',
         'expiring_message' => 'This order will expire in :remaining !',
-        'expiring_orders' => ':count Orders are Expiring !'
+        'expiring_orders' => ':count Orders are Expiring !',
     ],
 
     'modals' => [

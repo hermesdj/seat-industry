@@ -150,7 +150,7 @@ return [
         'remaining' => 'Temps',
         'expiring_order' => 'Commande :code va expirer !',
         'expiring_message' => 'Cette commande va expirer dans :remaining !',
-        'expiring_orders' => ':count commandes vont expirer !'
+        'expiring_orders' => ':count commandes vont expirer !',
     ],
 
     'modals' => [

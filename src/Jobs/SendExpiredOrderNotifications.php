@@ -38,7 +38,7 @@ class SendExpiredOrderNotifications implements ShouldQueue
                 ->get();
         }
 
-        if (!$expiring_orders->isEmpty()) {
+        if (! $expiring_orders->isEmpty()) {
             $this->dispatchExpiringOrderNotification($expiring_orders);
         }
 
