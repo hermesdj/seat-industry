@@ -35,6 +35,7 @@ class IndustrySettings
     public static function init(): void
     {
         self::$LAST_NOTIFICATION_BATCH = Setting::create('seat-industry', 'notifications.batch.last', true);
+        self::$LAST_EXPIRING_NOTIFICATION_BATCH = Setting::create('seat-industry', 'notifications.batch.expiring.last', true);
         self::$DEFAULT_ORDER_LOCATION = Setting::create('seat-industry', 'order.location.default', true);
         self::$DEFAULT_PRICE_PROVIDER = Setting::create('seat-industry', 'order.price.provider.default', true);
         self::$REMOVE_EXPIRED_DELIVERIES = Setting::create('seat-industry', 'deliveries.expired.remove', true);

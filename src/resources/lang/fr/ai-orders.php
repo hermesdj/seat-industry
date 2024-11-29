@@ -110,8 +110,8 @@ return [
 
     'items' => [
         'title' => [
-            'accepted' => 'Lignes Acceptées',
-            'rejected' => 'Lignes Rejetées',
+            'accepted' => 'Lignes à Fabriquer',
+            'rejected' => 'Lignes non Fabriquées',
         ],
         'headers' => [
             'type' => 'Objet',
@@ -137,7 +137,7 @@ return [
         'delivered' => 'Livré',
         'remaining' => 'Reste à Livrer',
         'reference' => 'Référence',
-        'rejected' => 'Rejeté',
+        'rejected' => 'Non Fabricable',
     ],
 
     'notifications' => [

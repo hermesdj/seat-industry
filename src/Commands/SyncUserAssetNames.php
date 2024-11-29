@@ -15,12 +15,12 @@ class SyncUserAssetNames extends Command
     public function handle()
     {
         $deliveries = Delivery::where('completed', false)->with('user')->get();
-        $users = $deliveries->pluck('user');
+        $users = $deliveries->pluck('user')->unique();
 
         foreach ($users as $user) {
             (new UserAssetBus($user->id))->fire();
 
-            $this->info(sprintf('Processing user assets update %d - %s', $user->id, $user->main_character->name));
+            $this->info(sprintf('Processing user assets update %s', $user->main_character->name));
         }
 
         return $this::SUCCESS;

@@ -115,8 +115,8 @@ return [
 
     'items' => [
         'title' => [
-            'accepted' => 'Accepted Items',
-            'rejected' => 'Rejected Items',
+            'accepted' => 'Craftable Items',
+            'rejected' => 'Non Craftable Items',
         ],
         'headers' => [
             'type' => 'Item',
@@ -141,7 +141,7 @@ return [
         'in_delivery' => 'In Delivery',
         'delivered' => 'Delivered',
         'remaining' => 'Remaining',
-        'rejected' => 'Rejected',
+        'rejected' => 'Not Crafted',
     ],
 
     'notifications' => [

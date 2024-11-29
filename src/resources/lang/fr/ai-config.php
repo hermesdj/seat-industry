@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'seat_alliance_industry_new_order_notification' => 'Nouvelles commandes de seat-industry',
-    'seat_alliance_industry_expiring_order_notification' => 'Expiration des commandes de seat-industry',
+    'seat_industry_new_order_notification' => 'Nouvelles commandes de seat-industry',
+    'seat_industry_expiring_order_notification' => 'Expiration des commandes de seat-industry',
     'new_orders_are_available' => 'De nouvelles commandes seat-industry sont disponibles !',
     'build_time_price_provider' => 'Délai de fabrication de l\'article',
 

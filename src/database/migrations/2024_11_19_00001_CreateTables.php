@@ -23,10 +23,10 @@ return new class extends Migration
             $table->boolean('add_seat_inventory')->default(false);
             $table->float('profit');
             $table->integer('priority')->unsigned();
-            $table->bigInteger('priceProvider')->unsigned()->nullable();
-            $table->boolean('is_repeating')->default(false);
+            $table->boolean('is_repeating')->default(false)->nullable();
             $table->dateTime('repeat_date')->nullable();
             $table->smallInteger('repeat_interval')->unsigned()->nullable();
+            $table->bigInteger('priceProvider')->unsigned()->nullable();
             $table->string('order_id', 6);
             $table->string('reference', 32);
             $table->bigInteger('corp_id')->nullable();
@@ -45,7 +45,6 @@ return new class extends Migration
 
         Schema::create('seat_industry_deliveries', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('delivery_code', 6);
             $table->bigInteger('order_id');
             $table->bigInteger('user_id');
             $table->integer('quantity');
@@ -53,6 +52,7 @@ return new class extends Migration
             $table->dateTime('accepted');
             $table->dateTime('completed_at')->nullable();
             $table->bigInteger('seat_inventory_source')->nullable();
+            $table->string('delivery_code', 6);
         });
 
         Schema::create('seat_industry_delivery_items', function (Blueprint $table) {
@@ -87,9 +87,9 @@ return new class extends Migration
     {
         Schema::dropIfExists('seat_industry_orders');
         Schema::dropIfExists('seat_industry_deliveries');
-        Schema::dropIfExists('seat_alliance_industry_order_items');
-        Schema::dropIfExists('seat_alliance_industry_delivery_items');
-        Schema::dropIfExists('seat_alliance_industry_orders_statistics');
-        Schema::dropIfExists('seat_alliance_industry_deliveries_statistics');
+        Schema::dropIfExists('seat_industry_order_items');
+        Schema::dropIfExists('seat_industry_delivery_items');
+        Schema::dropIfExists('seat_industry_orders_statistics');
+        Schema::dropIfExists('seat_industry_deliveries_statistics');
     }
 };

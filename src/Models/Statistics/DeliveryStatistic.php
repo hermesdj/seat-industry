@@ -3,7 +3,6 @@
 namespace Seat\HermesDj\Industry\Models\Statistics;
 
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Facades\DB;
@@ -45,23 +44,12 @@ class DeliveryStatistic extends Model
             ->count();
     }
 
-    public static function totalDeliveryCompletedByMonth(): Collection
-    {
-        return self::select(DB::raw('count(id) as count'), DB::raw("DATE_FORMAT(accepted, '%Y-%m') month"))
-            ->whereNotNull('completed_at')
-            ->groupBy('month')
-            ->orderBy('month')
-            ->limit('10')
-            ->get();
-    }
-
     public static function queryDeliveryCompletedByUser(): Builder
     {
         return self::whereNotNull('completed_at')
             ->selectRaw('count(id) as value, user_id')
             ->groupBy('user_id')
-            ->orderBy('value')
-            ->limit('10');
+            ->orderBy('value', 'desc');
     }
 
     public static function queryDeliveryMeanCompletionTimeByUser(): Builder
@@ -69,8 +57,7 @@ class DeliveryStatistic extends Model
         return self::select(DB::raw('AVG(TIME_TO_SEC(TIMEDIFF(completed_at, accepted))) AS value, user_id'))
             ->whereNotNull('completed_at')
             ->groupBy('user_id')
-            ->orderBy('value')
-            ->limit('10');
+            ->orderBy('value', 'asc');
     }
 
     public static function queryFastestCompletionTimeByUser(): Builder
@@ -78,7 +65,6 @@ class DeliveryStatistic extends Model
         return self::select(DB::raw('MIN(TIME_TO_SEC(TIMEDIFF(completed_at, accepted))) AS value, user_id'))
             ->whereNotNull('completed_at')
             ->groupBy('user_id')
-            ->orderBy('value')
-            ->limit('10');
+            ->orderBy('value', 'asc');
     }
 }

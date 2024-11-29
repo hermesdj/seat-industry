@@ -6,7 +6,7 @@
             [
                 'title' => trans('seat-industry::stats.scoreboard.bestProducersByCount'),
                 'scoreHeader' => trans('seat-industry::stats.scoreboard.headers.nb_deliveries'),
-                'rows' => $producersCountQuery->get()
+                'rows' => $producersCountQuery->clone()->take(10)->get()
             ]
         )
     </div>
@@ -15,7 +15,7 @@
             [
                 'title' => trans('seat-industry::stats.scoreboard.bestProducersByTime'),
                 'scoreHeader' => trans('seat-industry::stats.scoreboard.headers.timediff'),
-                'rows' => \Seat\HermesDj\Industry\Helpers\StatsHelper::displayTimeValueAsHumanReadable($producersMeanTimeQuery->get())
+                'rows' => \Seat\HermesDj\Industry\Helpers\StatsHelper::displayTimeValueAsHumanReadable($producersMeanTimeQuery->clone()->take(10)->get())
             ]
         )
     </div>
@@ -24,7 +24,7 @@
             [
                 'title' => trans('seat-industry::stats.scoreboard.fastestProducer'),
                 'scoreHeader' => trans('seat-industry::stats.scoreboard.headers.fastest_time'),
-                'rows' => \Seat\HermesDj\Industry\Helpers\StatsHelper::displayTimeValueAsHumanReadable($fastestProducerQuery->get())
+                'rows' => \Seat\HermesDj\Industry\Helpers\StatsHelper::displayTimeValueAsHumanReadable($fastestProducerQuery->clone()->take(10)->get())
             ]
         )
     </div>

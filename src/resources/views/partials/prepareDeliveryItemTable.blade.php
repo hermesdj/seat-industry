@@ -17,10 +17,17 @@
                     'variation' => $item->type->group->categoryID == 9 ? 'bpc' : 'icon',
                 ])
             </td>
-            <td @if($item->skills->missingSkills->count() > 0)class="text-warning" @else class="text-success" @endif>
-                {{$item->skills->skills->count()}}
-                / {{$item->skills->skills->count() + $item->skills->missingSkills->count()}}
-            </td>
+            @if(isset($item->skills) && $item->skills != null)
+                <td @if($item->skills->missingSkills->count() > 0)
+                        class="text-warning"
+                    @else
+                        class="text-success" @endif>
+                    {{$item->skills->skills->count()}}
+                    / {{$item->skills->skills->count() + $item->skills->missingSkills->count()}}
+                </td>
+            @else
+                <td>-</td>
+            @endif
             <td class="text-center" data-sort="{{$item->quantity}}">
                 {{\Seat\HermesDj\Industry\Helpers\OrderHelper::formatNumber($item->availableQuantity(), 0)}}
             </td>

@@ -13,7 +13,7 @@ return new class extends Migration
         }
 
         if (Schema::hasTable('seat_alliance_industry_order_items')) {
-            DB::statement('INSERT INTO seat_industry_order_items SELECT * FROM seat_alliance_industry_order_items');
+            DB::statement('INSERT INTO seat_industry_order_items SELECT id, order_id, type_id, quantity, unit_price, 0 FROM seat_alliance_industry_order_items');
         }
 
         if (Schema::hasTable('seat_alliance_industry_deliveries')) {

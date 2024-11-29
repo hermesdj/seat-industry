@@ -2,6 +2,8 @@
 
 namespace Seat\HermesDj\Industry\Helpers\Industry\Skills;
 
+use Seat\HermesDj\Industry\Models\Industry\ActivityTypeEnum;
+
 class IndustrySkillItem
 {
     public int $characterId;
@@ -15,6 +17,8 @@ class IndustrySkillItem
     public int $requiredLevel;
 
     public int $currentLevel;
+
+    public ActivityTypeEnum $activityType;
 
     public function hasSkillLevel(): bool
     {

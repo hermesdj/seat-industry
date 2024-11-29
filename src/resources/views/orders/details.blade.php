@@ -15,7 +15,7 @@
         @endcan
         <div class="mx-n5 px-5 py-4">
             <h5>{{trans('seat-industry::ai-orders.items.title.accepted')}}</h5>
-            @include('seat-industry::orders.partials.orderItemTable', ['items' => $order->items])
+            @include('seat-industry::orders.partials.orderItemTable', ['items' => $order->allowedItems])
         </div>
         @if($order->rejectedItems->isNotEmpty())
             <div class="mx-n5 px-5 py-4">

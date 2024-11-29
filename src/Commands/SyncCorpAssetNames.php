@@ -30,6 +30,8 @@ class SyncCorpAssetNames extends Command
                     if ($token) {
                         $this->info(sprintf('Processing corporation assets %s', $corp->name));
                         (new CorpAssetBus($corp->corporation_id, $token))->fire();
+                    } else {
+                        $this->warn(sprintf('No token found for CEO of %s', $corp->name));
                     }
                 }
             });

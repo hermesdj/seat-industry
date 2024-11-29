@@ -2,6 +2,8 @@
 
 namespace Seat\HermesDj\Industry\Helpers\Industry;
 
+use Seat\HermesDj\Industry\Models\Industry\ActivityTypeEnum;
+
 class EndProductItem
 {
     public int $productTypeId;
@@ -25,4 +27,6 @@ class EndProductItem
     public int $maxProdLimitPerBPC;
 
     public int $nbTasks;
+
+    public ActivityTypeEnum $activityType;
 }

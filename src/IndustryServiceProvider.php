@@ -11,9 +11,7 @@ use Seat\HermesDj\Industry\Commands\SyncUserAssetNames;
 use Seat\HermesDj\Industry\Http\Composers\DeliveryMenu;
 use Seat\HermesDj\Industry\Http\Composers\OrderMenu;
 use Seat\HermesDj\Industry\Http\Composers\OrdersMenu;
-use Seat\HermesDj\Industry\Jobs\RemoveExpiredDeliveries;
 use Seat\HermesDj\Industry\Jobs\SendExpiredOrderNotifications;
-use Seat\HermesDj\Industry\Jobs\UpdateRepeatingOrders;
 use Seat\HermesDj\Industry\Models\Deliveries\Delivery;
 use Seat\HermesDj\Industry\Models\Industry\ActivityTypeEnum;
 use Seat\HermesDj\Industry\Models\Industry\IndustryActivityProducts;
@@ -111,30 +109,6 @@ class IndustryServiceProvider extends AbstractSeatPlugin
             } else {
                 SendExpiredOrderNotifications::dispatch()->onQueue('notifications');
                 $this->info('Scheduled notifications!');
-            }
-        });
-
-        Artisan::command('seat-industry:orders:repeating {--sync}', function () {
-            if ($this->option('sync')) {
-                UpdateRepeatingOrders::dispatchSync();
-            } else {
-                UpdateRepeatingOrders::dispatch();
-            }
-        });
-
-        Artisan::command('seat-industry:deliveries:expired {--sync}', function () {
-            if ($this->option('sync')) {
-                RemoveExpiredDeliveries::dispatchSync();
-            } else {
-                RemoveExpiredDeliveries::dispatch();
-            }
-        });
-
-        Artisan::command('seat-industry:assets:containers:names', function () {
-            if ($this->option('sync')) {
-                RemoveExpiredDeliveries::dispatchSync();
-            } else {
-                RemoveExpiredDeliveries::dispatch();
             }
         });
     }

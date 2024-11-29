@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'seat_alliance_industry_new_order_notification' => 'New Industry order',
-    'seat_alliance_industry_expiring_order_notification' => 'Industry order expiring',
+    'seat_industry_new_order_notification' => 'New Industry order',
+    'seat_industry_expiring_order_notification' => 'Industry order expiring',
     'new_orders_are_available' => 'New Industry orders are available !',
     'build_time_price_provider' => 'Item Manufacturing Time',
 
