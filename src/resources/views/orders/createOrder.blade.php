@@ -58,7 +58,7 @@
                                     class="form-group row"
                                     data-toggle="tooltip"
                                     data-placement="right"
-                                    title="{{trans('seat-industry::ai-orders.price_provider_hint')}}"
+                                    title="{{trans('seat-industry::ai-common.price_provider_hint')}}"
                             >
                                 <label for="priceprovider"
                                        class="col-sm-3 col-form-label">{{trans('seat-industry::ai-common.price_provider_label')}}</label>
