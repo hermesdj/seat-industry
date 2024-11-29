@@ -35,7 +35,12 @@
         @foreach($deliveries as $delivery)
             <tr>
                 <td>
-                    <a href="{{ route("seat-industry.deliveryDetails", ['delivery' => $delivery->id]) }}">{{$delivery->delivery_code}}</a>
+                    @can('seat-industry.create_deliveries')
+                        <a href="{{ route("seat-industry.deliveryDetails", ['delivery' => $delivery->id]) }}">{{$delivery->delivery_code}}</a>
+                    @endcan
+                    @cannot('seat-industry.create_deliveries')
+                        {{$delivery->delivery_code}}
+                    @endcannot
                 </td>
                 @if($showOrder ?? false)
                     <td>

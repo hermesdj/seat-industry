@@ -10,7 +10,7 @@ Route::group([
     Route::get('/about', [
         'as' => 'seat-industry.about',
         'uses' => 'IndustryController@about',
-        'middleware' => 'can:seat-industry.view_orders',
+        'middleware' => 'can:seat-industry.create_orders',
     ]);
 
     Route::group([
@@ -31,7 +31,7 @@ Route::group([
         Route::get('/myOrders', [
             'as' => 'seat-industry.myOrders',
             'uses' => 'IndustryOrderController@myOrders',
-            'middleware' => 'can:seat-industry.view_orders',
+            'middleware' => 'can:seat-industry.create_orders',
         ]);
 
         Route::get('/create', [
@@ -85,25 +85,25 @@ Route::group([
         Route::get('/{order}/details', [
             'as' => 'seat-industry.orderDetails',
             'uses' => 'IndustryOrderController@orderDetails',
-            'middleware' => 'can:seat-industry.view_orders',
+            'middleware' => 'can:seat-industry.create_orders',
         ]);
 
         Route::get('/{order}/deliveryDetails', [
             'as' => 'seat-industry.orderDeliveryDetails',
             'uses' => 'IndustryOrderController@orderDeliveryDetails',
-            'middleware' => 'can:seat-industry.view_orders',
+            'middleware' => 'can:seat-industry.create_orders',
         ]);
 
         Route::get('/{order}/ravworks', [
             'as' => 'seat-industry.ravworksDetails',
             'uses' => 'IndustryOrderController@ravworksDetails',
-            'middleware' => 'can:seat-industry.view_orders',
+            'middleware' => 'can:seat-industry.create_deliveries',
         ]);
 
         Route::get('/{order}/buildPlan', [
             'as' => 'seat-industry.buildPlan',
             'uses' => 'IndustryOrderController@buildPlan',
-            'middleware' => 'can:seat-industry.view_orders',
+            'middleware' => 'can:seat-industry.create_deliveries',
         ]);
 
         Route::post('/{order}/reserveCorp', [
@@ -115,7 +115,7 @@ Route::group([
         Route::post('/{order}/confirmOrder', [
             'as' => 'seat-industry.confirmOrder',
             'uses' => 'IndustryOrderController@confirmOrder',
-            'middleware' => 'can:seat-industry.view_orders',
+            'middleware' => 'can:seat-industry.create_orders',
         ]);
 
         Route::post('/{order}/updateOrderItemState', [
@@ -149,19 +149,19 @@ Route::group([
         Route::get('/{delivery}/details', [
             'as' => 'seat-industry.deliveryDetails',
             'uses' => 'IndustryDeliveryController@deliveryDetails',
-            'middleware' => 'can:seat-industry.view_orders',
+            'middleware' => 'can:seat-industry.create_deliveries',
         ]);
 
         Route::get('/{delivery}/ravworks', [
             'as' => 'seat-industry.deliveryRavworksDetails',
             'uses' => 'IndustryDeliveryController@deliveryRavworksDetails',
-            'middleware' => 'can:seat-industry.view_orders',
+            'middleware' => 'can:seat-industry.create_deliveries',
         ]);
 
         Route::get('/{delivery}/buildPlan', [
             'as' => 'seat-industry.deliveryBuildPlan',
             'uses' => 'IndustryDeliveryController@deliveryBuildPlan',
-            'middleware' => 'can:seat-industry.view_orders',
+            'middleware' => 'can:seat-industry.create_deliveries',
         ]);
 
         Route::post('/{delivery}/state', [

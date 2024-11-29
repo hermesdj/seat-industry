@@ -23,7 +23,6 @@ use Seat\HermesDj\Industry\Helpers\OrderHelper;
 use Seat\HermesDj\Industry\IndustrySettings;
 use Seat\HermesDj\Industry\Item\PriceableEveItem;
 use Seat\HermesDj\Industry\Jobs\SendOrderNotification;
-use Seat\HermesDj\Industry\Jobs\UpdateRepeatingOrders;
 use Seat\HermesDj\Industry\Models\Orders\Order;
 use Seat\HermesDj\Industry\Models\Orders\OrderItem;
 use Seat\HermesDj\Industry\Models\Statistics\OrderStatistic;
@@ -171,7 +170,7 @@ class IndustryOrderController extends Controller
         if (! (UniverseStructure::where('structure_id', $request->location)->exists() || UniverseStation::where('station_id', $request->location)->exists())) {
             $request->session()->flash('error', trans('seat-industry::ai-common.error_structure_not_found'));
 
-            return redirect()->route('seat-industry.orders');
+            return redirect()->route('seat-industry.createOrder');
         }
 
         //parse items
@@ -181,7 +180,7 @@ class IndustryOrderController extends Controller
         if ($parser_result == null || $parser_result->items->isEmpty()) {
             $request->session()->flash('warning', trans('seat-industry::ai-common.error_order_is_empty'));
 
-            return redirect()->route('seat-industry.orders');
+            return redirect()->route('seat-industry.createOrder');
         }
 
         try {
@@ -256,9 +255,6 @@ class IndustryOrderController extends Controller
 
             $model->save();
         }
-
-        // update repeating orders
-        UpdateRepeatingOrders::dispatch();
 
         $request->session()->flash('success', trans('seat-industry::ai-orders.create_order_success'));
 
@@ -408,14 +404,14 @@ class IndustryOrderController extends Controller
         if ($order->hasPendingDeliveries() && ! auth()->user()->can('seat-industry.admin')) {
             $request->session()->flash('error', trans('seat-industry::ai-common.error_deleted_in_progress_order'));
 
-            return redirect()->route('seat-industry.orders');
+            return redirect()->route('seat-industry.orderDetails', ['order' => $order]);
         }
 
         $order->delete();
 
         $request->session()->flash('success', trans('seat-industry::ai-orders.close_order_success'));
 
-        return redirect()->route('seat-industry.orders');
+        return redirect()->route('seat-industry.myOrders');
     }
 
     public function completeOrder(Order $order, Request $request): RedirectResponse
@@ -425,7 +421,7 @@ class IndustryOrderController extends Controller
         if ($order->hasPendingDeliveries() && ! auth()->user()->can('seat-industry.admin')) {
             $request->session()->flash('error', trans('seat-industry::ai-common.error_deleted_in_progress_order'));
 
-            return redirect()->route('seat-industry.orders');
+            return redirect()->route('seat-industry.orderDetails', ['order' => $order]);
         }
 
         $order->completed = true;
@@ -435,7 +431,7 @@ class IndustryOrderController extends Controller
 
         $request->session()->flash('success', trans('seat-industry::ai-orders.close_order_success'));
 
-        return redirect()->route('seat-industry.orders');
+        return redirect()->route('seat-industry.myOrders');
     }
 
     public function deleteCompletedOrders(): RedirectResponse

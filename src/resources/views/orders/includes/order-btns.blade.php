@@ -87,33 +87,37 @@
                 </button>
             @endif
         </form>
-        @if($order->assignedQuantity() < $order->totalQuantity() && $order->isCorpAllowed(auth()->user()))
-            <form action="{{ route("seat-industry.prepareDelivery", ['order' => $order->id]) }}"
-                  method="POST"
-                  class="mx-1 ml-auto"
-            >
-                @csrf
-                <input type="hidden" name="fill" value="0"/>
-                <button type="submit" class="btn btn-primary">
-                    <i class="fas fa-truck"></i>&nbsp;
-                    &nbsp;{{trans('seat-industry::ai-deliveries.order_create_delivery_btn')}}
-                </button>
-            </form>
-        @endif
+        @can('seat-industry.create_deliveries')
+            @if($order->assignedQuantity() < $order->totalQuantity() && $order->isCorpAllowed(auth()->user()))
+                <form action="{{ route("seat-industry.prepareDelivery", ['order' => $order->id]) }}"
+                      method="POST"
+                      class="mx-1 ml-auto"
+                >
+                    @csrf
+                    <input type="hidden" name="fill" value="0"/>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-truck"></i>&nbsp;
+                        &nbsp;{{trans('seat-industry::ai-deliveries.order_create_delivery_btn')}}
+                    </button>
+                </form>
+            @endif
+        @endcan
     @endcan
     @if($order->confirmed)
-        @if($order->assignedQuantity() < $order->totalQuantity() && !$order->corporation)
-            <form action="{{ route("seat-industry.prepareDelivery", ['order' => $order->id]) }}"
-                  method="POST"
-                  class="mx-1 ml-auto"
-            >
-                @csrf
-                <input type="hidden" name="fill" value="0"/>
-                <button type="submit" class="btn btn-primary">
-                    <i class="fas fa-truck"></i>&nbsp;
-                    &nbsp;{{trans('seat-industry::ai-deliveries.order_create_delivery_btn')}}
-                </button>
-            </form>
-        @endif
+        @can('seat-industry.create_deliveries')
+            @if($order->assignedQuantity() < $order->totalQuantity() && !$order->corporation)
+                <form action="{{ route("seat-industry.prepareDelivery", ['order' => $order->id]) }}"
+                      method="POST"
+                      class="mx-1 ml-auto"
+                >
+                    @csrf
+                    <input type="hidden" name="fill" value="0"/>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-truck"></i>&nbsp;
+                        &nbsp;{{trans('seat-industry::ai-deliveries.order_create_delivery_btn')}}
+                    </button>
+                </form>
+            @endif
+        @endcan
     @endif
 </div>
