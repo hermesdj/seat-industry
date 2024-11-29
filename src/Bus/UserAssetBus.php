@@ -81,6 +81,6 @@ class UserAssetBus extends Bus
                             'total' => $batch->totalJobs,
                         ],
                     ]);
-            })->onQueue('characters')->name($mainCharacter->name . ' Container Names')->allowFailures()->dispatch();
+            })->onQueue('characters')->name($mainCharacter->name.' Container Names')->allowFailures()->dispatch();
     }
 }
