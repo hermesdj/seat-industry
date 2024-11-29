@@ -151,8 +151,10 @@ return [
         'nb_items' => 'Nb Items',
         'location' => 'Location',
         'reference' => 'Reference',
+        'remaining' => 'Time',
         'expiring_order' => 'Order :code Expiration !',
         'expiring_message' => 'This order will expire in :remaining !',
+        'expiring_orders' => ':count Orders are Expiring !',
     ],
 
     'modals' => [

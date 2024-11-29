@@ -1,9 +1,9 @@
 <?php
 
+use Seat\HermesDj\Industry\Notifications\Creation\OrderNotificationDiscord;
+use Seat\HermesDj\Industry\Notifications\Creation\OrderNotificationMail;
+use Seat\HermesDj\Industry\Notifications\Creation\OrderNotificationSlack;
 use Seat\HermesDj\Industry\Notifications\Expiration\ExpiringOrderNotificationDiscord;
-use Seat\HermesDj\Industry\Notifications\OrderNotificationDiscord;
-use Seat\HermesDj\Industry\Notifications\OrderNotificationMail;
-use Seat\HermesDj\Industry\Notifications\OrderNotificationSlack;
 
 return [
     'seat_industry_new_order_notification' => [
