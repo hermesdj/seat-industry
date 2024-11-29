@@ -1,6 +1,6 @@
 <?php
 
-namespace Seat\HermesDj\Industry\Notifications;
+namespace Seat\HermesDj\Industry\Notifications\Creation;
 
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;

@@ -7,7 +7,7 @@ return new class extends Migration
 {
     public function up(): void
     {
-        ScheduleHelper::scheduleCommand('seat-industry:notifications', '0 * * * *');
+        ScheduleHelper::scheduleCommand('seat-industry:notifications', '0 8 * * *');
     }
 
     public function down(): void

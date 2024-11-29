@@ -6,8 +6,7 @@ use Carbon\Carbon;
 use Carbon\CarbonInterval;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\SerializesModels;
-use Seat\HermesDj\Industry\Helpers\OrderHelper;
-use Seat\HermesDj\Industry\Models\Orders\Order;
+use Illuminate\Support\Collection;
 use Seat\Notifications\Notifications\AbstractDiscordNotification;
 use Seat\Notifications\Services\Discord\Messages\DiscordEmbed;
 use Seat\Notifications\Services\Discord\Messages\DiscordMessage;
@@ -16,34 +15,35 @@ class ExpiringOrderNotificationDiscord extends AbstractDiscordNotification imple
 {
     use SerializesModels;
 
-    private Order $order;
+    private Collection $orders;
 
-    public function __construct($order)
+    public function __construct($orders)
     {
-        $this->order = $order;
+        $this->orders = $orders;
     }
 
     protected function populateMessage(DiscordMessage $message, $notifiable): void
     {
-        $order = $this->order;
+        $orders = $this->orders;
 
         $message->success()
-            ->embed(function (DiscordEmbed $embed) use ($order) {
-                $charId = $order->user->main_character->id;
-
+            ->embed(function (DiscordEmbed $embed) use ($orders) {
                 $embed
-                    ->author($order->user->name, "https://images.evetech.net/characters/$charId/portrait?size=64")
+                    ->author('Seat Industry')
                     ->title(
                         trans(
-                            'seat-industry::ai-orders.notifications.expiring_order', ['code' => $order->order_id]
+                            'seat-industry::ai-orders.notifications.expiring_orders', ['count' => $orders->count()]
                         ),
-                        route('seat-industry.orderDetails', ['order' => $order->id])
-                    )
-                    ->description(trans('seat-industry::ai-orders.notifications.expiring_message', ['remaining' => CarbonInterval::seconds(Carbon::now()->diffInSeconds($order->produce_until))]))
-                    ->field(trans('seat-industry::ai-orders.notifications.reference'), $order->reference)
-                    ->field(trans('seat-industry::ai-orders.notifications.order_price'), OrderHelper::formatNumber($order->totalValue()).' ISK')
-                    ->field(trans('seat-industry::ai-orders.notifications.nb_items'), $order->items->count())
-                    ->field(trans('seat-industry::ai-orders.notifications.location'), $order->location()->name);
+                    );
+
+                foreach ($orders as $order) {
+                    $time = CarbonInterval::seconds(Carbon::now()->diffInSeconds($order->produce_until))->forHumans(null, true, 2);
+                    $reference = $order->reference;
+                    $url = route('seat-industry.orderDetails', ['order' => $order->id]);
+                    $embed->field(trans('seat-industry::ai-orders.notifications.reference'), "[$reference]($url)");
+                    $embed->field(trans('seat-industry::ai-orders.notifications.remaining'), $time);
+                    $embed->field('\u200B', '\u200B');
+                }
             });
     }
 }

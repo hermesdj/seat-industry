@@ -38,24 +38,22 @@ class SendExpiredOrderNotifications implements ShouldQueue
                 ->get();
         }
 
-        if (! $expiring_orders->isEmpty()) {
-            foreach ($expiring_orders as $order) {
-                $this->dispatchExpiringOrderNotification($order);
-            }
+        if (!$expiring_orders->isEmpty()) {
+            $this->dispatchExpiringOrderNotification($expiring_orders);
         }
 
         IndustrySettings::$LAST_EXPIRING_NOTIFICATION_BATCH->set($now->addHours(24));
     }
 
-    private function dispatchExpiringOrderNotification($order): void
+    private function dispatchExpiringOrderNotification($orders): void
     {
         $groups = NotificationGroup::with('alerts')
             ->whereHas('alerts', function ($query) {
                 $query->where('alert', 'seat_industry_expiring_order_notification');
             })->get();
 
-        $this->dispatchNotifications('seat_industry_expiring_order_notification', $groups, function ($constructor) use ($order) {
-            return new $constructor($order);
+        $this->dispatchNotifications('seat_industry_expiring_order_notification', $groups, function ($constructor) use ($orders) {
+            return new $constructor($orders);
         });
     }
 }
