@@ -28,5 +28,8 @@ class EndProductItem
 
     public int $nbTasks;
 
+    public int $metaGroupId;
+    public bool $isTech2;
+
     public ActivityTypeEnum $activityType;
 }
