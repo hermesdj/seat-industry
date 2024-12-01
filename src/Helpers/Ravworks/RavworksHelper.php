@@ -36,7 +36,7 @@ class RavworksHelper
         }
 
         if ($endProduct->nbTasks > 1) {
-            $line->push('x' . $endProduct->nbTasks);
+            $line->push('x'.$endProduct->nbTasks);
         }
 
         return $line->join(' ');
