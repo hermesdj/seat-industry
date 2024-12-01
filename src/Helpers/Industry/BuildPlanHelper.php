@@ -43,7 +43,7 @@ class BuildPlanHelper
 
             $metaType = $metaTypes->where('typeID', $item->productTypeId)->first();
 
-            if (!self::isAllowed($metaType)) {
+            if (! self::isAllowed($metaType)) {
                 Log::debug("No Allowed Item Meta Type $metaType->metaGroupID");
 
                 continue;
@@ -54,7 +54,7 @@ class BuildPlanHelper
             if ($activityProduct == null) {
                 $activityProduct = $reactionProducts->where('productTypeID', $item->productTypeId)->first();
 
-                if (!$activityProduct) {
+                if (! $activityProduct) {
                     continue;
                 } else {
                     $item->activityType = ActivityTypeEnum::REACTION;
@@ -92,7 +92,7 @@ class BuildPlanHelper
             }
 
             if ($blueprint == null) {
-                Log::debug("No IndustryBlueprint found for $item->productTypeId with blueprint id " . $item->blueprintTypeId);
+                Log::debug("No IndustryBlueprint found for $item->productTypeId with blueprint id ".$item->blueprintTypeId);
 
                 continue;
             }
@@ -149,7 +149,7 @@ class BuildPlanHelper
     public static function computeDeliveryBuildPlan($delivery): Collection
     {
         $orderItems = $delivery->deliveryItems()->get()->filter(function ($d) {
-            return !$d->orderItem->rejected;
+            return ! $d->orderItem->rejected;
         })->map(function ($d) {
             return $d->orderItem;
         });
