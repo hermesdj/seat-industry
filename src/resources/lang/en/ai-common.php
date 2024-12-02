@@ -95,6 +95,6 @@ return [
     ],
 
     'btns' => [
-        'buy_all' => 'Buy All'
-    ]
+        'buy_all' => 'Buy All',
+    ],
 ];
