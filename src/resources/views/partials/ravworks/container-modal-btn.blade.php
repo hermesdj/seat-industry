@@ -4,5 +4,5 @@
         data-toggle="modal"
         data-target="#{{$modalId}}"
 >
-    <i class="fas fa-box-open"></i>
+    <i class="fas fa-box-open text-secondary"></i>
 </button>

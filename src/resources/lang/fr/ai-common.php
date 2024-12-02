@@ -94,4 +94,8 @@ return [
     'messages' => [
         'copy_response' => 'Copié!',
     ],
+
+    'btns' => [
+        'buy_all' => 'Achat Multiple'
+    ]
 ];

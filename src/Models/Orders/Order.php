@@ -12,6 +12,7 @@ use Seat\Eveapi\Models\Character\CharacterInfo;
 use Seat\Eveapi\Models\Corporation\CorporationInfo;
 use Seat\Eveapi\Models\Universe\UniverseStation;
 use Seat\Eveapi\Models\Universe\UniverseStructure;
+use Seat\HermesDj\Industry\Helpers\EveHelper;
 use Seat\HermesDj\Industry\Models\Deliveries\Delivery;
 use Seat\HermesDj\Industry\Models\Deliveries\DeliveryItem;
 use Seat\Web\Models\User;
@@ -184,5 +185,10 @@ class Order extends Model
     public static function countPersonalOrders(): int
     {
         return self::connectedUserOrders()->count();
+    }
+
+    public function formatRejectedToBuyAll(): string
+    {
+        return EveHelper::formatOrderItemsToBuyAll($this->rejectedItems()->get());
     }
 }
