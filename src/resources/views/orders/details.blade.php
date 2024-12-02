@@ -26,17 +26,19 @@
                 <div class="row">
                     <div class="col">
                         <h5 class="float-left">{{trans('seat-industry::ai-orders.items.title.rejected')}}</h5>
-                        <button
-                                type="button" class="btn btn-secondary btn-sm m-1 float-right"
-                                onclick="execBuyAll(this, {{json_encode($order->formatRejectedToBuyAll())}})"
-                                data-container="body"
-                                data-toggle="popover"
-                                data-placement="top"
-                                data-content="{{trans('seat-industry::ai-common.messages.copy_response')}}"
-                        >
-                            <i class="fas fa-cart"></i>
-                            {{trans("seat-industry::ai-common.btns.buy_all")}}
-                        </button>
+                        @if($order->hasRejectedItemsNotDelivered())
+                            <button
+                                    type="button" class="btn btn-secondary btn-sm m-1 float-right"
+                                    onclick="execBuyAll(this, {{json_encode($order->formatRejectedToBuyAll())}})"
+                                    data-container="body"
+                                    data-toggle="popover"
+                                    data-placement="top"
+                                    data-content="{{trans('seat-industry::ai-common.messages.copy_response')}}"
+                            >
+                                <i class="fas fa-cart"></i>
+                                {{trans("seat-industry::ai-common.btns.buy_all")}}
+                            </button>
+                        @endif
                     </div>
                 </div>
                 @include('seat-industry::orders.partials.orderItemTable', ['items' => $order->rejectedItems])

@@ -6,8 +6,9 @@ class EveHelper
 {
     public static function formatOrderItemsToBuyAll($items)
     {
-        return $items->map(function ($item) {
-            return self::formatItemToBuyAll($item->type->typeName, $item->quantity);
+        return $items
+            ->map(function ($item) {
+            return self::formatItemToBuyAll($item->type->typeName, $item->quantity - $item->assignedQuantity());
         })->join("\n");
     }
 

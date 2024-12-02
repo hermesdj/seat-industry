@@ -187,8 +187,17 @@ class Order extends Model
         return self::connectedUserOrders()->count();
     }
 
+    public function hasRejectedItemsNotDelivered(): bool
+    {
+        return $this->rejectedItems()->get()->filter(function ($item) {
+                return $item->quantity - $item->assignedQuantity() > 0;
+            })->count() > 0;
+    }
+
     public function formatRejectedToBuyAll(): string
     {
-        return EveHelper::formatOrderItemsToBuyAll($this->rejectedItems()->get());
+        return EveHelper::formatOrderItemsToBuyAll($this->rejectedItems()->get()->filter(function ($item) {
+            return $item->quantity - $item->assignedQuantity() > 0;
+        }));
     }
 }
