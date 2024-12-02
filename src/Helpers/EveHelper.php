@@ -8,8 +8,8 @@ class EveHelper
     {
         return $items
             ->map(function ($item) {
-            return self::formatItemToBuyAll($item->type->typeName, $item->quantity - $item->assignedQuantity());
-        })->join("\n");
+                return self::formatItemToBuyAll($item->type->typeName, $item->quantity - $item->assignedQuantity());
+            })->join("\n");
     }
 
     private static function formatItemToBuyAll($name, $quantity): string
