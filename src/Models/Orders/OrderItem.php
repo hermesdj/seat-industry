@@ -76,7 +76,7 @@ class OrderItem extends Model implements HasTypeID, ToEveItem
         return $order->items->sortBy(function ($item) {
             return $item->type->typeName;
         })->map(function ($item) {
-            return '- '.$item->type->typeName.' '.'x'.$item->quantity;
+            return '- ' . $item->type->typeName . ' ' . 'x' . $item->quantity;
         })->join("\n");
     }
 
@@ -96,6 +96,11 @@ class OrderItem extends Model implements HasTypeID, ToEveItem
     public function assignedQuantity(): int
     {
         return $this->deliveryItems->sum('quantity_delivered');
+    }
+
+    public function deliveredQuantity(): int
+    {
+        return $this->deliveryItems()->where('delivered', true)->sum('quantity_delivered');
     }
 
     public function availableQuantity(): int
