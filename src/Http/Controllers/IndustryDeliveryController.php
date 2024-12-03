@@ -52,9 +52,7 @@ class IndustryDeliveryController extends Controller
     public function prepareDelivery(Order $order, Request $request): View|Application|Factory|\Illuminate\Contracts\Foundation\Application|RedirectResponse
     {
         $validated = $request->validate([
-            'fill' => 'boolean',
-            'item_ids' => 'array',
-            'item_ids.*' => 'integer',
+            'fill' => 'boolean'
         ]);
 
         $corpIds = auth()->user()->characters->map(function ($char) {
@@ -83,17 +81,10 @@ class IndustryDeliveryController extends Controller
 
         if (isset($validated['fill']) && $validated['fill']) {
             $items = $items->map(function ($item) {
-                $item->deliveredQuantity = $item->quantity;
+                $item->deliveredQuantity = $item->availableQuantity();
 
                 return $item;
             });
-        }
-
-        if (isset($validated['item_ids'])) {
-            foreach ($validated['item_ids'] as $id) {
-                $item = $items->where('id', $id)->first();
-                $item->deliveredQuantity = $item->quantity;
-            }
         }
 
         IndustrySkillsHelper::computeManufacturingSkillsForOrderItems(auth()->user(), $items);
