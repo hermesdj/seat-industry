@@ -4,6 +4,7 @@ namespace Seat\HermesDj\Industry\Helpers\Industry;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
+use Seat\HermesDj\Industry\IndustrySettings;
 use Seat\HermesDj\Industry\Models\Industry\ActivityTypeEnum;
 use Seat\HermesDj\Industry\Models\Industry\IndustryActivity;
 use Seat\HermesDj\Industry\Models\Industry\IndustryActivityProducts;
@@ -12,8 +13,6 @@ use Seat\HermesDj\Industry\Models\Inv\InvMetaTypes;
 
 class BuildPlanHelper
 {
-    private static array $allowedMetaGroupIds = [1, 2, 14, 53, 54];
-
     private static function computeBuildPlan($items): Collection
     {
         $result = collect();
@@ -37,13 +36,13 @@ class BuildPlanHelper
             $item = new EndProductItem;
             $item->productTypeId = $type->getTypeID();
             $item->productName = $type->typeName;
-            $item->targetQuantity = $orderItem->quantity;
+            $item->targetQuantity = $orderItem->availableQuantity();
 
             Log::debug("=========== Ravworks: computing item with typeName $item->productName and quantity $item->targetQuantity");
 
             $metaType = $metaTypes->where('typeID', $item->productTypeId)->first();
 
-            if (! self::isAllowed($metaType)) {
+            if (!self::isAllowed($metaType)) {
                 Log::debug("No Allowed Item Meta Type $metaType->metaGroupID");
 
                 continue;
@@ -61,7 +60,7 @@ class BuildPlanHelper
             if ($activityProduct == null) {
                 $activityProduct = $reactionProducts->where('productTypeID', $item->productTypeId)->first();
 
-                if (! $activityProduct) {
+                if (!$activityProduct) {
                     continue;
                 } else {
                     $item->activityType = ActivityTypeEnum::REACTION;
@@ -70,7 +69,7 @@ class BuildPlanHelper
                 $item->activityType = ActivityTypeEnum::MANUFACTURING;
             }
 
-            $item->materialEfficiency = 0;
+            $item->materialEfficiency = 10;
             $item->blueprintTypeId = $activityProduct->typeID;
             $item->producedPerRun = $activityProduct->quantity;
 
@@ -99,7 +98,7 @@ class BuildPlanHelper
             }
 
             if ($blueprint == null) {
-                Log::debug("No IndustryBlueprint found for $item->productTypeId with blueprint id ".$item->blueprintTypeId);
+                Log::debug("No IndustryBlueprint found for $item->productTypeId with blueprint id " . $item->blueprintTypeId);
 
                 continue;
             }
@@ -150,15 +149,19 @@ class BuildPlanHelper
 
     public static function computeOrderBuildPlan($order): Collection
     {
-        return self::computeBuildPlan($order->allowedItems);
+        return self::computeBuildPlan($order->allowedItems()->get()->filter(function ($item) {
+            return $item->availableQuantity() > 0;
+        }));
     }
 
     public static function computeDeliveryBuildPlan($delivery): Collection
     {
         $orderItems = $delivery->deliveryItems()->get()->filter(function ($d) {
-            return ! $d->orderItem->rejected;
+            return !$d->orderItem->rejected;
         })->map(function ($d) {
             return $d->orderItem;
+        })->filter(function ($item) {
+            return $item->availableQuantity() > 0;
         });
 
         return self::computeBuildPlan($orderItems);
@@ -166,7 +169,7 @@ class BuildPlanHelper
 
     private static function isAllowed($metaType): bool
     {
-        $allowedMetaGroups = collect(self::$allowedMetaGroupIds);
+        $allowedMetaGroups = collect(IndustrySettings::$ALLOWED_META_TYPES);
 
         return $metaType == null || $allowedMetaGroups->contains($metaType->metaGroupID);
     }

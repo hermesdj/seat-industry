@@ -1,5 +1,6 @@
 @include('seat-industry::modals.orders.edit-prices-modal', ['order' => $order, 'mpp' => Seat\HermesDj\Industry\IndustrySettings::$MINIMUM_PROFIT_PERCENTAGE->get(2.5)])
 @include('seat-industry::modals.orders.edit-time-modal', ['order' => $order])
+@include('seat-industry::modals.orders.confirm-complete-order', ['order' => $order])
 
 <div class="d-flex flex-row mb-3">
     @can("seat-industry.same-user",$order->user_id)
@@ -16,11 +17,14 @@
                 </form>
             @endif
             @if(!$order->deliveries->isEmpty() && (!$order->hasPendingDeliveries() || $order->completed))
-                <form action="{{ route("seat-industry.completeOrder", ['order' => $order->id]) }}" method="POST"
-                      class="mx-1">
+
                     @csrf
-                    <button type="submit"
-                            class="btn btn-success">
+                    <button
+                            type="button"
+                            class="btn btn-success mx-1"
+                            data-toggle="modal"
+                            data-target="#modalConfirmCompleteOrder"
+                    >
                         <i class="fas fa-check-circle"></i>&nbsp;
                         {{trans('seat-industry::ai-orders.btns.completeOrder')}}
                     </button>

@@ -162,6 +162,10 @@ return [
             'title' => 'Étendre le délai de :code',
             'desc' => 'Cette fenêtre vous permet d\'ajouter des jours au délai de livraison de cette commande.',
         ],
+        'completeOrder' => [
+            'title' => 'Terminer Commande :code',
+            'desc' => "Cette action va terminer la commande et la supprimer de la base de données. <b>Cette action est irréversible</b>",
+        ]
     ],
 
     'messages' => [

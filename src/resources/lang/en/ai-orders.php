@@ -166,6 +166,10 @@ return [
             'title' => 'Extend Order :code delivery date',
             'desc' => 'This modal allow you to extend the time of the order by adding more days to the current value.',
         ],
+        'completeOrder' => [
+            'title' => 'Complete Order :code',
+            'desc' => 'This will mark the order as completed and will delete it from the local database. <b>This action cannot be undone</b>.',
+        ]
     ],
 
     'ravworks' => [

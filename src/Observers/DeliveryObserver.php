@@ -7,12 +7,12 @@ use Seat\HermesDj\Industry\Models\Statistics\DeliveryStatistic;
 
 class DeliveryObserver
 {
-    public static function saved($delivery)
+    public static function saved($delivery): void
     {
         self::updateOrderCompletionState($delivery);
     }
 
-    public static function saving($delivery)
+    public static function saving($delivery): void
     {
         //delivery is completed, remove the virtual source
         if ($delivery->completed) {
@@ -27,7 +27,7 @@ class DeliveryObserver
                     //TODO fix inventory integration
                     $workspace = SeatInventoryPluginHelper::$WORKSPACE_MODEL::where('name', 'like', '%add2Industry%')->first();
 
-                    if (! $workspace) {
+                    if (!$workspace) {
                         return;
                     }
 
@@ -62,13 +62,15 @@ class DeliveryObserver
             $item->delete();
         }
 
-        DeliveryStatistic::create([
-            'order_id' => $delivery->order_id,
-            'delivery_id' => $delivery->id,
-            'user_id' => $delivery->user_id,
-            'accepted' => $delivery->accepted,
-            'completed_at' => $delivery->completed_at,
-        ]);
+        if ($delivery->completed) {
+            DeliveryStatistic::create([
+                'order_id' => $delivery->order_id,
+                'delivery_id' => $delivery->id,
+                'user_id' => $delivery->user_id,
+                'accepted' => $delivery->accepted,
+                'completed_at' => $delivery->completed_at,
+            ]);
+        }
     }
 
     private static function deleteInventorySource($delivery): void
@@ -89,13 +91,13 @@ class DeliveryObserver
         $order = $delivery->order;
 
         //this is the case when the order observe triggers the deletion of related deliveries
-        if (! $order) {
+        if (!$order) {
             return;
         }
 
         $is_completed = false;
         foreach ($order->deliveries as $delivery) {
-            if (! $delivery->completed) {
+            if (!$delivery->completed) {
                 $is_completed = false;
                 break;
             } else {
