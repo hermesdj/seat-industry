@@ -169,7 +169,7 @@ return [
         'completeOrder' => [
             'title' => 'Complete Order :code',
             'desc' => 'This will mark the order as completed and will delete it from the local database. <b>This action cannot be undone</b>.',
-        ]
+        ],
     ],
 
     'ravworks' => [

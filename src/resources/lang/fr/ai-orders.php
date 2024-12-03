@@ -164,8 +164,8 @@ return [
         ],
         'completeOrder' => [
             'title' => 'Terminer Commande :code',
-            'desc' => "Cette action va terminer la commande et la supprimer de la base de données. <b>Cette action est irréversible</b>",
-        ]
+            'desc' => 'Cette action va terminer la commande et la supprimer de la base de données. <b>Cette action est irréversible</b>',
+        ],
     ],
 
     'messages' => [
