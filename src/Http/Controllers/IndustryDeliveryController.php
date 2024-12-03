@@ -52,7 +52,7 @@ class IndustryDeliveryController extends Controller
     public function prepareDelivery(Order $order, Request $request): View|Application|Factory|\Illuminate\Contracts\Foundation\Application|RedirectResponse
     {
         $validated = $request->validate([
-            'fill' => 'boolean'
+            'fill' => 'boolean',
         ]);
 
         $corpIds = auth()->user()->characters->map(function ($char) {
