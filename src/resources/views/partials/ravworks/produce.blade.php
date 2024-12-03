@@ -22,11 +22,11 @@
                     data-container="body"
                     data-toggle="popover"
                     data-placement="top"
-                    data-content="{!! trans('seat-industry::industry.ravworks.stockTip', ['code' => $order->order_id]) !!}"
+                    data-content="{!! trans('seat-industry::industry.ravworks.stockTip', ['code' => $code]) !!}"
             >
                 <small class="text-danger">
                     <i class="fas fa-exclamation-triangle"></i>
-                    {!! trans('seat-industry::industry.ravworks.errors.noProduction', ['code' => $order->order_id]) !!}
+                    {!! trans('seat-industry::industry.ravworks.errors.noProduction', ['code' => $code]) !!}
                 </small>
             </a>
         @endif
