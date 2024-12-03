@@ -35,9 +35,13 @@ class OrderNotificationDiscord extends AbstractDiscordNotification implements Sh
                     ->title(trans('seat-industry::ai-orders.notifications.new_order', ['code' => $order->order_id]), route('seat-industry.orderDetails', ['order' => $order->id]))
                     ->description(OrderItem::formatOrderItemsForDiscord($order))
                     ->field(trans('seat-industry::ai-orders.notifications.reference'), $order->reference)
-                    ->field(trans('seat-industry::ai-orders.notifications.order_price'), OrderHelper::formatNumber($order->totalValue()).' ISK')
+                    ->field(trans('seat-industry::ai-orders.notifications.order_price'), OrderHelper::formatNumber($order->totalValue()) . ' ISK')
                     ->field(trans('seat-industry::ai-orders.notifications.nb_items'), $order->items->count())
                     ->field(trans('seat-industry::ai-orders.notifications.location'), $order->location()->name);
+
+                if ($order->corporation) {
+                    $embed->field(trans('seat-industry::ai-orders.notifications.reserved_corp'), $order->corporation->name);
+                }
             });
     }
 }

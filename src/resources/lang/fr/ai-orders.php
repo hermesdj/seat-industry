@@ -151,6 +151,7 @@ return [
         'expiring_order' => 'Commande :code va expirer !',
         'expiring_message' => 'Cette commande va expirer dans :remaining !',
         'expiring_orders' => ':count commandes vont expirer !',
+        'reserved_corp' => 'Réservé par'
     ],
 
     'modals' => [
