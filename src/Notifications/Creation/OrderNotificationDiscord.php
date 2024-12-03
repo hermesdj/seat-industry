@@ -40,7 +40,7 @@ class OrderNotificationDiscord extends AbstractDiscordNotification implements Sh
                     ->author($order->user->name, "https://images.evetech.net/characters/$charId/portrait?size=64")
                     ->description(OrderItem::formatOrderItemsForDiscord($order))
                     ->field(trans('seat-industry::ai-orders.notifications.reference'), $order->reference)
-                    ->field(trans('seat-industry::ai-orders.notifications.order_price'), OrderHelper::formatNumber($order->totalValue()) . ' ISK')
+                    ->field(trans('seat-industry::ai-orders.notifications.order_price'), OrderHelper::formatNumber($order->totalValue()).' ISK')
                     ->field(trans('seat-industry::ai-orders.notifications.nb_items'), $order->items->count())
                     ->field(trans('seat-industry::ai-orders.notifications.location'), $order->location()->name);
 
