@@ -145,7 +145,8 @@ return [
     ],
 
     'notifications' => [
-        'new_order' => 'New Order :code is available !',
+        'new_order' => 'New Order :code - :reference is available !',
+        'new_corp_order' => 'New Corporation Order :code - :reference is available !',
         'order_details' => 'Order details :',
         'order_price' => 'Price',
         'nb_items' => 'Nb Items',

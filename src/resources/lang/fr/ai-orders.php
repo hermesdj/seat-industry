@@ -141,7 +141,8 @@ return [
     ],
 
     'notifications' => [
-        'new_order' => 'Nouvelle commande :code disponible !',
+        'new_order' => 'Nouvelle commande :code - :reference disponible !',
+        'new_corp_order' => 'Nouvelle commande corpo :code - :reference disponible !',
         'order_details' => 'Détails de la Commande :',
         'order_price' => 'Prix',
         'nb_items' => 'Nb Lignes',
