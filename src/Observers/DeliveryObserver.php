@@ -27,7 +27,7 @@ class DeliveryObserver
                     //TODO fix inventory integration
                     $workspace = SeatInventoryPluginHelper::$WORKSPACE_MODEL::where('name', 'like', '%add2Industry%')->first();
 
-                    if (!$workspace) {
+                    if (! $workspace) {
                         return;
                     }
 
@@ -91,13 +91,13 @@ class DeliveryObserver
         $order = $delivery->order;
 
         //this is the case when the order observe triggers the deletion of related deliveries
-        if (!$order) {
+        if (! $order) {
             return;
         }
 
         $is_completed = false;
         foreach ($order->deliveries as $delivery) {
-            if (!$delivery->completed) {
+            if (! $delivery->completed) {
                 $is_completed = false;
                 break;
             } else {
