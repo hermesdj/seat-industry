@@ -16,9 +16,9 @@ return [
     ],
 
     'orders_menu' => [
-        'available' => 'Disponible',
-        'reserved_corp' => 'Réservées Corporation',
-        'my_orders' => 'Mes Commandes',
+        'available' => 'Available',
+        'reserved_corp' => 'Reserved Corp',
+        'my_orders' => 'My Orders',
     ],
 
     'repeating_order_title' => 'Repeating Order',
@@ -106,7 +106,7 @@ return [
     ],
 
     'btns' => [
-        'updateOrderItemStates' => 'Calcul Etat Lignes',
+        'updateOrderItemStates' => 'Recompute Item States',
         'reserveCorp' => 'Reserve Corp',
         'unReserveCorp' => 'Not Reserve Corp',
         'deleteOrder' => 'Delete Order',
@@ -141,6 +141,7 @@ return [
         'in_delivery' => 'In Delivery',
         'delivered' => 'Delivered',
         'remaining' => 'Remaining',
+        'reference' => 'Reference',
         'rejected' => 'Not Crafted',
     ],
 

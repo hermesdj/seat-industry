@@ -15,6 +15,12 @@ return [
         'build_plan' => 'Plan de Fabrication',
     ],
 
+    'orders_menu' => [
+        'available' => 'Disponible',
+        'reserved_corp' => 'Réservées Corporation',
+        'my_orders' => 'Mes Commandes',
+    ],
+
     'repeating_order_title' => 'Commande répétée',
     'repeating_order_desc' => 'Ceci est une commande qui se republie elle-même chaque :days jours. La prochaine republication au lieu le :date.',
 
@@ -167,6 +173,12 @@ return [
         'completeOrder' => [
             'title' => 'Terminer Commande :code',
             'desc' => 'Cette action va terminer la commande et la supprimer de la base de données. <b>Cette action est irréversible</b>',
+        ],
+    ],
+
+    'ravworks' => [
+        'export' => [
+            'btn' => 'Ravworks Export',
         ],
     ],
 
