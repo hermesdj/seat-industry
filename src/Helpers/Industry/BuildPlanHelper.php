@@ -42,7 +42,7 @@ class BuildPlanHelper
 
             $metaType = $metaTypes->where('typeID', $item->productTypeId)->first();
 
-            if (! self::isAllowed($metaType)) {
+            if (!self::isAllowed($metaType)) {
                 Log::debug("No Allowed Item Meta Type $metaType->metaGroupID");
 
                 continue;
@@ -60,7 +60,7 @@ class BuildPlanHelper
             if ($activityProduct == null) {
                 $activityProduct = $reactionProducts->where('productTypeID', $item->productTypeId)->first();
 
-                if (! $activityProduct) {
+                if (!$activityProduct) {
                     continue;
                 } else {
                     $item->activityType = ActivityTypeEnum::REACTION;
@@ -70,6 +70,11 @@ class BuildPlanHelper
             }
 
             $item->materialEfficiency = 10;
+
+            if ($item->activityType == ActivityTypeEnum::REACTION) {
+                $item->materialEfficiency = 0;
+            }
+
             $item->blueprintTypeId = $activityProduct->typeID;
             $item->producedPerRun = $activityProduct->quantity;
 
@@ -98,7 +103,7 @@ class BuildPlanHelper
             }
 
             if ($blueprint == null) {
-                Log::debug("No IndustryBlueprint found for $item->productTypeId with blueprint id ".$item->blueprintTypeId);
+                Log::debug("No IndustryBlueprint found for $item->productTypeId with blueprint id " . $item->blueprintTypeId);
 
                 continue;
             }
@@ -165,7 +170,7 @@ class BuildPlanHelper
     {
         $orderItems = $delivery->deliveryItems()->get()
             ->filter(function ($d) {
-                return ! $d->orderItem->rejected && $d->quantity_delivered > 0;
+                return !$d->orderItem->rejected && $d->quantity_delivered > 0;
             })->map(function ($d) {
                 $orderItem = $d->orderItem;
                 $orderItem->quantity = $d->quantity_delivered;
