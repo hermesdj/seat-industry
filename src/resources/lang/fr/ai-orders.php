@@ -53,7 +53,7 @@ return [
     'seat_inventory_label' => 'Seat-Inventory',
     'seat_inventory_hint' => 'Ajouter une source à seat-inventory',
     'seat_inventory_desc' => 'Dès que la livraison pour cette commande sera créée, une source d\'objet sera ajoutée à seat-inventory. Une fois que la livraison est marquée comme terminée, la source sera retirée. La source sera ajoutée au <u>premier</u> espace de travail contenant le label <code>add2Industry</code> à n\'importe quelle position de son nom. Vous pouvez renommer les espaces de travail <a href=":route">içi</a>.',
-    //'seat_inventory_desc' => 'As soon as a delivery for this order is created, a item source will be added to seat-inventory. Once the delivery is marked as completed, the source will be removed. The source will be added to the <u>first</u> workspace containing <code>add2Industry</code> at any position in it\'s name. You can rename workspaces <a href=":route">here.</a>',
+    // 'seat_inventory_desc' => 'As soon as a delivery for this order is created, a item source will be added to seat-inventory. Once the delivery is marked as completed, the source will be removed. The source will be added to the <u>first</u> workspace containing <code>add2Industry</code> at any position in it\'s name. You can rename workspaces <a href=":route">here.</a>',
 
     'deliver_to_label' => 'Livrer à',
     'deliver_to_hint' => 'Sélectionnez le personnage à qui la commande doit être livrée',

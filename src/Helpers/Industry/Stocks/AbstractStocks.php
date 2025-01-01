@@ -32,7 +32,7 @@ abstract class AbstractStocks
 
     protected function buildAssetsQuery(Builder $query): Builder
     {
-        return $query->where('name', 'like', '%' . $this->order->order_id . '%')
+        return $query->where('name', 'like', '%'.$this->order->order_id.'%')
             ->with(['type', 'type.group', 'station', 'structure', 'container', 'container.station', 'container.container', 'container.structure']);
     }
 

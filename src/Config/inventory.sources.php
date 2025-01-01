@@ -1,7 +1,7 @@
 <?php
 
 return [
-    //seat-industry
+    // seat-industry
     'seat_industry_delivery' => [
         'pooled' => true,
         'virtual' => true,

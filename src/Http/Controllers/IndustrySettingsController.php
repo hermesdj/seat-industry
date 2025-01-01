@@ -25,7 +25,7 @@ class IndustrySettingsController extends Controller
         $allowPriceBelowAutomatic = IndustrySettings::$ALLOW_PRICES_BELOW_AUTOMATIC->get(false);
 
         $default_price_provider = IndustrySettings::$DEFAULT_PRICE_PROVIDER->get();
-        //dd($default_price_provider);
+        // dd($default_price_provider);
 
         $removeExpiredDeliveries = IndustrySettings::$REMOVE_EXPIRED_DELIVERIES->get(false);
 
@@ -65,7 +65,7 @@ class IndustrySettingsController extends Controller
 
         $roles = [];
         if ($request->pingRolesOrderCreation) {
-            //parse roles
+            // parse roles
             $roles = preg_replace('~\R~u', "\n", $request->pingRolesOrderCreation);
             $matches = [];
             preg_match_all("/\d+/m", $roles, $matches);

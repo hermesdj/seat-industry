@@ -25,7 +25,7 @@ class IndustrySettings
 
     public static $DEFAULT_PRIORITY;
 
-    //used in an earlier iteration of the notification system, still used in migrations
+    // used in an earlier iteration of the notification system, still used in migrations
     public static $NOTIFICATION_COMMAND_SCHEDULE_ID;
 
     public static $ALLOWED_PRICE_PROVIDERS;
@@ -41,7 +41,7 @@ class IndustrySettings
         self::$REMOVE_EXPIRED_DELIVERIES = Setting::create('seat-industry', 'deliveries.expired.remove', true);
         self::$DEFAULT_PRIORITY = Setting::create('seat-industry', 'order.priority.default', true);
 
-        //with manual key because it is migrated from the old settings system
+        // with manual key because it is migrated from the old settings system
         self::$MINIMUM_PROFIT_PERCENTAGE = Setting::createFromKey('hermesdj.seat-industry.minimumProfitPercentage', true);
         self::$ORDER_CREATION_PING_ROLES = Setting::createFromKey('hermesdj.seat-industry.orderCreationPingRoles', true);
         self::$ALLOW_PRICES_BELOW_AUTOMATIC = Setting::createFromKey('hermesdj.seat-industry.allowPricesBelowAutomatic', true);

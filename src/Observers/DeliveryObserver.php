@@ -14,17 +14,17 @@ class DeliveryObserver
 
     public static function saving($delivery): void
     {
-        //delivery is completed, remove the virtual source
+        // delivery is completed, remove the virtual source
         if ($delivery->completed) {
             self::deleteInventorySource($delivery);
-        } //create/update the delivery
+        } // create/update the delivery
         else {
             if (SeatInventoryPluginHelper::pluginIsAvailable()) {
                 $order = $delivery->order;
                 $source = $delivery->seatInventorySource;
-                //check if we have to add a source
+                // check if we have to add a source
                 if ($order->add_seat_inventory && $source === null) {
-                    //TODO fix inventory integration
+                    // TODO fix inventory integration
                     $workspace = SeatInventoryPluginHelper::$WORKSPACE_MODEL::where('name', 'like', '%add2Industry%')->first();
 
                     if (! $workspace) {
@@ -90,7 +90,7 @@ class DeliveryObserver
     {
         $order = $delivery->order;
 
-        //this is the case when the order observe triggers the deletion of related deliveries
+        // this is the case when the order observe triggers the deletion of related deliveries
         if (! $order) {
             return;
         }
