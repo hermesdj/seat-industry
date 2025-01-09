@@ -73,7 +73,6 @@ return [
     'empty_deliveries' => 'Il n\'y a pas encore de Livraisons pour cette commande.',
 
     'close_order_btn' => 'Fermer',
-    'update_price_btn' => 'Mettre à jour le prix',
     'update_price_action' => 'Mettre à jour le prix ? Le prix manuel sera écrasé !',
     'extend_time_btn' => 'Ajouter du temps',
     'extend_time_action' => ' souhaite ajouter 1 semaine au temps de livraison',
@@ -107,6 +106,8 @@ return [
     ],
 
     'btns' => [
+        'confirmOrder' => 'Confirmer',
+        'closeOrder' => 'Fermer',
         'updateOrderItemStates' => 'Calcul Etat Lignes',
         'reserveCorp' => 'Reservé Corp.',
         'unReserveCorp' => 'Non Reservé Corp.',
@@ -134,6 +135,11 @@ return [
         'quantities' => 'Quantités Totales',
         'corporation' => 'Reservé par',
         'reference' => 'Référence',
+        'observations' => 'Observations'
+    ],
+
+    'placeholders' => [
+        'observations' => 'Içi vous pouvez ajouter des instructions concernant votre commande.'
     ],
 
     'summary' => [
@@ -163,17 +169,25 @@ return [
 
     'modals' => [
         'editPrices' => [
+            'btn' => 'Modifier Prix',
             'title' => 'Modifier les prix de :code',
             'desc' => 'Cette fenêtre vous permet de recalculer le prix des éléments de la commande avec des données à jour.',
         ],
         'editTime' => [
+            'btn' => 'Ajuster Délai',
             'title' => 'Étendre le délai de :code',
             'desc' => 'Cette fenêtre vous permet d\'ajouter des jours au délai de livraison de cette commande.',
         ],
         'completeOrder' => [
+            'btn' => 'Terminer',
             'title' => 'Terminer Commande :code',
             'desc' => 'Cette action va terminer la commande et la supprimer de la base de données. <b>Cette action est irréversible</b>',
         ],
+        'editDetails' => [
+            'btn' => 'Modifier',
+            'title' => 'Modifier les détails de la commande :code',
+            'desc' => 'Cette fenêtre vous permet de modifier les détails de la commande.',
+        ]
     ],
 
     'ravworks' => [

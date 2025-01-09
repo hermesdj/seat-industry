@@ -1,5 +1,6 @@
 @include('seat-industry::modals.orders.edit-prices-modal', ['order' => $order, 'mpp' => Seat\HermesDj\Industry\IndustrySettings::$MINIMUM_PROFIT_PERCENTAGE->get(2.5)])
 @include('seat-industry::modals.orders.edit-time-modal', ['order' => $order])
+@include('seat-industry::modals.orders.edit-details-modal', ['order' => $order])
 @include('seat-industry::modals.orders.confirm-complete-order', ['order' => $order])
 
 <div class="d-flex flex-row mb-3">
@@ -17,18 +18,16 @@
                 </form>
             @endif
             @if(!$order->deliveries->isEmpty() && (!$order->hasPendingDeliveries() || $order->completed))
-
-                    @csrf
-                    <button
-                            type="button"
-                            class="btn btn-success mx-1"
-                            data-toggle="modal"
-                            data-target="#modalConfirmCompleteOrder"
-                    >
-                        <i class="fas fa-check-circle"></i>&nbsp;
-                        {{trans('seat-industry::ai-orders.btns.completeOrder')}}
-                    </button>
-                </form>
+                @csrf
+                <button
+                        type="button"
+                        class="btn btn-success mx-1"
+                        data-toggle="modal"
+                        data-target="#modalConfirmCompleteOrder"
+                >
+                    <i class="fas fa-check-circle"></i>&nbsp;
+                    {{trans('seat-industry::ai-orders.btns.completeOrder')}}
+                </button>
             @endif
         @else
             <form action="{{ route("seat-industry.confirmOrder", ['order' => $order->id]) }}"
@@ -38,7 +37,7 @@
                 <button type="submit"
                         class="btn btn-success">
                     <i class="fa fa-check "></i>&nbsp;
-                    {{trans('seat-industry::ai-orders.confirm_order_btn')}}
+                    {{trans('seat-industry::ai-orders.btns.confirmOrder')}}
                 </button>
             </form>
             @if($order->deliveries->isEmpty() || !$order->hasPendingDeliveries() || $order->completed || auth()->user()->can("seat-industry.admin"))
@@ -48,11 +47,20 @@
                     <button type="submit"
                             class="btn btn-danger">
                         <i class="fas fa-times "></i>&nbsp;
-                        {{trans('seat-industry::ai-orders.close_order_btn')}}
+                        {{trans('seat-industry::ai-orders.btns.closeOrder')}}
                     </button>
                 </form>
             @endif
         @endif
+        <button
+                type="button"
+                class="btn btn-secondary mx-1"
+                data-toggle="modal"
+                data-target="#modalEditDetails"
+        >
+            <i class="fas fa-pen"></i>&nbsp;
+            {{trans('seat-industry::ai-orders.modals.editDetails.btn')}}
+        </button>
         @if(!$order->completed && !$order->is_repeating && !$order->hasPendingDeliveries())
             <button
                     type="button"
@@ -61,7 +69,7 @@
                     data-target="#modalEditOrderPrices"
             >
                 <i class="fas fa-dollar-sign"></i>&nbsp;
-                {{trans('seat-industry::ai-orders.update_price_btn')}}
+                {{trans('seat-industry::ai-orders.modals.editPrices.btn')}}
             </button>
         @endif
         @if(!$order->is_repeating && !$order->completed)
@@ -71,8 +79,8 @@
                     data-toggle="modal"
                     data-target="#modalEditOrderTime"
             >
-                <i class="fas fa-clock "></i>&nbsp;
-                {{trans('seat-industry::ai-orders.extend_time_btn')}}
+                <i class="fas fa-clock"></i>&nbsp;
+                {{trans('seat-industry::ai-orders.modals.editTime.btn')}}
             </button>
         @endif
     @endcan

@@ -106,6 +106,8 @@ return [
     ],
 
     'btns' => [
+        'confirmOrder' => 'Confirm',
+        'closeOrder' => 'Close',
         'updateOrderItemStates' => 'Recompute Item States',
         'reserveCorp' => 'Reserve Corp',
         'unReserveCorp' => 'Not Reserve Corp',
@@ -133,6 +135,11 @@ return [
         'quantities' => 'Total Quantities',
         'corporation' => 'Reserved By',
         'reference' => 'Reference',
+        'observations' => 'Comments'
+    ],
+
+    'placeholders' => [
+        'observations' => 'Here you can provide additional details regarding your order.'
     ],
 
     'summary' => [
@@ -164,15 +171,23 @@ return [
         'editPrices' => [
             'title' => 'Edit Order :code prices',
             'desc' => 'This modal allow you to recompute an order prices with up to date price data from the price providers.',
+            'btn' => 'Update Price'
         ],
         'editTime' => [
             'title' => 'Extend Order :code delivery date',
             'desc' => 'This modal allow you to extend the time of the order by adding more days to the current value.',
+            'btn' => 'Extend Time'
         ],
         'completeOrder' => [
             'title' => 'Complete Order :code',
             'desc' => 'This will mark the order as completed and will delete it from the local database. <b>This action cannot be undone</b>.',
+            'btn' => 'Complete'
         ],
+        'editDetails' => [
+            'title' => 'Edit Order :code details',
+            'desc' => 'This allow you to edit the details of the order.',
+            'btn' => 'Edit'
+        ]
     ],
 
     'ravworks' => [

@@ -21,10 +21,20 @@
 @section('right')
     <div class="card">
         <div class="card-body">
-            <label for="items"> {{ trans('seat-industry::ai-orders.summary.title') }}</label>
+            <div class="card-title mb-3"> {{ trans('seat-industry::ai-orders.summary.title') }}</div>
             @include('seat-industry::orders.partials.order-summary', ['order' => $order])
         </div>
+        @isset($order->observations)
     </div>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">{{trans('seat-industry::ai-orders.fields.observations')}}</h5>
+            <p class="card-text">
+                {{$order->observations}}
+            </p>
+        </div>
+    </div>
+    @endisset
 @stop
 @push("javascript")
     <script>
