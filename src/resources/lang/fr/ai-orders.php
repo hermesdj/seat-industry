@@ -135,11 +135,11 @@ return [
         'quantities' => 'Quantités Totales',
         'corporation' => 'Reservé par',
         'reference' => 'Référence',
-        'observations' => 'Observations'
+        'observations' => 'Observations',
     ],
 
     'placeholders' => [
-        'observations' => 'Içi vous pouvez ajouter des instructions concernant votre commande.'
+        'observations' => 'Içi vous pouvez ajouter des instructions concernant votre commande.',
     ],
 
     'summary' => [
@@ -187,7 +187,7 @@ return [
             'btn' => 'Modifier',
             'title' => 'Modifier les détails de la commande :code',
             'desc' => 'Cette fenêtre vous permet de modifier les détails de la commande.',
-        ]
+        ],
     ],
 
     'ravworks' => [
