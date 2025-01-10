@@ -23,7 +23,7 @@ class SendOrderNotification
         $notification->dispatchNotification();
     }
 
-    //stolen from https://github.com/eveseat/notifications/blob/master/src/Observers/UserObserver.php
+    // stolen from https://github.com/eveseat/notifications/blob/master/src/Observers/UserObserver.php
     private function dispatchNotification(): void
     {
         $order = $this->order;

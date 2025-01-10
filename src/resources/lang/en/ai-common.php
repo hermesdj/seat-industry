@@ -93,4 +93,8 @@ return [
     'messages' => [
         'copy_response' => 'Copied!',
     ],
+
+    'btns' => [
+        'buy_all' => 'Buy All',
+    ],
 ];

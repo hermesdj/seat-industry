@@ -138,7 +138,16 @@
                                         name="items"
                                         class="form-control"
                                         placeholder="{{trans('seat-industry::ai-orders.items_placeholder')}}"
-                                        rows="20" style="height: 100%">{{ $multibuy ?? "" }}</textarea>
+                                        rows="18" style="height: 100%">{{ $multibuy ?? "" }}</textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="observations">{{trans('seat-industry::ai-orders.fields.observations')}}</label>
+                                <textarea
+                                        id="observations"
+                                        name="observations"
+                                        class="form-control"
+                                        placeholder="{{trans('seat-industry::ai-orders.placeholders.observations')}}"
+                                        rows="2" style="height: 100%"></textarea>
                             </div>
                         </div>
                     </div>

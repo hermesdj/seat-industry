@@ -52,6 +52,12 @@ Route::group([
             'middleware' => 'can:seat-industry.create_orders',
         ]);
 
+        Route::post('/{order}/edit', [
+            'as' => 'seat-industry.editDetails',
+            'uses' => 'IndustryOrderController@updateOrderDetails',
+            'middleware' => 'can:seat-industry.create_orders',
+        ]);
+
         Route::post('/submit', [
             'as' => 'seat-industry.submitOrder',
             'uses' => 'IndustryOrderController@submitOrder',

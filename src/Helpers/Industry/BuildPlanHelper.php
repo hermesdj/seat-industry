@@ -4,6 +4,7 @@ namespace Seat\HermesDj\Industry\Helpers\Industry;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
+use Seat\HermesDj\Industry\IndustrySettings;
 use Seat\HermesDj\Industry\Models\Industry\ActivityTypeEnum;
 use Seat\HermesDj\Industry\Models\Industry\IndustryActivity;
 use Seat\HermesDj\Industry\Models\Industry\IndustryActivityProducts;
@@ -12,8 +13,6 @@ use Seat\HermesDj\Industry\Models\Inv\InvMetaTypes;
 
 class BuildPlanHelper
 {
-    private static array $allowedMetaGroupIds = [1, 2, 14, 53, 54];
-
     private static function computeBuildPlan($items): Collection
     {
         $result = collect();
@@ -49,6 +48,13 @@ class BuildPlanHelper
                 continue;
             }
 
+            if ($metaType) {
+                $item->metaGroupId = $metaType->metaGroup->metaGroupID;
+                $item->isTech2 = $item->metaGroupId == 2;
+            } else {
+                $item->isTech2 = false;
+            }
+
             $activityProduct = $activityProducts->where('productTypeID', $item->productTypeId)->first();
 
             if ($activityProduct == null) {
@@ -63,7 +69,12 @@ class BuildPlanHelper
                 $item->activityType = ActivityTypeEnum::MANUFACTURING;
             }
 
-            $item->materialEfficiency = 0;
+            $item->materialEfficiency = 10;
+
+            if ($item->activityType == ActivityTypeEnum::REACTION) {
+                $item->materialEfficiency = 0;
+            }
+
             $item->blueprintTypeId = $activityProduct->typeID;
             $item->producedPerRun = $activityProduct->quantity;
 
@@ -133,7 +144,7 @@ class BuildPlanHelper
             if ($excessRuns > 0) {
                 $itemThree = clone $item;
                 $itemThree->nbTasks = 1;
-                $itemThree->excessRuns = $excessRuns;
+                $itemThree->nbRuns = $excessRuns;
                 $result->push($itemThree);
             }
         }
@@ -143,23 +154,36 @@ class BuildPlanHelper
 
     public static function computeOrderBuildPlan($order): Collection
     {
-        return self::computeBuildPlan($order->allowedItems);
+        $orderItems = $order->allowedItems()->get()
+            ->filter(function ($item) {
+                return $item->availableQuantity() > 0;
+            })->map(function ($item) {
+                $item->quantity = $item->availableQuantity();
+
+                return $item;
+            });
+
+        return self::computeBuildPlan($orderItems);
     }
 
     public static function computeDeliveryBuildPlan($delivery): Collection
     {
-        $orderItems = $delivery->deliveryItems()->get()->filter(function ($d) {
-            return ! $d->orderItem->rejected;
-        })->map(function ($d) {
-            return $d->orderItem;
-        });
+        $orderItems = $delivery->deliveryItems()->get()
+            ->filter(function ($d) {
+                return ! $d->orderItem->rejected && $d->quantity_delivered > 0;
+            })->map(function ($d) {
+                $orderItem = $d->orderItem;
+                $orderItem->quantity = $d->quantity_delivered;
+
+                return $orderItem;
+            });
 
         return self::computeBuildPlan($orderItems);
     }
 
     private static function isAllowed($metaType): bool
     {
-        $allowedMetaGroups = collect(self::$allowedMetaGroupIds);
+        $allowedMetaGroups = collect(IndustrySettings::$ALLOWED_META_TYPES);
 
         return $metaType == null || $allowedMetaGroups->contains($metaType->metaGroupID);
     }

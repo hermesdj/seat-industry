@@ -15,6 +15,12 @@ return [
         'build_plan' => 'Plan de Fabrication',
     ],
 
+    'orders_menu' => [
+        'available' => 'Disponible',
+        'reserved_corp' => 'Réservées Corporation',
+        'my_orders' => 'Mes Commandes',
+    ],
+
     'repeating_order_title' => 'Commande répétée',
     'repeating_order_desc' => 'Ceci est une commande qui se republie elle-même chaque :days jours. La prochaine republication au lieu le :date.',
 
@@ -47,7 +53,7 @@ return [
     'seat_inventory_label' => 'Seat-Inventory',
     'seat_inventory_hint' => 'Ajouter une source à seat-inventory',
     'seat_inventory_desc' => 'Dès que la livraison pour cette commande sera créée, une source d\'objet sera ajoutée à seat-inventory. Une fois que la livraison est marquée comme terminée, la source sera retirée. La source sera ajoutée au <u>premier</u> espace de travail contenant le label <code>add2Industry</code> à n\'importe quelle position de son nom. Vous pouvez renommer les espaces de travail <a href=":route">içi</a>.',
-    //'seat_inventory_desc' => 'As soon as a delivery for this order is created, a item source will be added to seat-inventory. Once the delivery is marked as completed, the source will be removed. The source will be added to the <u>first</u> workspace containing <code>add2Industry</code> at any position in it\'s name. You can rename workspaces <a href=":route">here.</a>',
+    // 'seat_inventory_desc' => 'As soon as a delivery for this order is created, a item source will be added to seat-inventory. Once the delivery is marked as completed, the source will be removed. The source will be added to the <u>first</u> workspace containing <code>add2Industry</code> at any position in it\'s name. You can rename workspaces <a href=":route">here.</a>',
 
     'deliver_to_label' => 'Livrer à',
     'deliver_to_hint' => 'Sélectionnez le personnage à qui la commande doit être livrée',
@@ -67,7 +73,6 @@ return [
     'empty_deliveries' => 'Il n\'y a pas encore de Livraisons pour cette commande.',
 
     'close_order_btn' => 'Fermer',
-    'update_price_btn' => 'Mettre à jour le prix',
     'update_price_action' => 'Mettre à jour le prix ? Le prix manuel sera écrasé !',
     'extend_time_btn' => 'Ajouter du temps',
     'extend_time_action' => ' souhaite ajouter 1 semaine au temps de livraison',
@@ -101,6 +106,8 @@ return [
     ],
 
     'btns' => [
+        'confirmOrder' => 'Confirmer',
+        'closeOrder' => 'Fermer',
         'updateOrderItemStates' => 'Calcul Etat Lignes',
         'reserveCorp' => 'Reservé Corp.',
         'unReserveCorp' => 'Non Reservé Corp.',
@@ -128,6 +135,11 @@ return [
         'quantities' => 'Quantités Totales',
         'corporation' => 'Reservé par',
         'reference' => 'Référence',
+        'observations' => 'Observations',
+    ],
+
+    'placeholders' => [
+        'observations' => 'Içi vous pouvez ajouter des instructions concernant votre commande.',
     ],
 
     'summary' => [
@@ -141,7 +153,8 @@ return [
     ],
 
     'notifications' => [
-        'new_order' => 'Nouvelle commande :code disponible !',
+        'new_order' => 'Nouvelle commande :code - :reference disponible !',
+        'new_corp_order' => 'Nouvelle commande corpo :code - :reference disponible !',
         'order_details' => 'Détails de la Commande :',
         'order_price' => 'Prix',
         'nb_items' => 'Nb Lignes',
@@ -151,16 +164,35 @@ return [
         'expiring_order' => 'Commande :code va expirer !',
         'expiring_message' => 'Cette commande va expirer dans :remaining !',
         'expiring_orders' => ':count commandes vont expirer !',
+        'reserved_corp' => 'Réservé par',
     ],
 
     'modals' => [
         'editPrices' => [
+            'btn' => 'Modifier Prix',
             'title' => 'Modifier les prix de :code',
             'desc' => 'Cette fenêtre vous permet de recalculer le prix des éléments de la commande avec des données à jour.',
         ],
         'editTime' => [
+            'btn' => 'Ajuster Délai',
             'title' => 'Étendre le délai de :code',
             'desc' => 'Cette fenêtre vous permet d\'ajouter des jours au délai de livraison de cette commande.',
+        ],
+        'completeOrder' => [
+            'btn' => 'Terminer',
+            'title' => 'Terminer Commande :code',
+            'desc' => 'Cette action va terminer la commande et la supprimer de la base de données. <b>Cette action est irréversible</b>',
+        ],
+        'editDetails' => [
+            'btn' => 'Modifier',
+            'title' => 'Modifier les détails de la commande :code',
+            'desc' => 'Cette fenêtre vous permet de modifier les détails de la commande.',
+        ],
+    ],
+
+    'ravworks' => [
+        'export' => [
+            'btn' => 'Ravworks Export',
         ],
     ],
 

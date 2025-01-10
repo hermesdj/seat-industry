@@ -60,22 +60,22 @@ class IndustryOrderController extends Controller
 
     public function createOrder(): Factory|Application|View|\Illuminate\View\View|\Illuminate\Contracts\Foundation\Application
     {
-        //ALSO UPDATE API
+        // ALSO UPDATE API
         $stations = UniverseStation::all();
-        //ALSO UPDATE API
+        // ALSO UPDATE API
         $structures = UniverseStructure::all();
 
-        //ALSO UPDATE API
+        // ALSO UPDATE API
         $mpp = IndustrySettings::$MINIMUM_PROFIT_PERCENTAGE->get(2.5);
-        //ALSO UPDATE API
+        // ALSO UPDATE API
         $location_id = IndustrySettings::$DEFAULT_ORDER_LOCATION->get(60003760);
-        //ALSO UPDATE API
+        // ALSO UPDATE API
         $default_price_provider = IndustrySettings::$DEFAULT_PRICE_PROVIDER->get();
-        //ALSO UPDATE API
+        // ALSO UPDATE API
 
         $defaultPriority = IndustrySettings::$DEFAULT_PRIORITY->get(2);
 
-        //ALSO UPDATE API
+        // ALSO UPDATE API
         return view('seat-industry::orders.createOrder',
             compact(
                 'stations',
@@ -138,6 +138,7 @@ class IndustryOrderController extends Controller
             'reference' => 'nullable|string|max:32',
             'deliverTo' => 'integer',
             'reserved_corp' => 'nullable|in:on',
+            'observations' => 'nullable|string|max:255',
         ]);
 
         if (! $request->priority) {
@@ -173,10 +174,10 @@ class IndustryOrderController extends Controller
             return redirect()->route('seat-industry.createOrder');
         }
 
-        //parse items
+        // parse items
         $parser_result = Parser::parseItems($request->items, PriceableEveItem::class);
 
-        //check item count, don't request prices without any items
+        // check item count, don't request prices without any items
         if ($parser_result == null || $parser_result->items->isEmpty()) {
             $request->session()->flash('warning', trans('seat-industry::ai-common.error_order_is_empty'));
 
@@ -232,6 +233,7 @@ class IndustryOrderController extends Controller
         $order->profit = floatval($request->profit);
         $order->priority = $request->priority;
         $order->priceProvider = $priceProvider;
+        $order->observations = trim($request->observations);
         $order->confirmed = false;
 
         $repetition = intval($request->repetition);
@@ -266,7 +268,7 @@ class IndustryOrderController extends Controller
         $order->confirmed = true;
         $order->save();
 
-        //send notification that orders have been put up. We don't do it in an observer so it only gets triggered once
+        // send notification that orders have been put up. We don't do it in an observer so it only gets triggered once
         SendOrderNotification::dispatch($order);
 
         return redirect()->back();
@@ -319,7 +321,7 @@ class IndustryOrderController extends Controller
             return $item->toEveItem();
         });
 
-        //null is only after update, so don't use the setting
+        // null is only after update, so don't use the setting
         $priceProvider = $order->priceProvider;
         if ($priceProvider === null) {
             return redirect()->back()->with('error', trans('seat-industry::ai-common.error_obsolete_order'));
@@ -346,6 +348,26 @@ class IndustryOrderController extends Controller
         }
 
         $request->session()->flash('success', trans('seat-industry::ai-orders.update_price_success'));
+
+        return redirect()->back();
+    }
+
+    public function updateOrderDetails(Order $order, Request $request): RedirectResponse
+    {
+        $data = (object) $request->validate([
+            'reference' => 'nullable|string|max:32',
+            'observations' => 'nullable|string|max:255',
+        ]);
+
+        if ($data->reference != null) {
+            $order->reference = $data->reference;
+        }
+
+        if ($data->observations != null) {
+            $order->observations = trim($data->observations);
+        }
+
+        $order->save();
 
         return redirect()->back();
     }

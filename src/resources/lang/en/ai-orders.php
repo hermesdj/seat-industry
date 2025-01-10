@@ -16,9 +16,9 @@ return [
     ],
 
     'orders_menu' => [
-        'available' => 'Disponible',
-        'reserved_corp' => 'Réservées Corporation',
-        'my_orders' => 'Mes Commandes',
+        'available' => 'Available',
+        'reserved_corp' => 'Reserved Corp',
+        'my_orders' => 'My Orders',
     ],
 
     'repeating_order_title' => 'Repeating Order',
@@ -106,7 +106,9 @@ return [
     ],
 
     'btns' => [
-        'updateOrderItemStates' => 'Calcul Etat Lignes',
+        'confirmOrder' => 'Confirm',
+        'closeOrder' => 'Close',
+        'updateOrderItemStates' => 'Recompute Item States',
         'reserveCorp' => 'Reserve Corp',
         'unReserveCorp' => 'Not Reserve Corp',
         'deleteOrder' => 'Delete Order',
@@ -133,6 +135,11 @@ return [
         'quantities' => 'Total Quantities',
         'corporation' => 'Reserved By',
         'reference' => 'Reference',
+        'observations' => 'Comments',
+    ],
+
+    'placeholders' => [
+        'observations' => 'Here you can provide additional details regarding your order.',
     ],
 
     'summary' => [
@@ -141,11 +148,13 @@ return [
         'in_delivery' => 'In Delivery',
         'delivered' => 'Delivered',
         'remaining' => 'Remaining',
+        'reference' => 'Reference',
         'rejected' => 'Not Crafted',
     ],
 
     'notifications' => [
-        'new_order' => 'New Order :code is available !',
+        'new_order' => 'New Order :code - :reference is available !',
+        'new_corp_order' => 'New Corporation Order :code - :reference is available !',
         'order_details' => 'Order details :',
         'order_price' => 'Price',
         'nb_items' => 'Nb Items',
@@ -155,16 +164,29 @@ return [
         'expiring_order' => 'Order :code Expiration !',
         'expiring_message' => 'This order will expire in :remaining !',
         'expiring_orders' => ':count Orders are Expiring !',
+        'reserved_corp' => 'Reserved By',
     ],
 
     'modals' => [
         'editPrices' => [
             'title' => 'Edit Order :code prices',
             'desc' => 'This modal allow you to recompute an order prices with up to date price data from the price providers.',
+            'btn' => 'Update Price',
         ],
         'editTime' => [
             'title' => 'Extend Order :code delivery date',
             'desc' => 'This modal allow you to extend the time of the order by adding more days to the current value.',
+            'btn' => 'Extend Time',
+        ],
+        'completeOrder' => [
+            'title' => 'Complete Order :code',
+            'desc' => 'This will mark the order as completed and will delete it from the local database. <b>This action cannot be undone</b>.',
+            'btn' => 'Complete',
+        ],
+        'editDetails' => [
+            'title' => 'Edit Order :code details',
+            'desc' => 'This allow you to edit the details of the order.',
+            'btn' => 'Edit',
         ],
     ],
 

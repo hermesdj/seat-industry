@@ -98,6 +98,11 @@ class OrderItem extends Model implements HasTypeID, ToEveItem
         return $this->deliveryItems->sum('quantity_delivered');
     }
 
+    public function deliveredQuantity(): int
+    {
+        return $this->deliveryItems()->where('delivered', true)->sum('quantity_delivered');
+    }
+
     public function availableQuantity(): int
     {
         return $this->quantity - $this->assignedQuantity();

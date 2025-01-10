@@ -1,5 +1,5 @@
 <div class="modal fade" tabindex="-1" role="dialog" id="{{$modalId}}">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">
@@ -25,7 +25,21 @@
                             <tr>
                                 <td class="text-left">@include('web::partials.type', ['type_id' => $container->type->typeID, 'type_name' => $container->type->typeName])</td>
                                 <td class="text-right">{{$container->name}}</td>
-                                <td class="text-right">@include('web::partials.building', ['building' => $container])</td>
+                                <td class="text-right">
+                                    @if(in_array($container->location_flag, ['CorpSAG1', 'CorpSAG2', 'CorpSAG3', 'CorpSAG4', 'CorpSAG5', 'CorpSAG6', 'CorpSAG7', 'CorpDeliveries']))
+                                        @if(in_array($container->container->location_flag, ['Impounded', 'OfficeFolder']))
+                                            @if($container->container->location_type == 'station')
+                                                {{$container->container->station->name}}
+                                            @elseif($container->container->location_flag == 'Impounded' && $container->container->location_type == 'other')
+                                                {{$container->container->structure->name}}
+                                            @elseif($container->container->location_flag == 'OfficeFolder' && $container->location_type == 'item')
+                                                {{$container->container->structure->name}}
+                                            @else
+                                                {{$container->container->container->name}}
+                                            @endif
+                                        @endif
+                                    @endif
+                                </td>
                             </tr>
                         @endforeach
                         </tbody>
