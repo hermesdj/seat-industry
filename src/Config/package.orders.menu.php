@@ -30,4 +30,13 @@ return [
         'badgeValueClass' => Order::class,
         'badgeValueMethod' => 'countCorporationOrders',
     ],
+    [
+        'name' => 'expiredOrders',
+        'label' => 'seat-industry::ai-orders.orders_menu.expired_orders',
+        'permission' => 'seat-industry.admin',
+        'highlight_view' => 'expiredOrders',
+        'route' => 'seat-industry.expiredOrders',
+        'badgeValueClass' => Order::class,
+        'badgeValueMethod' => 'countExpiredOrders',
+    ],
 ];

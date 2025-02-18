@@ -149,6 +149,17 @@ class Order extends Model
             });
     }
 
+    public static function expiredOrders(): Collection
+    {
+        return Order::with('deliveries')
+            ->where('confirmed', true)
+            ->where('completed', false)
+            ->where('produce_until', '<', DB::raw('NOW()'))
+            ->where('is_repeating', false)
+            ->whereNull('corp_id')
+            ->get();
+    }
+
     public static function corporationsOrders(): Collection
     {
         $corpIds = auth()->user()->characters->map(function ($char) {
@@ -158,13 +169,9 @@ class Order extends Model
         return Order::with('deliveries')
             ->where('confirmed', true)
             ->where('completed', false)
-            ->where('produce_until', '>', DB::raw('NOW()'))
             ->where('is_repeating', false)
             ->whereIn('corp_id', $corpIds)
-            ->get()
-            ->filter(function ($order) {
-                return $order->assignedQuantity() < $order->totalQuantity();
-            });
+            ->get();
     }
 
     public static function connectedUserOrders(): Collection
@@ -182,6 +189,11 @@ class Order extends Model
         return self::corporationsOrders()->count();
     }
 
+    public static function countExpiredOrders(): int
+    {
+        return self::expiredOrders()->count();
+    }
+
     public static function countPersonalOrders(): int
     {
         return self::connectedUserOrders()->count();
@@ -190,8 +202,8 @@ class Order extends Model
     public function hasRejectedItemsNotDelivered(): bool
     {
         return $this->rejectedItems()->get()->filter(function ($item) {
-            return $item->quantity - $item->assignedQuantity() > 0;
-        })->count() > 0;
+                return $item->quantity - $item->assignedQuantity() > 0;
+            })->count() > 0;
     }
 
     public function formatRejectedToBuyAll(): string

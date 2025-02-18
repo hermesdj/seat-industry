@@ -34,6 +34,12 @@ Route::group([
             'middleware' => 'can:seat-industry.create_orders',
         ]);
 
+        Route::get('/expiredOrders', [
+            'as' => 'seat-industry.expiredOrders',
+            'uses' => 'IndustryOrderController@expiredOrders',
+            'middleware' => 'can:seat-industry.admin',
+        ]);
+
         Route::get('/create', [
             'as' => 'seat-industry.createOrder',
             'uses' => 'IndustryOrderController@createOrder',
@@ -192,6 +198,40 @@ Route::group([
             'as' => 'seat-industry.deleteDeliveryItem',
             'uses' => 'IndustryDeliveryController@deleteDeliveryItem',
             'middleware' => 'can:seat-industry.create_deliveries',
+        ]);
+    });
+
+    Route::group([
+        'prefix' => 'profiles'
+    ], function (): void {
+        Route::get('/', [
+            'as' => 'seat-industry.profiles',
+            'uses' => 'IndustryProfileController@profiles',
+            'middleware' => 'can:seat-industry.create_orders',
+        ]);
+
+        Route::get('/{profile}', [
+            'as' => 'seat-industry.profile',
+            'uses' => 'IndustryProfileController@profile',
+            'middleware' => 'can:seat-industry.create_orders',
+        ]);
+
+        Route::post('/', [
+            'as' => 'seat-industry.createProfile',
+            'uses' => 'IndustryProfileController@createProfile',
+            'middleware' => 'can:seat-industry.create_orders',
+        ]);
+
+        Route::post('/{profile}', [
+            'as' => 'seat-industry.updateProfile',
+            'uses' => 'IndustryProfileController@updateProfile',
+            'middleware' => 'can:seat-industry.create_orders',
+        ]);
+
+        Route::post('/{profile}/delete', [
+            'as' => 'seat-industry.deleteProfile',
+            'uses' => 'IndustryProfileController@deleteProfile',
+            'middleware' => 'can:seat-industry.create_orders',
         ]);
     });
 

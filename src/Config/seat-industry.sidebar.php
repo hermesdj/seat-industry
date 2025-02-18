@@ -37,6 +37,13 @@ return [
                 'permission' => 'seat-industry.view_scoreboard',
             ],
             [
+                'name' => 'Profiles',
+                'label' => 'seat-industry::ai-common.menu.profiles',
+                'icon' => 'fas fa-industry',
+                'route' => 'seat-industry.profiles',
+                'permission' => 'seat-industry.create_orders',
+            ],
+            [
                 'name' => 'Settings',
                 'label' => 'seat-industry::ai-common.menu.settings',
                 'icon' => 'fas fa-cogs',

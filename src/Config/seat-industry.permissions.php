@@ -49,4 +49,16 @@ return [
         'label' => 'seat-industry::ai-config.permissions.view_scoreboard.label',
         'description' => 'seat-industry::ai-config.permissions.view_scoreboard.description',
     ],
+    'manage_alliance_profile' => [
+        'label' => 'seat-industry::profiles.permissions.manage_alliance_profile.label',
+        'description' => 'seat-industry::profiles.permissions.manage_alliance_profile.description',
+    ],
+    'manage_corporation_profile' => [
+        'label' => 'seat-industry::profiles.permissions.manage_corporation_profile.label',
+        'description' => 'seat-industry::profiles.permissions.manage_corporation_profile.description',
+    ],
+    'manage_public_profile' => [
+        'label' => 'seat-industry::profiles.permissions.manage_public_profile.label',
+        'description' => 'seat-industry::profiles.permissions.manage_public_profile.description',
+    ]
 ];
