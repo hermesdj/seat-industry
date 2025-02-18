@@ -33,7 +33,7 @@ class IndustryProfileController extends Controller
             'scope' => 'required|string',
         ]);
 
-        $profile = new IndustryProfile();
+        $profile = new IndustryProfile;
         $profile->name = $data['name'];
         $profile->scope = $data['scope'];
         $profile->user_id = auth()->user()->id;
@@ -54,13 +54,7 @@ class IndustryProfileController extends Controller
         return redirect()->route('seat-industry.profile', ['profile' => $profile->id]);
     }
 
-    public function updateProfile()
-    {
+    public function updateProfile() {}
 
-    }
-
-    public function deleteProfile()
-    {
-
-    }
+    public function deleteProfile() {}
 }

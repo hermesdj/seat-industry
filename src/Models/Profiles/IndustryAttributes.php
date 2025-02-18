@@ -24,12 +24,12 @@ class IndustryAttributes extends Model
         'activity_type',
         'production_type',
         'bonus_type',
-        'attribute_id'
+        'attribute_id',
     ];
 
     protected $casts = [
         'activity_type' => ActivityTypeEnum::class,
         'bonus_type' => StructureBonusTypeEnum::class,
-        'production_type' => ProductionTypeEnum::class
+        'production_type' => ProductionTypeEnum::class,
     ];
 }

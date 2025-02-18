@@ -9,7 +9,7 @@ return [
         'about' => 'À propos',
         'create_order' => 'Nouvelle Commande',
         'scoreboard' => 'Palmarès',
-        'profiles' => 'Profils Industrie'
+        'profiles' => 'Profils Industrie',
     ],
 
     'cancel' => 'Annuler',

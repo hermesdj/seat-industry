@@ -9,8 +9,8 @@ use Seat\Services\Models\ExtensibleModel;
 
 class DogmaTypeEffect extends ExtensibleModel
 {
-    use IsReadOnly;
     use HasCompositePrimaryKey;
+    use IsReadOnly;
 
     public $incrementing = false;
 

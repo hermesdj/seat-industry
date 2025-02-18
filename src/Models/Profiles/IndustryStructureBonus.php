@@ -24,11 +24,11 @@ class IndustryStructureBonus extends Model
         'structure_type_id',
         'activity_type',
         'bonus_type',
-        'float_value'
+        'float_value',
     ];
 
     protected $casts = [
         'activity_type' => ActivityTypeEnum::class,
-        'bonus_type' => StructureBonusTypeEnum::class
+        'bonus_type' => StructureBonusTypeEnum::class,
     ];
 }

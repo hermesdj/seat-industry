@@ -16,7 +16,7 @@ class IndustryProfileStructure extends Model
     protected $fillable = [
         'profile_id',
         'structure_id',
-        'production_type'
+        'production_type',
     ];
 
     protected $primaryKey = ['profile_id', 'structure_id'];

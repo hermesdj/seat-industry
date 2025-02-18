@@ -9,7 +9,7 @@ return [
         'about' => 'About',
         'create_order' => 'Create Order',
         'scoreboard' => 'Scoreboard',
-        'profiles' => 'Industry Profiles'
+        'profiles' => 'Industry Profiles',
     ],
 
     'cancel' => 'Cancel',

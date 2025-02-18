@@ -23,7 +23,7 @@ class IndustryRig
     public static function loadIndustryRig(int $typeId): ?IndustryRig
     {
         $type = InvType::find($typeId);
-        if (!$type) {
+        if (! $type) {
             return null;
         }
 

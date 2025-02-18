@@ -13,6 +13,7 @@ use Seat\Web\Models\User;
 class IndustryProfile extends Model
 {
     public $timestamps = true;
+
     protected $table = 'seat_industry_profiles';
 
     protected $fillable = [
@@ -20,12 +21,9 @@ class IndustryProfile extends Model
         'user_id',
         'corp_id',
         'alliance_id',
-        'name'
+        'name',
     ];
 
-    /**
-     * @return void
-     */
     public function loadProfileData(): void
     {
         foreach ($this->structures() as $structure) {
@@ -33,9 +31,6 @@ class IndustryProfile extends Model
         }
     }
 
-    /**
-     * @return HasManyThrough
-     */
     public function structures(): HasManyThrough
     {
         return $this->hasManyThrough(IndustryStructure::class, IndustryProfileStructure::class, 'profile_id', 'id', 'id', 'structure_id');
@@ -86,11 +81,11 @@ class IndustryProfile extends Model
 
     public static function loadAll(): object
     {
-        return (object)[
+        return (object) [
             'public' => self::getPublicProfiles()->get(),
             'alliance' => self::getAllianceProfiles()->get(),
             'corporation' => self::getCorporationProfiles()->get(),
-            'personal' => self::getPersonalProfiles()->get()
+            'personal' => self::getPersonalProfiles()->get(),
         ];
     }
 }

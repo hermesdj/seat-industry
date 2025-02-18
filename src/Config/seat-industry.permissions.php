@@ -60,5 +60,5 @@ return [
     'manage_public_profile' => [
         'label' => 'seat-industry::profiles.permissions.manage_public_profile.label',
         'description' => 'seat-industry::profiles.permissions.manage_public_profile.description',
-    ]
+    ],
 ];

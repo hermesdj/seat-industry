@@ -202,7 +202,7 @@ Route::group([
     });
 
     Route::group([
-        'prefix' => 'profiles'
+        'prefix' => 'profiles',
     ], function (): void {
         Route::get('/', [
             'as' => 'seat-industry.profiles',

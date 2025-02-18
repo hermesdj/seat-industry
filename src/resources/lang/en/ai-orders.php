@@ -19,7 +19,7 @@ return [
         'available' => 'Available',
         'reserved_corp' => 'Reserved Corp',
         'my_orders' => 'My Orders',
-        'expired_orders' => 'Expired'
+        'expired_orders' => 'Expired',
     ],
 
     'repeating_order_title' => 'Repeating Order',

@@ -21,13 +21,9 @@ class IndustryStructure extends Model
         'system_id',
         'rig1_type_id',
         'rig2_type_id',
-        'rig3_type_id'
+        'rig3_type_id',
     ];
 
-    /**
-     *
-     * @var Collection $structureBonuses
-     */
     protected Collection $structureBonuses;
 
     protected Collection $structureRigs;
@@ -66,7 +62,7 @@ class IndustryStructure extends Model
     {
         $rig = IndustryRig::loadIndustryRig($typeId);
 
-        if (!is_null($rig)) {
+        if (! is_null($rig)) {
             $this->structureRigs->push($rig);
         }
     }

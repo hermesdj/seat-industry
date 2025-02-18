@@ -19,7 +19,7 @@ return [
         'available' => 'Disponible',
         'reserved_corp' => 'Réservées Corporation',
         'my_orders' => 'Mes Commandes',
-        'expired_orders' => 'Expirées'
+        'expired_orders' => 'Expirées',
     ],
 
     'repeating_order_title' => 'Commande répétée',
