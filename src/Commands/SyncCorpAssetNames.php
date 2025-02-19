@@ -16,7 +16,7 @@ class SyncCorpAssetNames extends Command
     public function handle()
     {
         $orders = Order::where('completed', false)->with('corporation')->get();
-        $corporations = $orders->pluck('corporation')->unique(function($item) {
+        $corporations = $orders->pluck('corporation')->unique(function ($item) {
             return $item->corporation_id;
         });
 
