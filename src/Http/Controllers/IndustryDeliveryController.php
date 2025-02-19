@@ -21,13 +21,18 @@ class IndustryDeliveryController extends Controller
 {
     private const MaxDeliveryCodeLength = 6;
 
-    public function deliveries(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
+    public function myUnfulfilledDeliveries(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        $user_id = auth()->user()->id;
+        $deliveries = Delivery::myUnfulfilledDeliveries()->get();
 
-        $deliveries = Delivery::with('order')->where('user_id', $user_id)->get();
+        return view('seat-industry::deliveries.myUnfulfilledDeliveries', compact('deliveries'));
+    }
 
-        return view('seat-industry::deliveries', compact('deliveries'));
+    public function allDeliveries(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
+    {
+        $deliveries = Delivery::allDeliveries()->get();
+
+        return view('seat-industry::deliveries.allDeliveries', compact('deliveries'));
     }
 
     public function deliveryDetails(Delivery $delivery, Request $request): View|Application|Factory|\Illuminate\Contracts\Foundation\Application|RedirectResponse
@@ -63,7 +68,7 @@ class IndustryDeliveryController extends Controller
             return $id == $order->corp_id;
         });
 
-        if ($order->corp_id != null && ! $isCorp) {
+        if ($order->corp_id != null && !$isCorp) {
             $request->session()->flash('error', trans('seat-industry::ai-common.error_not_allowed_to_create_delivery'));
 
             return redirect()->route('seat-industry.orderDetails', ['order' => $order->id]);

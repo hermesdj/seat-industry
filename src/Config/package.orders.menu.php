@@ -30,4 +30,13 @@ return [
         'badgeValueClass' => Order::class,
         'badgeValueMethod' => 'countCorporationOrders',
     ],
+    [
+        'name' => 'allConfirmedOrders',
+        'label' => 'seat-industry::ai-orders.orders_menu.allConfirmedOrders',
+        'permission' => 'seat-industry.corp_delivery',
+        'highlight_view' => 'allConfirmedOrders',
+        'route' => 'seat-industry.allConfirmedOrders',
+        'badgeValueClass' => Order::class,
+        'badgeValueMethod' => 'countAllConfirmedOrders',
+    ],
 ];

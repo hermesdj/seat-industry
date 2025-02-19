@@ -25,7 +25,7 @@
             @if($showOrder ?? false)
                 <th>{{trans('seat-industry::ai-common.ordered_by_header')}}</th>
             @endif
-            @isset($order)
+            @if($showProducer ?? false)
                 <th>{{trans('seat-industry::ai-common.producer_header')}}</th>
             @endif
             <th>{{trans('seat-industry::ai-common.location_header')}}</th>
@@ -74,7 +74,7 @@
                         @include("web::partials.character",["character"=>$delivery->order->user->main_character ?? null])
                     </td>
                 @endif
-                @isset($order)
+                @if($showProducer ?? false)
                     <td data-order="{{ $delivery->user->id ?? 0}}"
                         data-filter="{{ $delivery->user->main_character->name ?? trans('web::seat.unknown')}}">
                         @include("web::partials.character",["character"=>$delivery->user->main_character ?? null])

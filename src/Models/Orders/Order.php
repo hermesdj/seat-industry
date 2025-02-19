@@ -135,6 +135,11 @@ class Order extends Model
         });
     }
 
+    public static function allConfirmedOrders(): Collection
+    {
+        return Order::where('confirmed', true)->get();
+    }
+
     public static function availableOrders(): Collection
     {
         return Order::with('deliveries')
@@ -182,6 +187,11 @@ class Order extends Model
         return self::corporationsOrders()->count();
     }
 
+    public static function countAllConfirmedOrders(): int
+    {
+        return self::allConfirmedOrders()->count();
+    }
+
     public static function countPersonalOrders(): int
     {
         return self::connectedUserOrders()->count();
@@ -190,8 +200,8 @@ class Order extends Model
     public function hasRejectedItemsNotDelivered(): bool
     {
         return $this->rejectedItems()->get()->filter(function ($item) {
-            return $item->quantity - $item->assignedQuantity() > 0;
-        })->count() > 0;
+                return $item->quantity - $item->assignedQuantity() > 0;
+            })->count() > 0;
     }
 
     public function formatRejectedToBuyAll(): string

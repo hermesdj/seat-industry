@@ -34,6 +34,12 @@ Route::group([
             'middleware' => 'can:seat-industry.create_orders',
         ]);
 
+        Route::get('/allConfirmedOrders', [
+            'as' => 'seat-industry.allConfirmedOrders',
+            'uses' => 'IndustryOrderController@allConfirmedOrders',
+            'middleware' => 'can:seat-industry.manager',
+        ]);
+
         Route::get('/create', [
             'as' => 'seat-industry.createOrder',
             'uses' => 'IndustryOrderController@createOrder',
@@ -146,9 +152,15 @@ Route::group([
     Route::group([
         'prefix' => 'deliveries',
     ], function (): void {
-        Route::get('/', [
-            'as' => 'seat-industry.deliveries',
-            'uses' => 'IndustryDeliveryController@deliveries',
+        Route::get('/allDeliveries', [
+            'as' => 'seat-industry.allDeliveries',
+            'uses' => 'IndustryDeliveryController@allDeliveries',
+            'middleware' => 'can:seat-industry.manager',
+        ]);
+
+        Route::get('/myUnfulfilledDeliveries', [
+            'as' => 'seat-industry.myUnfulfilledDeliveries',
+            'uses' => 'IndustryDeliveryController@myUnfulfilledDeliveries',
             'middleware' => 'can:seat-industry.create_deliveries',
         ]);
 

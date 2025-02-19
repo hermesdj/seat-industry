@@ -4,6 +4,7 @@ return [
     'your_deliveries_title' => 'Vos Livraisons',
     'deliveries_title' => 'Livraisons',
     'delivery_title' => 'Livraison N°:code',
+    'all_deliveries_title' => 'Toutes les livraisons',
 
     'status_in_progress' => 'En Cours',
     'status_delivered' => 'Livrer',
@@ -29,6 +30,11 @@ return [
         'details' => 'Détails',
         'ravworks' => 'Ravworks',
         'build_plan' => 'Plan de Fabrication',
+    ],
+
+    'deliveries_menu' => [
+        'my_deliveries' => 'Mes Livraisons non terminées',
+        'all_deliveries' => 'Toutes les livraisons',
     ],
 
     'instructions' => [

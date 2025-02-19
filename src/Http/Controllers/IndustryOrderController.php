@@ -58,6 +58,13 @@ class IndustryOrderController extends Controller
         return view('seat-industry::orders.myOrders', compact('orders', 'statistics'));
     }
 
+    public function allConfirmedOrders(): Factory|Application|View|\Illuminate\Contracts\Foundation\Application {
+        $orders = Order::allConfirmedOrders();
+        $statistics = OrderStatistic::generateAll();
+
+        return view('seat-industry::orders.allConfirmedOrders', compact('orders', 'statistics'));
+    }
+
     public function createOrder(): Factory|Application|View|\Illuminate\View\View|\Illuminate\Contracts\Foundation\Application
     {
         // ALSO UPDATE API

@@ -2,8 +2,10 @@
 
 return [
     'your_deliveries_title' => 'Your Deliveries',
+
     'deliveries_title' => 'Deliveries',
     'delivery_title' => 'Delivery N°:code',
+    'all_deliveries_title' => 'All Deliveries',
 
     'status_in_progress' => 'In Progress',
     'status_delivered' => 'Deliver',
@@ -34,6 +36,11 @@ return [
         'details' => 'Details',
         'ravworks' => 'Ravworks',
         'build_plan' => 'Build Plan',
+    ],
+
+    'deliveries_menu' => [
+        'my_deliveries' => 'My Unfulfilled Deliveries',
+        'all_deliveries' => 'All Deliveries'
     ],
 
     'instructions' => [
