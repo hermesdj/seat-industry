@@ -60,6 +60,6 @@ return [
         'manager' => [
             'label' => 'Gestionnaire',
             'desc' => 'Gestionnaire de Commandes & Livraisons qui peut lire toutes les commandes',
-        ]
+        ],
     ],
 ];

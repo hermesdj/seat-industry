@@ -59,7 +59,7 @@ return [
 
         'manager' => [
             'label' => 'Manager',
-            'desc' => 'Order and Delivery manager that can view everything'
-        ]
+            'desc' => 'Order and Delivery manager that can view everything',
+        ],
     ],
 ];

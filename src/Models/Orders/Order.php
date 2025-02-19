@@ -200,8 +200,8 @@ class Order extends Model
     public function hasRejectedItemsNotDelivered(): bool
     {
         return $this->rejectedItems()->get()->filter(function ($item) {
-                return $item->quantity - $item->assignedQuantity() > 0;
-            })->count() > 0;
+            return $item->quantity - $item->assignedQuantity() > 0;
+        })->count() > 0;
     }
 
     public function formatRejectedToBuyAll(): string

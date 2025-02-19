@@ -68,7 +68,7 @@ class IndustryDeliveryController extends Controller
             return $id == $order->corp_id;
         });
 
-        if ($order->corp_id != null && !$isCorp) {
+        if ($order->corp_id != null && ! $isCorp) {
             $request->session()->flash('error', trans('seat-industry::ai-common.error_not_allowed_to_create_delivery'));
 
             return redirect()->route('seat-industry.orderDetails', ['order' => $order->id]);

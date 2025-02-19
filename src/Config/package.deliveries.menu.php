@@ -1,6 +1,5 @@
 <?php
 
-
 use Seat\HermesDj\Industry\Models\Deliveries\Delivery;
 
 return [

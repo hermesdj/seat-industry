@@ -40,7 +40,7 @@ return [
 
     'deliveries_menu' => [
         'my_deliveries' => 'My Unfulfilled Deliveries',
-        'all_deliveries' => 'All Deliveries'
+        'all_deliveries' => 'All Deliveries',
     ],
 
     'instructions' => [
