@@ -47,7 +47,7 @@ class CharacterStocks extends AbstractStocks
 
         $this->stocks = collect();
 
-        $assets = CharacterAsset::where('character_id', $this->characterIds)
+        $assets = CharacterAsset::whereIn('character_id', $this->characterIds)
             ->whereIn('location_id', $this->getContainerIds())
             ->with('type', 'container')
             ->get()
@@ -62,7 +62,7 @@ class CharacterStocks extends AbstractStocks
             $this->stocks->get($stock->typeId)->push($stock);
         }
 
-        $jobs = CharacterIndustryJob::where('character_id', $this->characterIds)
+        $jobs = CharacterIndustryJob::whereIn('character_id', $this->characterIds)
             ->where('status', 'delivered')
             ->where('activity_id', ActivityTypeEnum::MANUFACTURING)
             ->whereIn('output_location_id', $this->getContainerIds())
