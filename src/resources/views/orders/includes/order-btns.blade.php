@@ -4,7 +4,7 @@
 @include('seat-industry::modals.orders.confirm-complete-order', ['order' => $order])
 
 <div class="d-flex flex-row mb-3">
-    @can("seat-industry.same-user",$order->user_id)
+    @canany(["seat-industry.same-user", "seat-industry.manager"],$order->user_id)
         @if($order->confirmed)
             @if($order->deliveries->isEmpty())
                 <form action="{{ route("seat-industry.deleteOrder", ['order' => $order->id]) }}" method="POST"
@@ -17,7 +17,7 @@
                     </button>
                 </form>
             @endif
-            @if(!$order->deliveries->isEmpty() && (!$order->hasPendingDeliveries() || $order->completed))
+            @if((!$order->deliveries->isEmpty() && (!$order->hasPendingDeliveries() || $order->completed)) || $order->isExpired())
                 @csrf
                 <button
                         type="button"
@@ -115,8 +115,8 @@
             @endif
         @endcan
     @endcan
-    @if($order->confirmed)
-        @can('seat-industry.create_deliveries')
+    @can('seat-industry.create_deliveries')
+        @if($order->confirmed)
             @if($order->assignedQuantity() < $order->totalQuantity() && !$order->corporation)
                 <form action="{{ route("seat-industry.prepareDelivery", ['order' => $order->id]) }}"
                       method="POST"
@@ -130,6 +130,6 @@
                     </button>
                 </form>
             @endif
-        @endcan
-    @endif
+        @endif
+    @endcan
 </div>

@@ -2,6 +2,7 @@
 
 namespace Seat\HermesDj\Industry\Models\Orders;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -200,8 +201,8 @@ class Order extends Model
     public function hasRejectedItemsNotDelivered(): bool
     {
         return $this->rejectedItems()->get()->filter(function ($item) {
-            return $item->quantity - $item->assignedQuantity() > 0;
-        })->count() > 0;
+                return $item->quantity - $item->assignedQuantity() > 0;
+            })->count() > 0;
     }
 
     public function formatRejectedToBuyAll(): string
@@ -209,5 +210,10 @@ class Order extends Model
         return EveHelper::formatOrderItemsToBuyAll($this->rejectedItems()->get()->filter(function ($item) {
             return $item->quantity - $item->assignedQuantity() > 0;
         }));
+    }
+
+    public function isExpired(): bool
+    {
+        return Carbon::parse($this->produce_until)->isPast();
     }
 }
