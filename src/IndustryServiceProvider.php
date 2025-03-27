@@ -63,6 +63,7 @@ class IndustryServiceProvider extends AbstractSeatPlugin
 
         Gate::define('seat-industry.same-user', UserPolicy::class.'@checkUser');
         Gate::define('seat-industry.modify-order', UserPolicy::class.'@modifyOrder');
+        Gate::define('seat-industry.modify-delivery', UserPolicy::class.'@modifyDelivery');
     }
 
     private function addRoutes(): void

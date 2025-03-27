@@ -1,4 +1,4 @@
-@can("seat-industry.same-user",$delivery->user_id)
+@can("seat-industry.modify-delivery",$delivery)
     <div class="d-flex flex-row mb-3">
         <form action="{{ route("seat-industry.setDeliveryState", ['delivery' => $delivery->id]) }}"
               method="POST"
@@ -23,7 +23,7 @@
                 <input type="hidden" name="completed" value="1">
             @endif
         </form>
-        @if(!$delivery->completed || auth()->user()->can("seat-industry.admin"))
+        @if(!$delivery->completed || auth()->user()->can("seat-industry.admin") || auth()->user()->can("seat-industry.manager"))
             <form action="{{ route("seat-industry.deleteDelivery", ['delivery' => $delivery->id]) }}"
                   method="POST"
                   class="mx-1">

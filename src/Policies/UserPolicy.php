@@ -13,4 +13,9 @@ class UserPolicy
     {
         return $user->id === $order->user_id || $user->can('global.superuser') || $user->can('seat-industry.admin') || $user->can('seat-industry.manager');
     }
+
+    public static function modifyDelivery($user, $delivery): bool
+    {
+        return $user->id === $delivery->user_id || $user->can('global.superuser') || $user->can('seat-industry.admin') || $user->can('seat-industry.manager');
+    }
 }
