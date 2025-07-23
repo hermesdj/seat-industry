@@ -56,5 +56,10 @@ return [
             'label' => 'View Scoreboard',
             'description' => 'Allow the user to consult the scoreboard',
         ],
+
+        'manager' => [
+            'label' => 'Manager',
+            'desc' => 'Order and Delivery manager that can view everything',
+        ],
     ],
 ];

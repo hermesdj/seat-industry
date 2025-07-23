@@ -57,7 +57,7 @@ abstract class AbstractStocks
         $stock->blueprintId = $job->blueprint->typeID;
         $stock->inProduction = true;
         $stock->containerId = $job->output_location_id;
-        $stock->locationId = $job->location_id;
+        $stock->locationId = $job->location_id || $job->station_id;
         $stock->quantity = $job->industryActivityProductManufacturing->quantity * $job->runs;
 
         return $stock;

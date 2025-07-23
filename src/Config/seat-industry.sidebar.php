@@ -26,7 +26,7 @@ return [
                 'name' => 'Deliveries',
                 'label' => 'seat-industry::ai-common.menu.deliveries',
                 'icon' => 'fas fa-truck',
-                'route' => 'seat-industry.deliveries',
+                'route' => 'seat-industry.myUnfulfilledDeliveries',
                 'permission' => 'seat-industry.create_deliveries',
             ],
             [

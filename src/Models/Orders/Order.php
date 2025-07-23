@@ -2,6 +2,7 @@
 
 namespace Seat\HermesDj\Industry\Models\Orders;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -135,6 +136,11 @@ class Order extends Model
         });
     }
 
+    public static function allConfirmedOrders(): Collection
+    {
+        return Order::where('confirmed', true)->get();
+    }
+
     public static function availableOrders(): Collection
     {
         return Order::with('deliveries')
@@ -194,6 +200,11 @@ class Order extends Model
         return self::expiredOrders()->count();
     }
 
+    public static function countAllConfirmedOrders(): int
+    {
+        return self::allConfirmedOrders()->count();
+    }
+
     public static function countPersonalOrders(): int
     {
         return self::connectedUserOrders()->count();
@@ -211,5 +222,10 @@ class Order extends Model
         return EveHelper::formatOrderItemsToBuyAll($this->rejectedItems()->get()->filter(function ($item) {
             return $item->quantity - $item->assignedQuantity() > 0;
         }));
+    }
+
+    public function isExpired(): bool
+    {
+        return Carbon::parse($this->produce_until)->isPast();
     }
 }

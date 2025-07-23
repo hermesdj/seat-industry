@@ -20,6 +20,7 @@ return [
         'reserved_corp' => 'Réservées Corporation',
         'my_orders' => 'Mes Commandes',
         'expired_orders' => 'Expirées',
+        'allConfirmedOrders' => 'Toutes les Commandes Confirmées',
     ],
 
     'repeating_order_title' => 'Commande répétée',
@@ -98,6 +99,7 @@ return [
             'available' => 'Disponibles',
             'corporation' => 'Réservées Corporation',
             'my' => 'Mes Commandes',
+            'allConfirmedOrders' => 'Toutes les Commandes Confirmées',
         ],
     ],
 

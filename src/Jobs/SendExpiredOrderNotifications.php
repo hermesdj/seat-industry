@@ -2,6 +2,7 @@
 
 namespace Seat\HermesDj\Industry\Jobs;
 
+use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -23,7 +24,7 @@ class SendExpiredOrderNotifications implements ShouldQueue
 
     public function handle(): void
     {
-        $now = now();
+        $now = Carbon::now();
         $last_expiring = IndustrySettings::$LAST_EXPIRING_NOTIFICATION_BATCH->get();
 
         if ($last_expiring === null) {
@@ -34,7 +35,7 @@ class SendExpiredOrderNotifications implements ShouldQueue
         } else {
             $expiring_orders = Order::where('confirmed', true)
                 ->where('completed', false)
-                ->where('produce_until', '<', $last_expiring->addHours(24))
+                ->where('produce_until', '<', Carbon::parse($last_expiring)->addHours(24))
                 ->get();
         }
 
@@ -42,7 +43,7 @@ class SendExpiredOrderNotifications implements ShouldQueue
             $this->dispatchExpiringOrderNotification($expiring_orders);
         }
 
-        IndustrySettings::$LAST_EXPIRING_NOTIFICATION_BATCH->set($now->addHours(24));
+        IndustrySettings::$LAST_EXPIRING_NOTIFICATION_BATCH->set($now->addHours(24)->toIso8601String());
     }
 
     private function dispatchExpiringOrderNotification($orders): void

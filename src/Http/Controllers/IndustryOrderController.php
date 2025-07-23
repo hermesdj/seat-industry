@@ -66,6 +66,14 @@ class IndustryOrderController extends Controller
         return view('seat-industry::orders.expiredOrders', compact('orders', 'statistics'));
     }
 
+    public function allConfirmedOrders(): Factory|Application|View|\Illuminate\Contracts\Foundation\Application
+    {
+        $orders = Order::allConfirmedOrders();
+        $statistics = OrderStatistic::generateAll();
+
+        return view('seat-industry::orders.allConfirmedOrders', compact('orders', 'statistics'));
+    }
+
     public function createOrder(): Factory|Application|View|\Illuminate\View\View|\Illuminate\Contracts\Foundation\Application
     {
         // ALSO UPDATE API
@@ -276,6 +284,8 @@ class IndustryOrderController extends Controller
         $order->confirmed = true;
         $order->save();
 
+        Gate::authorize('seat-industry.modify-order', $order);
+
         // send notification that orders have been put up. We don't do it in an observer so it only gets triggered once
         SendOrderNotification::dispatch($order);
 
@@ -288,7 +298,7 @@ class IndustryOrderController extends Controller
             'time' => 'required|integer|min:7',
         ]);
 
-        Gate::authorize('seat-industry.same-user', $order->user_id);
+        Gate::authorize('seat-industry.modify-order', $order);
 
         $order->produce_until = carbon($order->produce_until)->addDays($data->time);
         $order->save();
@@ -311,7 +321,7 @@ class IndustryOrderController extends Controller
             return redirect()->back();
         }
 
-        Gate::authorize('seat-industry.same-user', $order->user_id);
+        Gate::authorize('seat-industry.modify-order', $order);
 
         if (! is_null($data->profit) && $order->profit !== $data->profit) {
             $order->profit = $data->profit;
@@ -366,6 +376,8 @@ class IndustryOrderController extends Controller
             'reference' => 'nullable|string|max:32',
             'observations' => 'nullable|string|max:255',
         ]);
+
+        Gate::authorize('seat-industry.modify-order', $order);
 
         if ($data->reference != null) {
             $order->reference = $data->reference;
@@ -429,7 +441,7 @@ class IndustryOrderController extends Controller
 
     public function deleteOrder(Order $order, Request $request): RedirectResponse
     {
-        Gate::authorize('seat-industry.same-user', $order->user_id);
+        Gate::authorize('seat-industry.modify-order', $order);
 
         if ($order->hasPendingDeliveries() && ! auth()->user()->can('seat-industry.admin')) {
             $request->session()->flash('error', trans('seat-industry::ai-common.error_deleted_in_progress_order'));
@@ -446,7 +458,7 @@ class IndustryOrderController extends Controller
 
     public function completeOrder(Order $order, Request $request): RedirectResponse
     {
-        Gate::authorize('seat-industry.same-user', $order->user_id);
+        Gate::authorize('seat-industry.modify-order', $order);
 
         if ($order->hasPendingDeliveries() && ! auth()->user()->can('seat-industry.admin')) {
             $request->session()->flash('error', trans('seat-industry::ai-common.error_deleted_in_progress_order'));
@@ -476,6 +488,7 @@ class IndustryOrderController extends Controller
 
     public function toggleReserveCorp(Order $order): RedirectResponse
     {
+        Gate::authorize('seat-industry.corp_delivery', $order);
         if ($order->corp_id) {
             $order->corp_id = null;
         } else {
@@ -489,6 +502,8 @@ class IndustryOrderController extends Controller
 
     public function updateOrderItemState(Order $order, Request $request): RedirectResponse
     {
+        Gate::authorize('seat-industry.modify-order', $order);
+
         $allowedMetaTypeIds = IndustrySettings::$ALLOWED_META_TYPES->get([]);
         if (collect($allowedMetaTypeIds)->isEmpty()) {
             return redirect()->back()->with('error', trans('seat-industry::ai-common.errors.no_allowed_meta_types'));

@@ -19,6 +19,7 @@ return [
         'available' => 'Available',
         'reserved_corp' => 'Reserved Corp',
         'my_orders' => 'My Orders',
+        'allConfirmedOrders' => 'All Confirmed Orders',
         'expired_orders' => 'Expired',
     ],
 
@@ -98,6 +99,7 @@ return [
             'available' => 'Available',
             'corporation' => 'Corporation',
             'my' => 'My Orders',
+            'allConfirmedOrders' => 'All Confirmed Orders',
         ],
     ],
 

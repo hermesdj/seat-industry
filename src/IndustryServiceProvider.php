@@ -9,6 +9,7 @@ use Seat\Eveapi\Models\Industry\CorporationIndustryJob;
 use Seat\HermesDj\Industry\Commands\SyncCorpAssetNames;
 use Seat\HermesDj\Industry\Commands\SyncUserAssetNames;
 use Seat\HermesDj\Industry\database\seeds\IndustryStructureBonusSeeder;
+use Seat\HermesDj\Industry\Http\Composers\DeliveriesMenu;
 use Seat\HermesDj\Industry\Http\Composers\DeliveryMenu;
 use Seat\HermesDj\Industry\Http\Composers\OrderMenu;
 use Seat\HermesDj\Industry\Http\Composers\OrdersMenu;
@@ -56,11 +57,14 @@ class IndustryServiceProvider extends AbstractSeatPlugin
         // Menus
         $this->mergeConfigFrom(__DIR__.'/Config/package.orders.menu.php', 'package.seat-industry.orders.menu');
         $this->mergeConfigFrom(__DIR__.'/Config/package.order.menu.php', 'package.seat-industry.order.menu');
+        $this->mergeConfigFrom(__DIR__.'/Config/package.deliveries.menu.php', 'package.seat-industry.deliveries.menu');
         $this->mergeConfigFrom(__DIR__.'/Config/package.delivery.menu.php', 'package.seat-industry.delivery.menu');
 
         $this->registerPermissions(__DIR__.'/Config/seat-industry.permissions.php', 'seat-industry');
 
         Gate::define('seat-industry.same-user', UserPolicy::class.'@checkUser');
+        Gate::define('seat-industry.modify-order', UserPolicy::class.'@modifyOrder');
+        Gate::define('seat-industry.modify-delivery', UserPolicy::class.'@modifyDelivery');
 
         $this->registerDatabaseSeeders([
             IndustryStructureBonusSeeder::class,
@@ -86,6 +90,10 @@ class IndustryServiceProvider extends AbstractSeatPlugin
         $this->app['view']->composer([
             'seat-industry::deliveries.includes.menu',
         ], DeliveryMenu::class);
+
+        $this->app['view']->composer([
+            'seat-industry::deliveries.includes.mainMenu',
+        ], DeliveriesMenu::class);
 
         $this->app['view']->composer([
             'seat-industry::orders.includes.mainMenu',

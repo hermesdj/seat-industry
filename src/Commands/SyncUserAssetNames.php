@@ -15,7 +15,9 @@ class SyncUserAssetNames extends Command
     public function handle()
     {
         $deliveries = Delivery::where('completed', false)->with('user')->get();
-        $users = $deliveries->pluck('user')->unique();
+        $users = $deliveries->pluck('user')->unique(function ($user) {
+            return $user->id;
+        });
 
         foreach ($users as $user) {
             (new UserAssetBus($user->id))->fire();

@@ -56,5 +56,10 @@ return [
             'label' => 'Voir palmarès',
             'description' => 'Permet à un utilisateur de consulter le palmarès',
         ],
+
+        'manager' => [
+            'label' => 'Gestionnaire',
+            'desc' => 'Gestionnaire de Commandes & Livraisons qui peut lire toutes les commandes',
+        ],
     ],
 ];

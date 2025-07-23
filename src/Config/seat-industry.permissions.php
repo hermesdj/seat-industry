@@ -21,6 +21,10 @@ return [
         'label' => 'seat-industry::ai-config.permissions.admin_label',
         'description' => 'seat-industry::ai-config.permissions.admin_desc',
     ],
+    'manager' => [
+        'label' => 'seat-industry::ai-config.permissions.manager.label',
+        'description' => 'seat-industry::ai-config.permissions.manager.desc',
+    ],
     'settings' => [
         'label' => 'seat-industry::ai-config.permissions.settings_label',
         'description' => 'seat-industry::ai-config.permissions.settings_desc',

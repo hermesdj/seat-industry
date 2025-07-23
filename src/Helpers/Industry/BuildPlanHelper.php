@@ -171,7 +171,11 @@ class BuildPlanHelper
         $orderItems = $delivery->deliveryItems()->get()
             ->filter(function ($d) {
                 return ! $d->orderItem->rejected && $d->quantity_delivered > 0;
-            })->map(function ($d) {
+            })
+            ->filter(function ($item) {
+                return ! $item->completed;
+            })
+            ->map(function ($d) {
                 $orderItem = $d->orderItem;
                 $orderItem->quantity = $d->quantity_delivered;
 

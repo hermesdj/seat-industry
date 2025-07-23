@@ -21,13 +21,18 @@ class IndustryDeliveryController extends Controller
 {
     private const MaxDeliveryCodeLength = 6;
 
-    public function deliveries(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
+    public function myUnfulfilledDeliveries(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        $user_id = auth()->user()->id;
+        $deliveries = Delivery::myUnfulfilledDeliveries()->get();
 
-        $deliveries = Delivery::with('order')->where('user_id', $user_id)->get();
+        return view('seat-industry::deliveries.myUnfulfilledDeliveries', compact('deliveries'));
+    }
 
-        return view('seat-industry::deliveries', compact('deliveries'));
+    public function allDeliveries(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
+    {
+        $deliveries = Delivery::allDeliveries()->get();
+
+        return view('seat-industry::deliveries.allDeliveries', compact('deliveries'));
     }
 
     public function deliveryDetails(Delivery $delivery, Request $request): View|Application|Factory|\Illuminate\Contracts\Foundation\Application|RedirectResponse
@@ -54,6 +59,8 @@ class IndustryDeliveryController extends Controller
         $validated = $request->validate([
             'fill' => 'boolean',
         ]);
+
+        Gate::authorize('seat-industry.create_deliveries');
 
         $corpIds = auth()->user()->characters->map(function ($char) {
             return $char->affiliation->corporation_id;
@@ -98,6 +105,8 @@ class IndustryDeliveryController extends Controller
             'quantities' => 'required|array',
             'quantities.*' => 'required|integer|min:0',
         ]);
+
+        Gate::authorize('seat-industry.create_deliveries');
 
         if ($order->is_repeating) {
             $request->session()->flash('error', trans('seat-industry::ai-common.error_delivery_not_assignable_to_repeating_order'));
@@ -169,7 +178,7 @@ class IndustryDeliveryController extends Controller
             'completed' => 'required|boolean',
         ]);
 
-        Gate::authorize('seat-industry.same-user', $delivery->user_id);
+        Gate::authorize('seat-industry.modify-delivery', $delivery);
 
         if ($request->completed) {
             $delivery->completed_at = now();
@@ -194,7 +203,7 @@ class IndustryDeliveryController extends Controller
             'completed' => 'required|boolean',
         ]);
 
-        Gate::authorize('seat-industry.same-user', $delivery->user_id);
+        Gate::authorize('seat-industry.modify-delivery', $delivery);
 
         if ($request->completed) {
             $item->completed_at = now();
@@ -224,11 +233,7 @@ class IndustryDeliveryController extends Controller
 
     public function deleteDelivery(Delivery $delivery, Request $request): RedirectResponse
     {
-        Gate::authorize('seat-industry.same-user', $delivery->user_id);
-
-        if ($delivery->completed) {
-            Gate::authorize('seat-industry.admin');
-        }
+        Gate::authorize('seat-industry.modify-delivery', $delivery);
 
         $delivery->delete();
 
@@ -239,11 +244,7 @@ class IndustryDeliveryController extends Controller
 
     public function deleteDeliveryItem(Delivery $delivery, DeliveryItem $item, Request $request): RedirectResponse
     {
-        Gate::authorize('seat-industry.same-user', $delivery->user_id);
-
-        if ($item->completed) {
-            Gate::authorize('seat-industry.admin');
-        }
+        Gate::authorize('seat-industry.modify-delivery', $delivery);
 
         $item->delete();
 

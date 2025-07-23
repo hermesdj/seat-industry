@@ -39,4 +39,13 @@ return [
         'badgeValueClass' => Order::class,
         'badgeValueMethod' => 'countExpiredOrders',
     ],
+    [
+        'name' => 'allConfirmedOrders',
+        'label' => 'seat-industry::ai-orders.orders_menu.allConfirmedOrders',
+        'permission' => 'seat-industry.manager',
+        'highlight_view' => 'allConfirmedOrders',
+        'route' => 'seat-industry.allConfirmedOrders',
+        'badgeValueClass' => Order::class,
+        'badgeValueMethod' => 'countAllConfirmedOrders',
+    ],
 ];
