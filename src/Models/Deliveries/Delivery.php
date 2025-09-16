@@ -44,7 +44,7 @@ class Delivery extends Model
     public function totalPrice(): float
     {
         return $this->deliveryItems->reduce(function (?float $carry, DeliveryItem $item) {
-            return $carry + $item->orderItem->unit_price * $item->quantity_delivered;
+            return $carry + (($item->orderItem ? $item->orderItem->unit_price : 0) * $item->quantity_delivered);
         }, 0.0);
     }
 
