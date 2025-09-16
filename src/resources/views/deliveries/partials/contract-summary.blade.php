@@ -14,7 +14,9 @@
         </td>
         <td>
             <b>
-                @include("seat-industry::partials.longTextTooltip",["text"=>$delivery->order->location()->name,"length"=>25])
+                @if($delivery->order)
+                    @include("seat-industry::partials.longTextTooltip",["text"=>$delivery->order->location()->name,"length"=>25])
+                @endif
             </b>
         </td>
     </tr>
@@ -23,15 +25,17 @@
             {{ trans('seat-industry::ai-deliveries.contract.contract_to') }}*
         </td>
         <td>
-            <b
-                    onClick="SelfCopy(this)"
-                    data-container="body"
-                    data-toggle="popover"
-                    data-placement="top"
-                    data-content="{{trans('seat-industry::ai-common.messages.copy_response')}}"
-            >
-                {{ $delivery->order->deliver_to ? $delivery->order->deliverToCharacter->name : $delivery->order->user->name }}
-            </b>
+            @if($delivery->order)
+                <b
+                        onClick="SelfCopy(this)"
+                        data-container="body"
+                        data-toggle="popover"
+                        data-placement="top"
+                        data-content="{{trans('seat-industry::ai-common.messages.copy_response')}}"
+                >
+                    {{ $delivery->order->deliver_to ? $delivery->order->deliverToCharacter->name : $delivery->order->user->name }}
+                </b>
+            @endif
         </td>
     </tr>
     <tr>

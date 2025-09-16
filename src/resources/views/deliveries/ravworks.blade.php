@@ -19,14 +19,16 @@
         </div>
     </div>
     <div class="row" style="height: 100%">
-        <div class="col-12">
-            @include('seat-industry::partials.ravworks.summary', ['buildPlan' => $buildPlan, 'code' => $delivery->order->order_id])
-        </div>
-        <div class="col m-3">
-            @include('seat-industry::partials.ravworks.produce', ['buildPlan' => $buildPlan, 'code' => $delivery->order->order_id])
-        </div>
-        <div class="col m-3" style="height: 100%">
-            @include('seat-industry::partials.ravworks.stocks', ['buildPlan' => $buildPlan, 'code' => $delivery->order->order_id])
-        </div>
+        @if($delivery->order)
+            <div class="col-12">
+                @include('seat-industry::partials.ravworks.summary', ['buildPlan' => $buildPlan, 'code' => $delivery->order->order_id])
+            </div>
+            <div class="col m-3">
+                @include('seat-industry::partials.ravworks.produce', ['buildPlan' => $buildPlan, 'code' => $delivery->order->order_id])
+            </div>
+            <div class="col m-3" style="height: 100%">
+                @include('seat-industry::partials.ravworks.stocks', ['buildPlan' => $buildPlan, 'code' => $delivery->order->order_id])
+            </div>
+        @endif
     </div>
 @stop

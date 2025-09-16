@@ -45,7 +45,7 @@
                 @if($showOrder ?? false)
                     <td>
                         @if($delivery->order)
-                        <a href="{{ route("seat-industry.orderDetails", ['order' => $delivery->order_id]) }}">{{ $delivery->order->order_id . " - " . $delivery->order->reference }}</a>
+                            <a href="{{ route("seat-industry.orderDetails", ['order' => $delivery->order_id]) }}">{{ $delivery->order->order_id . " - " . $delivery->order->reference }}</a>
                         @else
                             {{trans("seat-industry.ai-deliveries.order_no_longer_exists")}}
                         @endif
@@ -62,21 +62,33 @@
                     @endif
                 </td>
                 @if($showOrder ?? false)
-                    <td data-order="{{ $delivery->order->price }}" data-filter="_">
-                        {{ number($delivery->order->totalValue()) }} ISK
-                    </td>
+                    @if($delivery->order)
+                        <td data-order="{{ $delivery->order->price }}" data-filter="_">
+                            {{ number($delivery->order->totalValue()) }} ISK
+                        </td>
+                    @else
+                        <td>-</td>
+                    @endif
                 @endif
-                <td data-order="{{ $delivery->order->price * $delivery->quantity }}" data-filter="_">
-                    {{ number($delivery->totalPrice() / 100) }} ISK
-                </td>
+                @if($delivery->order)
+                    <td data-order="{{ $delivery->order->price * $delivery->quantity }}" data-filter="_">
+                        {{ number($delivery->totalPrice() / 100) }} ISK
+                    </td>
+                @else
+                    <td>-</td>
+                @endif
                 <td data-order="{{ $delivery->accepted }}" data-filter="_">
                     @include("seat-industry::partials.time",["date"=>$delivery->accepted])
                 </td>
                 @if($showOrder ?? false)
-                    <td data-order="{{ $delivery->order->user->id ?? 0}}"
-                        data-filter="{{ $delivery->order->user->main_character->name ?? trans('web::seat.unknown')}}">
-                        @include("web::partials.character",["character"=>$delivery->order->user->main_character ?? null])
-                    </td>
+                    @if($delivery->order)
+                        <td data-order="{{ $delivery->order->user->id ?? 0}}"
+                            data-filter="{{ $delivery->order->user->main_character->name ?? trans('web::seat.unknown')}}">
+                            @include("web::partials.character",["character"=>$delivery->order->user->main_character ?? null])
+                        </td>
+                    @else
+                        <td>-</td>
+                    @endif
                 @endif
                 @if($showProducer ?? false)
                     <td data-order="{{ $delivery->user->id ?? 0}}"
@@ -84,10 +96,14 @@
                         @include("web::partials.character",["character"=>$delivery->user->main_character ?? null])
                     </td>
                 @endif
-                <td data-order="{{ $delivery->order->location_id }}"
-                    data-filter="{{ $delivery->order->location()->name }}">
-                    @include("seat-industry::partials.longTextTooltip",["text"=>$delivery->order->location()->name])
-                </td>
+                @if($delivery->order)
+                    <td data-order="{{ $delivery->order->location_id }}"
+                        data-filter="{{ $delivery->order->location()->name }}">
+                        @include("seat-industry::partials.longTextTooltip",["text"=>$delivery->order->location()->name])
+                    </td>
+                @else
+                    <td>-</td>
+                @endif
             </tr>
         @endforeach
         </tbody>
