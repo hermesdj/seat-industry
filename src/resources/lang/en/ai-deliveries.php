@@ -27,6 +27,8 @@ return [
     'create_delivery_btn' => 'Create Delivery',
     'empty_deliveries' => 'No Deliveries',
 
+    'order_no_longer_exists' => 'Order no longer exists !',
+
     'btns' => [
         'fill' => 'Fill Order',
         'empty' => 'Empty Order',

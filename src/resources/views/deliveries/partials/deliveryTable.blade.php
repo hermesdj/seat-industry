@@ -44,7 +44,11 @@
                 </td>
                 @if($showOrder ?? false)
                     <td>
+                        @if($delivery->order)
                         <a href="{{ route("seat-industry.orderDetails", ['order' => $delivery->order_id]) }}">{{ $delivery->order->order_id . " - " . $delivery->order->reference }}</a>
+                        @else
+                            {{trans("seat-industry.ai-deliveries.order_no_longer_exists")}}
+                        @endif
                     </td>
                 @endif
                 <td data-order="{{ $delivery->totalQuantity() }}" data-filter="_">

@@ -2,10 +2,16 @@
     <div class="col">
         <div class="row mb-1">
             <div class="col-sm-4 text-muted">{{trans('seat-industry::ai-deliveries.fields.order')}}</div>
-            <div class="col-sm-8"><a
-                        href="{{ route("seat-industry.orderDetails", ['order' => $delivery->order_id]) }}">{{ $delivery->order->order_id }}
-                    - {{ $delivery->order->reference }}</a>
-            </div>
+            @if($delivery->order)
+                <div class="col-sm-8"><a
+                            href="{{ route("seat-industry.orderDetails", ['order' => $delivery->order_id]) }}">{{ $delivery->order->order_id }}
+                        - {{ $delivery->order->reference }}</a>
+                </div>
+            @else
+                <div class="col-sm-8">
+                    {{trans("seat-industry.ai-deliveries.order_no_longer_exists")}}
+                </div>
+            @endif
         </div>
         <div class="row mb-1">
             <div class="col-sm-4 text-muted">{{trans('seat-industry::ai-deliveries.fields.accepted')}}</div>
